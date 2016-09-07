@@ -1,10 +1,13 @@
 *.fa.gz
 *.fas.gz
-*.fastq
 *.fasta
 *.fasta.gz
+*.fastq
 *.fastq.gz
 *.fq.gz
+*.nhr
+*.nin
+*.nsq
 *.pdf
 *.png
 *.ppt
@@ -20,3 +23,4 @@
 06_*/*
 07_*/*
 08_*/*
+99_databases/*
