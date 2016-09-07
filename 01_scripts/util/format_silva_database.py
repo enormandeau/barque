@@ -6,7 +6,7 @@ Suggested database: SILVA_123.1_SSURef_Nr99_tax_silva_trunc.fasta.gz
 - Keep only 'Genus species' sequences
 
 Usage:
-    ./01_scripts/prepare_bold_fasta_file_for_database.py input_fasta output_fasta
+    ./01_scripts/format_silva_database.py input_fasta output_fasta
 """
 
 # Modules
@@ -75,6 +75,16 @@ with myopen(output_fasta, "w") as outfile:
         if not "Eukaryota" in info[0]:
             continue
 
+        #TODO
+        # Keep only Metazoa?
+        if not "Metazoa" in s.name:
+            continue
+
+        try:
+            phylum = info[6].lower()
+        except:
+            continue
+
         names = info[-1].split(" ")
         num_names = len(names)
         good_name = " ".join(names)
@@ -133,7 +143,9 @@ with myopen(output_fasta, "w") as outfile:
 
         # Remove "-" characters and trailing Ns
         maximum_n_proportion = 0.3
+
         s.name = good_name.replace(" ", "_")
+        s.name = phylum + "_" + s.name
         s.sequence = s.sequence.replace("-", "N").strip("N")
         if float(s.sequence.count("N")) / float(len(s.sequence)) < maximum_n_proportion:
             s.write_to_file(outfile)

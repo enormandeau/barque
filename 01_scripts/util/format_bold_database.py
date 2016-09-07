@@ -4,12 +4,13 @@
 - Keep only 'Genus species' sequences
 
 Usage:
-    ./01_scripts/prepare_bold_fasta_file_for_database.py input_fasta output_fasta
+    ./01_scripts/format_bold_database.py input_fasta output_fasta
 """
 
 # Modules
 import gzip
 import sys
+import os
 
 # Classes
 class Fasta(object):
@@ -57,6 +58,7 @@ except:
     sys.exit(1)
 
 # Iterating through sequences
+phylum = os.path.basename(input_fasta).split(".")[0].lower()
 sequences = fasta_iterator(input_fasta)
 found_sequences = {}
 treated_sequences = 0
@@ -114,6 +116,7 @@ with myopen(output_fasta, "w") as outfile:
         # Remove "-" characters and trailing Ns
         maximum_n_proportion = 0.3
         s.name = good_name.replace(" ", "_")
+        s.name = phylum + "_" + s.name
         s.sequence = s.sequence.replace("-", "N").strip("N")
         if float(s.sequence.count("N")) / float(len(s.sequence)) < maximum_n_proportion:
             s.write_to_file(outfile)
