@@ -103,8 +103,12 @@ with open(iupac_file) as pfile:
 primers = {}
 with open(primer_file) as pfile:
     for line in pfile:
+        # Skip comment lines
+        if line.startswith("#"):
+            continue
+
         # Get primer infos
-        name, forward, reverse = line.strip().split("\t")
+        name, forward, reverse, min_length = line.strip().split("\t")
 
         # Permit dropout at the 3 last bases of the reverse primer sequence
         reverse = "}3,{." + reverse[3:]
@@ -119,14 +123,15 @@ with open(primer_file) as pfile:
         forward = "^" + forward
         reverse = reverse + "$"
 
-        primers[name] = (re.compile(forward), re.compile(reverse))
+        primers[name] = (re.compile(forward), re.compile(reverse), min_length)
 
 ## Open output fastq.gz files
 output_files = {}
 input_file = os.path.basename(fastq_file)
 
 # Add fake primers to automatically open file handles
-primers["notfound"] = "FAKE"
+primers["not_found"] = "FAKE"
+primers["too_short"] = "FAKE"
 primers["forward_only"] = "FAKE"
 
 # Open output file handles
@@ -151,38 +156,44 @@ for s in sequences:
         if primers[p] == "FAKE":
             continue
 
-        forward, reverse = primers[p]
-        # Look for forward primer
-        forward_found = forward.findall(s.seq)
+        forward, reverse, min_length = primers[p]
 
-        if len(forward_found) >= 1:
-            # Look for reverse primer
-            reverse_found = reverse.findall(s.seq)
+        # Filter short amplicons
+        if len(s.seq) < int(min_length):
+            s.write_to_file(output_files["too_short"])
 
-            if len(reverse_found) >= 1:
-                # Remove forward primer (+ trim quality)
-                s.seq = re.sub(forward_found[0], "", s.seq)
-                length = len(forward_found[0])
-                s.qual = s.qual[length:]
+        else:
+            # Look for forward primer
+            forward_found = forward.findall(s.seq)
 
-                # Remove reverse primer (+ trim quality)
-                s.seq = re.sub(reverse_found[0], "", s.seq)
-                length = len(s.seq)
-                s.qual = s.qual[:length]
+            if len(forward_found) >= 1:
+                # Look for reverse primer
+                reverse_found = reverse.findall(s.seq)
 
-                # Adjust tracking params
-                num += 1
-                sequence_found = True
+                if len(reverse_found) >= 1:
+                    # Remove forward primer (+ trim quality)
+                    s.seq = re.sub(forward_found[0], "", s.seq)
+                    length = len(forward_found[0])
+                    s.qual = s.qual[length:]
 
-                # Write to file
-                s.write_to_file(output_files[p])
+                    # Remove reverse primer (+ trim quality)
+                    s.seq = re.sub(reverse_found[0], "", s.seq)
+                    length = len(s.seq)
+                    s.qual = s.qual[:length]
 
-            else:
-                # Write to special file
-                s.write_to_file(output_files["forward_only"])
+                    # Adjust tracking params
+                    num += 1
+                    sequence_found = True
+
+                    # Write to file
+                    s.write_to_file(output_files[p])
+
+                else:
+                    # Write to special file
+                    s.write_to_file(output_files["forward_only"])
 
     if not sequence_found:
-        s.write_to_file(output_files["notfound"])
+        s.write_to_file(output_files["not_found"])
 
 ## Report success
 print "Assigned {}% ({}/{}) of the sequences to an amplicon".format(str(100.0 *float(num)/count)[0:4], num, count)
