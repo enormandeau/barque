@@ -1,34 +1,33 @@
-# Bernatchez lab eDNA pipeline
+# eDNA pipeline
+
+This eDNA pipeline was developed by Eric Normandeau in Louis Bernatchez's
+laboratory. See licence information at the end of this file.
 
 ## Analysis overview
-- Format databases (Python scripts)
-  - Silva phyla seem strange. Keep only those in a certain list?
-  - Number of silva sequences is very low and only 1 seq/species
+x Format databases (Python scripts)
+  - Find a way to simplify bold database. blasting takes too long
 x Filter and trim (trimmomatic, length)
 x Merge paired-end (flash)
 x Split by amplicon (Python script)
 x Merge all samples per amplicon (bash script)
-.. Find chimeras (usearch `-uchime_denovo`)
-- Remove chimeras
-  - Merged samples
-  - Separate samples
-- Find species (usearch)
-  - Split samples
-  - Merged samples (do only split and regroup results?)
-  - Both COI and 18S
+x Find chimeras (usearch `-uchime_denovo`)
+  x None detectable above 270 bp
+x Find species (usearch)
 - Format results for interpretation and publication
   - split / merged
   - COI / 18S
   - Genus / phylum
+- Summarize analyses
+  - Number of reads at each step
+  - Quality of Fastq files at each step
 
 ## Improve folders
-- `02_info_files`
+- `02_info_files` (contains iupac.csv, primers.csv, illumina_adapters.fas)
 - `03_databases`
 - `04_data`
 - ...
 
 ## Create helpful README.md
-- Author=me, developped in Bernatchez lab
 - Dependencies
 - How to use
 
