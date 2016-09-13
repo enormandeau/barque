@@ -63,7 +63,7 @@ sequences = fasta_iterator(input_fasta)
 found_sequences = {}
 treated_sequences = 0
 kept_sequences = 0
-good_nuc = set(list("ACTGN"))
+good_nuc = set(list("ACGTN"))
 
 with myopen(output_fasta, "w") as outfile:
     for s in sequences:
@@ -131,6 +131,7 @@ with myopen(output_fasta, "w") as outfile:
                 continue
             else:
                 #print "Same species different sequence"
+                s.sequence.replace("U", "T")
                 if set(s.sequence).difference(good_nuc):
                     continue
 

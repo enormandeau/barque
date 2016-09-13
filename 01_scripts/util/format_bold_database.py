@@ -96,6 +96,9 @@ with myopen(output_fasta, "w") as outfile:
         if good_name.endswith("_sp."):
             continue
 
+        # Subspecies and other trailing informations
+        #if
+
         if good_name in found_sequences:
             #print "Specied already found: {}".format(good_name)
             if s.sequence in found_sequences[good_name]:
@@ -115,6 +118,9 @@ with myopen(output_fasta, "w") as outfile:
 
         # Remove "-" characters and trailing Ns
         maximum_n_proportion = 0.3
+        if len(good_name.split(" ")) > 2:
+            good_name = "_".join(good_name.split(" ")[0:2])
+
         s.name = good_name.replace(" ", "_")
         s.name = phylum + "_" + s.name
         s.sequence = s.sequence.replace("-", "N").strip("N")
