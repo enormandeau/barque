@@ -14,6 +14,7 @@
 *.pptx
 *.xls
 *.xlsx
+*data*
 *~
 .~lock*
 02_*/*
