@@ -109,6 +109,8 @@ with open(primer_file) as pfile:
 
         # Get primer infos
         name, forward, reverse, min_length = line.strip().split("\t")
+        forward_length = len(forward)
+        reverse_length = len(reverse)
 
         # Permit dropout at the 3 last bases of the reverse primer sequence
         reverse = "}3,{." + reverse[3:]
@@ -123,7 +125,7 @@ with open(primer_file) as pfile:
         forward = "^" + forward
         reverse = reverse + "$"
 
-        primers[name] = (re.compile(forward), re.compile(reverse), min_length)
+        primers[name] = (re.compile(forward), re.compile(reverse), min_length, forward_length, reverse_length)
 
 ## Open output fastq.gz files
 output_files = {}
@@ -156,10 +158,10 @@ for s in sequences:
         if primers[p] == "FAKE":
             continue
 
-        forward, reverse, min_length = primers[p]
+        forward, reverse, min_length, forward_length, reverse_length = primers[p]
 
         # Filter short amplicons
-        if len(s.seq) < int(min_length):
+        if len(s.seq) - forward_length - reverse_length < int(min_length):
             s.write_to_file(output_files["too_short"])
 
         else:
@@ -196,7 +198,7 @@ for s in sequences:
         s.write_to_file(output_files["not_found"])
 
 ## Report success
-print "Assigned {}% ({}/{}) of the sequences to an amplicon".format(str(100.0 *float(num)/count)[0:4], num, count)
+print "Assigned {}% ({}/{}) of the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, fastq_file)
 
 ## Close file handles
 for f in output_files:
