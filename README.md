@@ -4,20 +4,20 @@ This eDNA pipeline was developed by Eric Normandeau in Louis Bernatchez's
 laboratory. See licence information at the end of this file.
 
 ## Analysis overview
-x Format databases (Python scripts)
+- Format databases (Python scripts)
   - Find a way to simplify bold database. blasting takes too long
-x Filter and trim (trimmomatic, length)
-x Merge paired-end (flash)
-x Split by amplicon (Python script)
-x Merge all samples per amplicon (bash script)
-x Find chimeras (usearch `-uchime_denovo`)
+- Filter and trim (trimmomatic, length)
+- Merge paired-end (flash)
+- Split by amplicon (Python script)
+- Merge all samples per amplicon (bash script)
+- Find chimeras (usearch `-uchime_denovo`)
   x None detectable above 270 bp
-x Find species (usearch)
-- Format results for interpretation and publication
+- Find species (usearch)
+- (**TODO**) Format results for interpretation and publication
   - split / merged
   - COI / 18S
   - Genus / phylum
-- Summarize analyses
+- (**TODO**) Summarize analyses
   - Number of reads at each step
   - Quality of Fastq files at each step
 
