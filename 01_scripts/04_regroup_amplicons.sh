@@ -1,7 +1,7 @@
 #!/bin/bash
 # Regroup all samples per amplicon
 
-for amplicon in $(awk '{print $1}' primers.csv)
+for amplicon in $(grep -v "^#" primers.csv | awk '{print $1}')
 do
     echo "Treating: $amplicon"
     REGROUPED=06_amplicons_regrouped/all_"$amplicon".fastq
