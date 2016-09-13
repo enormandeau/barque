@@ -5,21 +5,21 @@ laboratory. See licence information at the end of this file.
 
 ## Analysis overview
 - Format databases (Python scripts)
-  - Find a way to simplify bold database. blasting takes too long
+    - (**TODO**) Find a way to simplify bold database. blasting takes too long
 - Filter and trim (trimmomatic, length)
 - Merge paired-end (flash)
 - Split by amplicon (Python script)
 - Merge all samples per amplicon (bash script)
 - Find chimeras (usearch `-uchime_denovo`)
-  x None detectable above 270 bp
+    - None detectable above 270 bp
 - Find species (usearch)
 - (**TODO**) Format results for interpretation and publication
-  - split / merged
-  - COI / 18S
-  - Genus / phylum
+    - split / merged
+    - COI / 18S
+    - Genus / phylum
 - (**TODO**) Summarize analyses
-  - Number of reads at each step
-  - Quality of Fastq files at each step
+    - Number of reads at each step
+    - Quality of Fastq files at each step
 
 ## Improve folders
 - `02_info_files` (contains iupac.csv, primers.csv, illumina_adapters.fas)
