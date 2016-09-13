@@ -12,9 +12,9 @@ do
     echo "#######################"
 
     # Treat each sample
-#-DIRTY-HACK-# (head and tail)
     for sample in $(ls -1 05_split_by_amplicon/*"$amplicon"*.fastq.gz)
     do
+        # File names
         fastq=$(basename "$sample")
         fasta="${fastq%.fastq.gz}".fasta
 
@@ -22,9 +22,9 @@ do
         echo
         ./01_scripts/util/fastq_to_fasta.py 05_split_by_amplicon/"$fastq" 05_split_by_amplicon/"$fasta"
 
-        #-dirty-hack-# (keep only top sequences)
-        head -2000 05_split_by_amplicon/"$fasta" > 05_split_by_amplicon/"$fasta".temp
-        mv 05_split_by_amplicon/"$fasta".temp 05_split_by_amplicon/"$fasta"
+        ## -dirty-hack- # (keep only top sequences)
+        #head -2000 05_split_by_amplicon/"$fasta" > 05_split_by_amplicon/"$fasta".temp
+        #mv 05_split_by_amplicon/"$fasta".temp 05_split_by_amplicon/"$fasta"
 
         # Run usearch
         echo "Running usearch on $fasta with database $database"
