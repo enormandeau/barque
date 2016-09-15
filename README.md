@@ -12,11 +12,9 @@ laboratory. See licence information at the end of this file.
 - Merge all samples per amplicon (bash script)
 - Find chimeras (usearch `-uchime_denovo`)
     - None detectable above 270 bp
+- (**TODO**) Merge unique reads (save 50-80% of usearch time)
 - Find species (usearch)
-- (**TODO**) Format results for interpretation and publication
-    - split / merged
-    - COI / 18S
-    - Genus / phylum
+- Format results for interpretation and publication
 - (**TODO**) Summarize analyses
     - Number of reads at each step
     - Quality of Fastq files at each step
