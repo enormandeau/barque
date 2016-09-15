@@ -5,6 +5,7 @@
 *.fastq
 *.fastq.gz
 *.fq.gz
+*.ignore
 *.nhr
 *.nin
 *.nsq
