@@ -50,12 +50,11 @@ for p in primers:
         with open(os.path.join(input_folder, res)) as rfile:
             for line in rfile:
                 l = line.strip().split()
-                taxon = "_".join(l[1].split("_")[0:3])
+                taxon = l[1] # "_".join(l[1].split("_")[0:3])
                 similarity = float(l[2])
                 length = int(l[3])
 
                 if similarity >= min_similarity and length >= min_length:
-                    #print p, sample, taxon, similarity, length
                     result_dictionary[p][sample][taxon] += 1
 
 # Get represented taxons
@@ -72,7 +71,8 @@ for p in result_dictionary:
 
 # Summarize results
 for p in sorted(result_dictionary):
-    # Create header
+
+    # Create header line
     result_table = [["Phylum\tGenus\tSpecies"]]
     for sample in sorted(result_dictionary[p]):
         result_table[0].append(sample)
