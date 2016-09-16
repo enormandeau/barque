@@ -6,6 +6,7 @@ laboratory. See licence information at the end of this file.
 ## Analysis overview
 - Format databases (Python scripts)
     - (**TODO**) Find a way to simplify bold database. blasting takes too long
+    - (**NOTE**) Check if duplicate sequences per species are removed in bold
 - Filter and trim (trimmomatic, length)
 - Merge paired-end (flash)
 - Split by amplicon (Python script)
@@ -14,7 +15,9 @@ laboratory. See licence information at the end of this file.
     - None detectable above 270 bp
 - (**TODO**) Merge unique reads (save 50-80% of usearch time)
 - Find species (usearch)
+    - (**TODO**) Make OTUs for 18s
 - Format results for interpretation and publication
+    - (**TODO**) Produce a table with all the species counts of all the primers combined
 - (**TODO**) Summarize analyses
     - Number of reads at each step
     - Quality of Fastq files at each step
