@@ -57,12 +57,29 @@ except:
     print __doc__
     sys.exit(1)
 
+# Optionally, get file containing (Genus species) to remove
+try:
+    species_file = sys.argv[3]
+except:
+    species_file = None
+
+# Create set of unwanted species
+if species_file:
+    species_set = set()
+    with open(species_file) as sfile:
+        for line in sfile:
+            l = line.strip().replace(" ", "_")
+            species_set.add(l)
+else:
+    species_set = None
+
 # Iterating through sequences
 phylum = os.path.basename(input_fasta).split(".")[0].lower()
 sequences = fasta_iterator(input_fasta)
 found_sequences = {}
 treated_sequences = 0
 kept_sequences = 0
+removed_species = 0
 good_nuc = set("ACTGN")
 
 with myopen(output_fasta, "w") as outfile:
@@ -118,6 +135,12 @@ with myopen(output_fasta, "w") as outfile:
         # Create final sequence name
         s.name = good_name.replace(" ", "_")
 
+        # Remove unwanted species
+        if species_set:
+            if s.name in species_set:
+                removed_species += 1
+                continue
+
         # Remove Homo_sapiens
         if s.name == "Homo_sapiens":
             continue
@@ -150,3 +173,4 @@ with myopen(output_fasta, "w") as outfile:
 # Report
 print("Treated {} sequences".format(treated_sequences))
 print("   Kept {} sequences".format(kept_sequences))
+print("   Removed {} sequences from unwanted species".format(removed_species))
