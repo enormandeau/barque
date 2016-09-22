@@ -63,7 +63,7 @@ sequences = fasta_iterator(input_fasta)
 found_sequences = {}
 treated_sequences = 0
 kept_sequences = 0
-good_nuc = set(list("ACTGN"))
+good_nuc = set("ACTGN")
 
 with myopen(output_fasta, "w") as outfile:
     for s in sequences:
@@ -73,12 +73,20 @@ with myopen(output_fasta, "w") as outfile:
         num_names = len(names)
         good_name = " ".join(names)
 
+        # Keep only COI sequences
+        if not "COI" in s.name:
+            continue
+
         # Genus species
         if num_names < 2 or num_names > 3:
             continue
 
         if "eos-neogaeus" in good_name:
             good_name.replace("-", "")
+
+        # Remove sequences with '-' characters
+        if "-" in s.sequence:
+            continue
 
         # Non genus/species taxa
         if "-" in good_name:
@@ -96,36 +104,48 @@ with myopen(output_fasta, "w") as outfile:
         if good_name.endswith("_sp."):
             continue
 
-        # Subspecies and other trailing informations
-        #if
+        # Trim names with more than 2 fields
+        if len(good_name.split(" ")) > 2:
+            good_name = "_".join(good_name.split(" ")[0:2])
+
+        # Remove leading and trailing Ns
+        s.sequence = s.sequence.replace("-", "N").strip("N")
+
+        # Remove sequences below 300 bp
+        if len(s.sequence) < 300:
+            continue
+
+        # Create final sequence name
+        s.name = good_name.replace(" ", "_")
+
+        # Remove Homo_sapiens
+        if s.name == "Homo_sapiens":
+            continue
+
+        # Adding phylum name
+        s.name = phylum + "_" + s.name
+
+        # Remove if bad nucleotides
+        if set(s.sequence).difference(good_nuc):
+            continue
 
         if good_name in found_sequences:
-            #print "Specied already found: {}".format(good_name)
+            #print "Species already found: {}".format(good_name)
             if s.sequence in found_sequences[good_name]:
                 #print "Same species same sequence"
                 continue
             else:
                 #print "Same species different sequence"
-                if set(s.sequence).difference(good_nuc):
-                    continue
-
                 found_sequences[good_name].append(s.sequence)
                 
         else:
             found_sequences[good_name] = [s.sequence]
 
-        kept_sequences += 1
-
-        # Remove "-" characters and trailing Ns
+        # Keep if not too many Ns
         maximum_n_proportion = 0.3
-        if len(good_name.split(" ")) > 2:
-            good_name = "_".join(good_name.split(" ")[0:2])
-
-        s.name = good_name.replace(" ", "_")
-        s.name = phylum + "_" + s.name
-        s.sequence = s.sequence.replace("-", "N").strip("N")
         if float(s.sequence.count("N")) / float(len(s.sequence)) < maximum_n_proportion:
             s.write_to_file(outfile)
+            kept_sequences += 1
 
 # Report
 print("Treated {} sequences".format(treated_sequences))
