@@ -18,6 +18,7 @@
 *data*
 *~
 .~lock*
+00_archive/*
 02_*/*
 03_*/*
 04_*/*
@@ -26,3 +27,5 @@
 07_*/*
 08_*/*
 99_databases/*
+multiple_hits*
+species_to_remove.txt
