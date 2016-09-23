@@ -5,19 +5,20 @@ laboratory. See licence information at the end of this file.
 
 ## Analysis overview
 - Format databases (Python scripts)
-    - (**TODO**) Remove species (`genus_species`) from BOLD database
-    - (*Maybe*) Find a way to simplify bold database. blasting takes too long
+    - (Maybe) Find a way to simplify bold database. blasting takes too long
 - Filter and trim (trimmomatic, length)
 - Merge paired-end (flash)
 - Split by amplicon (Python script)
 - Merge all samples per amplicon (bash script)
 - Find chimeras (usearch `-uchime_denovo`)
     - None detectable above 270 bp
-- (*Maybe*) Merge unique reads (save 50-80% of usearch time)
+- (Maybe) Merge unique reads (save 50-80% of usearch time)
 - Find species (usearch)
-    - (**TODO**) Find duplicate species (use 100 best hits)
-    - (**TODO**) List bad species from duplicates -> add to list of species to remove
-    - (*Later*) Find solution for 18s (OTUs?)
+    - (done) Find duplicate species (use 40 best hits)
+    - (done) Give list of multiple hits to Anaïs
+    - (**TODO**) Add unwanted species to `species_to_remove.txt`
+    - (**TODO**) Reformat bold database + `makeudb_usearch`
+    - (**TODO**) Redo a run to find multiple hits until there is no more (lower 40 -> 20 for speed)
 - Format results for interpretation and publication
     - (**TODO**) Create 3 output files, by Phylum, Genus and Species
 - (**TODO**) Summarize analyses
