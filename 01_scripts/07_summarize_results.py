@@ -34,63 +34,138 @@ with open(primer_file) as pfile:
 
 # Read usearch results form input_folder
 result_files = os.listdir(input_folder)
-result_dictionary = {}
+species_dictionary = {}
+genus_dictionary = {}
+phylum_dictionary = {}
 
 # Iterate through primers, gather taxon counts
-for p in primers:
-    result_dictionary[p] = {}
-    primer_results = [x for x in result_files if p in x]
+for primer in primers:
+    species_dictionary[primer] = {}
+    genus_dictionary[primer] = {}
+    phylum_dictionary[primer] = {}
+    primer_results = [filename for filename in result_files if primer in filename]
 
     # Iterate through result files for primer
-    for res in primer_results:
-        sample = res.split("_")[0]
-        result_dictionary[p][sample] = defaultdict(int)
+    for result_file in primer_results:
+        sample = result_file.split("_")[0]
+        species_dictionary[primer][sample] = defaultdict(int)
+        genus_dictionary[primer][sample] = defaultdict(int)
+        phylum_dictionary[primer][sample] = defaultdict(int)
 
         # Get infos form result file
-        with open(os.path.join(input_folder, res)) as rfile:
+        with open(os.path.join(input_folder, result_file)) as rfile:
             for line in rfile:
                 l = line.strip().split()
-                taxon = l[1] # "_".join(l[1].split("_")[0:3])
+                species = l[1] # "_".join(l[1].split("_")[0:3])
                 similarity = float(l[2])
                 length = int(l[3])
 
                 if similarity >= min_similarity and length >= min_length:
-                    result_dictionary[p][sample][taxon] += 1
+                    # Species
+                    species_dictionary[primer][sample][species] += 1
+
+                    # Genus
+                    genus = "_".join(species.split("_")[0:2])
+                    genus_dictionary[primer][sample][genus] += 1
+
+                    # Phylum
+                    phylum = "_".join(species.split("_")[0:1])
+                    phylum_dictionary[primer][sample][phylum] += 1
 
 # Get represented taxons
-taxon_dict = {}
-for p in result_dictionary:
-    taxon_dict[p] = set()
-    for sample in result_dictionary[p]:
-        for taxon in result_dictionary[p][sample]:
-            count = result_dictionary[p][sample][taxon]
-            if count > 1:
-                taxon_dict[p].add(taxon)
+species_found = {}
+genus_found = {}
+phylum_found = {}
 
-    taxon_dict[p] = sorted(list(taxon_dict[p]))
+for primer in species_dictionary:
+    species_found[primer] = set()
+    genus_found[primer] = set()
+    phylum_found[primer] = set()
+
+    for sample in species_dictionary[primer]:
+        for species in species_dictionary[primer][sample]:
+            count = species_dictionary[primer][sample][species]
+            if count > 0:
+                # Species
+                species_found[primer].add(species)
+
+                # Genus
+                genus = "_".join(species.split("_")[0:2])
+                genus_found[primer].add(genus)
+
+                # Phylum
+                phylum = "_".join(species.split("_")[0:1])
+                phylum_found[primer].add(phylum)
+
+    species_found[primer] = sorted(list(species_found[primer]))
+    genus_found[primer] = sorted(list(genus_found[primer]))
+    phylum_found[primer] = sorted(list(phylum_found[primer]))
 
 # Summarize results
-for p in sorted(result_dictionary):
+for primer in sorted(species_dictionary):
 
     # Create header line
-    result_table = [["Phylum\tGenus\tSpecies"]]
-    for sample in sorted(result_dictionary[p]):
-        result_table[0].append(sample)
+    species_table = [["Phylum\tGenus\tSpecies"]]
+    genus_table = [["Phylum\tGenus"]]
+    phylum_table = [["Phylum"]]
 
-    # Add rows
-    for taxon in taxon_dict[p]:
-        result_table.append(["\t".join(taxon.split("_"))])
-        for sample in sorted(result_dictionary[p]):
-            count = result_dictionary[p][sample][taxon]
-            result_table[-1].append(str(count))
+    for sample in sorted(species_dictionary[primer]):
+        species_table[0].append(sample)
+        genus_table[0].append(sample)
+        phylum_table[0].append(sample)
+
+    # Add rows to table
+    # Species
+    for species in species_found[primer]:
+        species_table.append(["\t".join(species.split("_"))])
+        for sample in sorted(species_dictionary[primer]):
+            count = species_dictionary[primer][sample][species]
+            species_table[-1].append(str(count))
+
+    # Genus
+    for genus in genus_found[primer]:
+        genus_table.append(["\t".join(genus.split("_"))])
+        for sample in sorted(genus_dictionary[primer]):
+            count = genus_dictionary[primer][sample][genus]
+            genus_table[-1].append(str(count))
+
+    # Phylum
+    for phylum in phylum_found[primer]:
+        phylum_table.append(["\t".join(phylum.split("_"))])
+        for sample in sorted(phylum_dictionary[primer]):
+            count = phylum_dictionary[primer][sample][phylum]
+            phylum_table[-1].append(str(count))
 
     # Print results to file
-    with open(os.path.join(output_folder, p + "_results.csv"), "w") as outfile:
-        for line in result_table:
+    # Species
+    with open(os.path.join(output_folder, primer + "_species_results.csv"), "w") as outfile:
+        for line in species_table:
             prepared_line = "\t".join(line) + "\n"
 
             if prepared_line.startswith("Phylum"):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[3:]]) > min_coverage:
+                outfile.write(prepared_line)
+
+    # Species
+    with open(os.path.join(output_folder, primer + "_genus_results.csv"), "w") as outfile:
+        for line in genus_table:
+            prepared_line = "\t".join(line) + "\n"
+
+            if prepared_line.startswith("Phylum"):
+                outfile.write(prepared_line)
+
+            elif max([int(x) for x in line[2:]]) > min_coverage:
+                outfile.write(prepared_line)
+
+    # Species
+    with open(os.path.join(output_folder, primer + "_phylum_results.csv"), "w") as outfile:
+        for line in phylum_table:
+            prepared_line = "\t".join(line) + "\n"
+
+            if prepared_line.startswith("Phylum"):
+                outfile.write(prepared_line)
+
+            elif max([int(x) for x in line[1:]]) > min_coverage:
                 outfile.write(prepared_line)
