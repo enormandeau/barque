@@ -31,7 +31,7 @@ do
 
         # usearch local (fast, best in our case)
         usearch -usearch_local 05_split_by_amplicon/"$fasta" -db 99_databases/"$database" -id 0.95 \
-            -maxaccepts 40 -maxrejects 50 -strand both -blast6out \
+            -maxaccepts 10 -maxrejects 50 -strand both -blast6out \
             07_blast_results_multiple_hits/"${fasta%.fasta}"."${database%.udb}" -top_hits_only -query_cov 0.5
 
         # Cleanup fasta file
