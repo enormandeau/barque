@@ -1,3 +1,4 @@
+*.Rhistory
 *.fa.gz
 *.fas.gz
 *.fasta
