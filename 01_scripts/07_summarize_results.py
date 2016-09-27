@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Summarize usearch resuls
+"""Summarize usearch results
 
 Usage:
     ./01_scripts/07_summarize_results.py input_folder output_folder primer_file min_similarity min_length min_coverage
