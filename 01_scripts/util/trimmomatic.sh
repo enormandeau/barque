@@ -7,23 +7,24 @@
 # Global variables
 BASE=$(basename $1)
 TRIMMOMATIC_JAR=/home/labolb/Software/trinity_pipeline_ibis/00_archive/trimmomatic-0.30.jar
-ADAPTERFILE=00_archive/primers_henrik.fasta
+ADAPTERFILE="02_info/illumina_adapters.fas"
+DATAFOLDER="04_data"
+TRIMMEDFOLDER="05_trimmed"
 
 # Trimmomatic
 java -XX:ParallelGCThreads=1 -cp $TRIMMOMATIC_JAR org.usadellab.trimmomatic.TrimmomaticPE \
     -phred33 \
-    02_data/"$BASE"R1_001.fastq.gz \
-    02_data/"$BASE"R2_001.fastq.gz \
-    03_trimmed/"$BASE"R1_001.fastq.gz \
-    03_trimmed/"$BASE"R1_001.single.fastq.gz \
-    03_trimmed/"$BASE"R2_001.fastq.gz \
-    03_trimmed/"$BASE"R2_001.single.fastq.gz \
-    ILLUMINACLIP:"$ADAPTERFILE":3:30:6 \
+    "$DATAFOLDER"/"$BASE"R1_001.fastq.gz \
+    "$DATAFOLDER"/"$BASE"R2_001.fastq.gz \
+    "$TRIMMEDFOLDER"/"$BASE"R1_001.fastq.gz \
+    "$TRIMMEDFOLDER"/"$BASE"R1_001.single.fastq.gz \
+    "$TRIMMEDFOLDER"/"$BASE"R2_001.fastq.gz \
+    "$TRIMMEDFOLDER"/"$BASE"R2_001.single.fastq.gz \
     LEADING:20 \
     TRAILING:20 \
     SLIDINGWINDOW:20:20 \
-    MINLEN:200 2>/dev/null
+    MINLEN:200
 
 ## Cleanup
-rm 03_trimmed/"$BASE"R1_001.single.fastq.gz 2>/dev/null
-rm 03_trimmed/"$BASE"R2_001.single.fastq.gz 2>/dev/null
+rm "$TRIMMEDFOLDER"/"$BASE"R1_001.single.fastq.gz 2>/dev/null
+rm "$TRIMMEDFOLDER"/"$BASE"R2_001.single.fastq.gz 2>/dev/null
