@@ -5,7 +5,6 @@ laboratory. See licence information at the end of this file.
 
 ## Analysis overview
 - Format databases (Python scripts)
-    - (Maybe) Find a way to simplify bold database. blasting takes too long
 - Filter and trim (trimmomatic, length)
 - Merge paired-end (flash)
 - Split by amplicon (Python script)
