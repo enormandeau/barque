@@ -21,11 +21,6 @@ class Fastq(object):
         self.qual = qual
         self.length = len(seq)
 
-    def getShortname(self, separator):
-        self.temp = self.name.split(separator)
-        del(self.temp[-1])
-        return separator.join(self.temp)
-
     def write_fasta(self, handle):
         handle.write(">" + self.name + ";" + "size=" + str(self.length) + ";\n")
         handle.write(self.seq + "\n")
