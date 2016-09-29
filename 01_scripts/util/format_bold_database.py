@@ -74,6 +74,7 @@ else:
     species_set = None
 
 # Iterating through sequences
+print input_fasta
 phylum = os.path.basename(input_fasta).split(".")[0].lower()
 sequences = fasta_iterator(input_fasta)
 found_sequences = {}
@@ -174,3 +175,4 @@ with myopen(output_fasta, "w") as outfile:
 print("Treated {} sequences".format(treated_sequences))
 print("   Kept {} sequences".format(kept_sequences))
 print("   Removed {} sequences from unwanted species".format(removed_species))
+print("")
