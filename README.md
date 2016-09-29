@@ -6,6 +6,7 @@ laboratory. See licence information at the end of this file.
 ## Analysis overview
 - Format databases (Python scripts)
 - Filter and trim (trimmomatic, length)
+  **Really remove Illumina adapters?**
 - Merge paired-end (flash)
 - Split by amplicon (Python script)
 - Merge all samples per amplicon (bash script)
