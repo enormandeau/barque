@@ -3,7 +3,7 @@
 
 # Goal: To create a list of species to remove from the database
 
-for file in 07_blast_results_multiple_hits/*.bold
+for file in 09_usearch_multiple_hits/*.bold
 do
     for i in $(awk '{print $1}' $file | sort | uniq -c | sort -nr | head | awk '{print $2}')
     do
