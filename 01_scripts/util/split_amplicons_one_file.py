@@ -163,6 +163,7 @@ for s in sequences:
         # Filter short amplicons
         if len(s.seq) - forward_length - reverse_length < int(min_length):
             s.write_to_file(output_files["too_short"])
+            sequence_found = True
 
         else:
             # Look for forward primer
