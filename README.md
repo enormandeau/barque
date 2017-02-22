@@ -23,17 +23,11 @@ laboratory. See licence information at the end of this file.
     - Number of reads at each step
     - Quality of Fastq files at each step
 
-## Improve folders
-- `02_info_files` (contains iupac.csv, primers.csv, illumina_adapters.fas)
-- `03_databases`
-- `04_data`
-- ...
-
-## Create helpful README.md
-- Dependencies
-- How to use
-
-## Add makefile to automate analyses
+## TODO
+- Add script to summarize sequence dropout through the pipeline
+- Create helpful README.md
+  - Dependencies
+  - How to use
 
 ## License
 CC share-alike, commercial permitted
