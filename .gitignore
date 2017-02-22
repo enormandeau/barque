@@ -21,6 +21,7 @@
 *~
 .~lock*
 00_archive/*
+02_info/primers.csv.*
 03_databases/*
 04_data/*
 05_trimmed/*
@@ -31,3 +32,4 @@
 10_results_multiple_hits/*
 11_usearch/*
 12_results/*
+multiple_hits.txt
