@@ -37,5 +37,5 @@ cd ..
 # Put everything together
 step="13_read_dropout"
 cd "$step"
-paste 04_data 05_trimmed 06_merged 07_split_amplicons_BarRayeFISH 12_results_BarRayeFISH > sequence_dropout.tsv
+paste 04_data 05_trimmed 06_merged 07_split_amplicons_* 12_results_* > sequence_dropout.tsv
 cd ..
