@@ -17,6 +17,7 @@
 *.pptx
 *.xls
 *.xlsx
+*_primers_not_found
 *data*
 *~
 .~lock*
