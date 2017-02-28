@@ -25,7 +25,7 @@ cd ..
 # 07_split_amplicons
 step="07_split_amplicons"
 cd "$step"
-for i in $(grep -v "^#" ../02_info/primers.csv | awk '{print $1}'); do echo -e "$step\t$step" > ../13_read_dropout/"$step"_"$i"; for j in $(ls -1 *.gz | grep "$i"); do echo -e $(echo "$j" | cut -d "_" -f 1)"\t"$(echo $(gunzip -c "$j" | wc -l) / 4 | bc | cut -d "." -f 1); done | sort -V >> ../13_read_dropout/"$step"_"$i"; done
+for i in $(grep -v "^#" ../02_info/primers.csv | awk '{print $1}'); do echo -e "$step\t$step" > ../13_read_dropout/"$step"_"$i"; for j in $(ls -1 *merged_"$i"*.gz | grep "$i"); do echo -e $(echo "$j" | cut -d "_" -f 1)"\t"$(echo $(gunzip -c "$j" | wc -l) / 4 | bc | cut -d "." -f 1); done | sort -V >> ../13_read_dropout/"$step"_"$i"; done
 cd ..
 
 # 12_results
