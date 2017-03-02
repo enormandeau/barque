@@ -32,7 +32,7 @@ echo "...Skipping for now"
 
 ## Summarize results for multiple hits
 #echo "Summarizing results with multiple hits"
-#./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv 95 130 1
+#./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv 96 130 1
 
 # Run usearch
 echo "Running usearch"
@@ -40,7 +40,7 @@ echo "Running usearch"
 
 # Summarize results
 echo "Summarizing results"
-./01_scripts/07_summarize_results.py 11_usearch/ 12_results/ 02_info/primers.csv 95 130 1
+./01_scripts/07_summarize_results.py 11_usearch/ 12_results/ 02_info/primers.csv 96 130 1
 
 # Looking at sequence dropout
 ./01_scripts/08_summarize_read_dropout.sh
