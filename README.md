@@ -3,6 +3,23 @@
 This eDNA pipeline was developed by Eric Normandeau in Louis Bernatchez's
 laboratory. See licence information at the end of this file.
 
+## TODO
+- **Collapse repeated reads to reduce usearch time by about 20 times**
+- Improve README.md
+- Release v1.1
+
+## Short description
+- TODO
+
+## Dependencies
+- TODO
+
+## Overview
+- TODO (very brief)
+
+## Running the pipeline
+- TODO (step by step, including preparing `primers.csv` and the udb database)
+
 ## Analysis overview
 - Format databases (Python scripts)
 - Filter and trim (trimmomatic, length)
@@ -22,12 +39,6 @@ laboratory. See licence information at the end of this file.
 - **Summarize analyses**
     - Number of reads at each step
     - Quality of Fastq files at each step
-
-## TODO
-- Add script to summarize sequence dropout through the pipeline
-- Create helpful README.md
-  - Dependencies
-  - How to use
 
 ## License
 CC share-alike, commercial permitted
