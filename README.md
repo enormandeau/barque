@@ -4,40 +4,48 @@ This eDNA pipeline was developed by Eric Normandeau in Louis Bernatchez's
 laboratory. See licence information at the end of this file.
 
 ## TODO
+
 - Improve README.md
+- Add config file for location of executables?
 - Release v1.1
 
 ## Short description
-- TODO
+
+The **eDNA pipeline** was developped to analyze eDNA and metabarcoding datasets
+created with COI and 18s sequences, although it could easily be extended to
+other cases, as long as a database of amplified sequences exists for a
+comprehensive set of species.
 
 ## Dependencies
-- TODO
+
+The pipeline requires the following programs to be installed:
+
+- python 2.7
+- gnu parallel
+- trimmomatic
+- flash (read merger)
+- usearch
 
 ## Overview
-- TODO (very brief)
+
+During the analyses, the following steps are performed:
+
+- Get and format the database to usearch format (Python scripts, `usearch`)
+- Filter and trim raw sequences (`trimmomatic`)
+- Merge paired-end sequences (`flash`)
+- Split sequence by amplicon (Python script)
+- Merge all samples per amplicon (bash script)
+- Find chimeras (`usearch -uchime_denovo`)
+- Merge unique reads (Python script)
+- Find species associated with each unique read (`usearch`)
+- Summarize results (Python script)
+  - Number of sequences per species per sample
+  - Number of reads remaining at each analysis step
+  - Output most frequent but non-annotated sequences for blast on NCBI nt/nr
 
 ## Running the pipeline
-- TODO (step by step, including preparing `primers.csv` and the udb database)
 
-## Analysis overview
-- Format databases (Python scripts)
-- Filter and trim (trimmomatic, length)
-- Merge paired-end (flash)
-- Split by amplicon (Python script)
-- Merge all samples per amplicon (bash script)
-- Find chimeras (usearch `-uchime_denovo`)
-    - None detectable above 270 bp
-- (Maybe) Merge unique reads (save 50-80% of usearch time)
-- Find species (usearch)
-    - (done) Find duplicate species (use 40 best hits)
-    - (done) Give list of multiple hits to Anaïs
-    - (done) Add unwanted species to `species_to_remove.txt`
-    - (done) Reformat bold database + `makeudb_usearch`
-    - (done) Redo a run to find multiple hits until there is no more (lower 40 -> 20 for speed)
-- Format results for interpretation and publication
-- **Summarize analyses**
-    - Number of reads at each step
-    - Quality of Fastq files at each step
+- TODO (step by step, including preparing `primers.csv` and the udb database)
 
 ## License
 CC share-alike, commercial permitted
