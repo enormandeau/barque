@@ -4,7 +4,6 @@ This eDNA pipeline was developed by Eric Normandeau in Louis Bernatchez's
 laboratory. See licence information at the end of this file.
 
 ## TODO
-- **Collapse repeated reads to reduce usearch time by about 20 times**
 - Improve README.md
 - Release v1.1
 

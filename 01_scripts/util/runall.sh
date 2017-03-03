@@ -1,9 +1,6 @@
 #!/bin/bash
 # Script to test the full pipeline
 
-# Format bold datase (and place in proper folder)
-# TODO
-
 # Trim and clean reads
 echo "Trimming and filtering reads"
 ./01_scripts/01_trim.sh
@@ -26,13 +23,14 @@ echo "Looking for chimeras"
 echo "...Skipping for now"
 #./01_scripts/05_chimeras.sh
 
-## Run usearch for multiple hits
-#echo "Running usearch with multiple hits"
-#./01_scripts/06_usearch_multiple_hits.sh
+# Run usearch for multiple hits
+echo "Running usearch with multiple hits"
+./01_scripts/06_usearch_multiple_hits.sh
 
-## Summarize results for multiple hits
-#echo "Summarizing results with multiple hits"
-#./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv 96 130 1
+# Summarize results for multiple hits
+echo "Summarizing results with multiple hits"
+./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv 96 130 1
+./01_scripts/util/find_multiple_hits.sh
 
 # Run usearch
 echo "Running usearch"

@@ -22,7 +22,7 @@ do
 
         # Create fasta file
         echo
-        ./01_scripts/util/fastq_to_fasta.py "$SPLITFOLDER"/"$fastq" "$SPLITFOLDER"/"$fasta"
+        ./01_scripts/util/fastq_to_unique_fasta.py "$SPLITFOLDER"/"$fastq" "$SPLITFOLDER"/"$fasta"
 
         # Run usearch
         echo "Running usearch on $fasta with database $database"
