@@ -1,11 +1,12 @@
 #!/usr/bin/env python
-"""Convert fastq to fasta
+"""Convert fastq to fasta keeping only one unique representant of each read
 
 Usage:
-    python fastq_to_fasta.py inputFile outputFile
+    python fastq_to_unique_fasta.py inputFile outputFile
 """
 
 # Modules
+from collections import defaultdict
 import gzip
 import sys
 
@@ -22,7 +23,7 @@ class Fastq(object):
         self.length = len(seq)
 
     def write_fasta(self, handle):
-        handle.write(">" + self.name + ";" + "size=" + str(self.length) + ";\n")
+        handle.write(">" + self.name + "\n")
         handle.write(self.seq + "\n")
 
 # Defining functions
@@ -58,7 +59,16 @@ except:
 # Create sequence iterator
 sequences = fastq_parser(infile)
 
+# Find unique sequences
+unique_sequences = defaultdict(int)
+for s in sequences:
+    unique_sequences[s.seq] += 1
+
 # Treating the sequences
 with myopen(outfile, "w") as ofile:
-    for s in sequences:
-        s.write_fasta(ofile)
+    seq_count = 0
+    for s in unique_sequences:
+        seq_count += 1
+        name = ">sequence_" + str(seq_count) + "_found_" + str(unique_sequences[s]) + "_times"
+        fastq_seq = Fastq(name, s, "", "")
+        fastq_seq.write_fasta(ofile)
