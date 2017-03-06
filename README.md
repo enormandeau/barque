@@ -7,7 +7,6 @@ laboratory. See licence information at the end of this file.
 
 - Improve README.md
 - Add config file for location of executables?
-- Release v1.1
 
 ## Short description
 
