@@ -1,3 +1,4 @@
+*-Alignment.txt
 *.Rhistory
 *.fa.gz
 *.fas.gz
@@ -36,4 +37,5 @@
 12_results/*
 13_read_dropout/*
 14_non_annotated_sequences/*
+most_present_non_annotated_sequences*
 multiple_hits.txt
