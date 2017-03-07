@@ -5,6 +5,10 @@
 
 Usage:
     ./01_scripts/format_bold_database.py input_fasta output_fasta
+
+Where:
+    input_fasta is a .fasta or a .fasta.gz file
+    output_fasta is a .fasta or a .fasta.gz file
 """
 
 # Modules

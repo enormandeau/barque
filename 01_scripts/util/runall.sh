@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to test the full pipeline
+# Script full pipeline
 
 # Trim and clean reads
 echo "Trimming and filtering reads"
@@ -29,7 +29,7 @@ echo "Running usearch with multiple hits"
 
 # Summarize results for multiple hits
 echo "Summarizing results with multiple hits"
-./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv 96 130 1
+./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv 96 130 10
 ./01_scripts/util/find_multiple_hits.sh
 
 # Run usearch
