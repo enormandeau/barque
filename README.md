@@ -10,16 +10,19 @@ laboratory.
 
 Please see licence information at the end of this file.
 
-## Short description
+## Description
 
 **Barque** was developped to analyze eDNA and metabarcoding datasets created
 with COI and 18s sequences, although it could easily be extended to other
 cases, as long as a database of amplified sequences exists for a comprehensive
 set of species.
 
-## Dependencies
+## Installation
 
-**Barque** requires the following programs to be installed:
+You will need a local copy of the **Barque** repository and the following programs
+installed on your computer. Once they are installed, you are ready to use the pipeline.
+
+#### Dependencies
 
 - python 2.7
 - gnu parallel
