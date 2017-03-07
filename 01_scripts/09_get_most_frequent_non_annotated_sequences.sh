@@ -3,6 +3,9 @@
 # find the 100 most frequent sequences and put them in a fasta file for further
 # blasts on NCBI nr/nt.
 
+# TODO
+# Need to be completely rewritten now that we combine into unique reads
+
 # Get names of unwanted sequences from 11_usearch
 echo "Finding unwanted sequences (these with usearch results)..."
 ls -1 11_usearch/ | cut -d "_" -f 1 | sort -u | while read i
@@ -28,12 +31,7 @@ for i in 14_non_annotated_sequences/*.fasta.gz
 do
     echo "  Treating: ${i#14_non_annotated_sequences}"
     gunzip -c "$i" |
-        grep -v "^>" |
-        sort |
-        uniq -c |
-        sort -nr |
-        awk '$1 > 1000 {print ">found_"$1"_times\n"$2}' |
-        head -100 > "${i%.fasta.gz}"_most_present.fasta
+        head -200 > "${i%.fasta.gz}"_most_present.fasta
 done
 
 # Get the 10 most represented sequences per sample
