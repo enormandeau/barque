@@ -1,5 +1,7 @@
 # Barque
 
+### An environmental DNA metabarcoding analysis pipeline
+
 ![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque_small.png)
 
 Developed by Eric Normandeau in [Louis Bernatchez](http://www.bio.ulaval.ca/louisbernatchez/presentation.htm)'s laboratory.
