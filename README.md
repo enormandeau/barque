@@ -1,6 +1,6 @@
 # Barque
 
-![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque.png)
+![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque_small.png)
 
 **Barque** was developed by Eric Normandeau in Louis Bernatchez's laboratory.
 
