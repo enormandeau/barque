@@ -3,9 +3,14 @@
 
 USAGE:
     python fasta_split.py input_file output_file
+
+Where:
+    input_file is a .fasta or .fasta.gz file
+    output_file is a .fasta or .fasta.gz file
 """
 
 # Importing modules
+import gzip
 import sys
 
 # Defining classes
@@ -20,10 +25,16 @@ class Fasta(object):
         handle.write(self.sequence + "\n")
 
 # Defining functions
+def myopen(infile, mode="r"):
+    if infile.endswith(".gz"):
+        return gzip.open(infile, mode=mode)
+    else:
+        return open(infile, mode=mode)
+
 def fasta_iterator(input_file):
     """Takes a fasta file input_file and returns a fasta iterator
     """
-    with open(input_file) as f:
+    with myopen(input_file) as f:
         sequence = ""
         name = ""
         begun = False
@@ -51,7 +62,7 @@ except:
 seen_sequences = set()
 
 # Iterate through sequences and write to files
-with open(output_file, "w") as outf:
+with myopen(output_file, "w") as outf:
     for s in fasta_iterator(input_file):
         if not s.sequence in seen_sequences:
             seen_sequences.add(s.sequence)

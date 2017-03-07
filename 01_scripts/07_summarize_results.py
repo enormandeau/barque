@@ -3,6 +3,12 @@
 
 Usage:
     ./01_scripts/07_summarize_results.py input_folder output_folder primer_file min_similarity min_length min_coverage
+
+Where:
+    input_folder is either '09_usearch_multiple_hits' or '11_usearch'
+    output_folder is either '10_results_multiple_hits' or '12_results'
+    primer_file is '02_info/primers.csv'
+    min_similarity is a float between 90 and 100
 """
 
 # Modules
@@ -123,6 +129,7 @@ for primer in sorted(species_dictionary):
             count = species_dictionary[primer][sample][species]
             species_table[-1].append(str(count))
 
+    # Commented out to avoid genus and phylum level output files
     ## Genus
     #for genus in genus_found[primer]:
     #    genus_table.append(["\t".join(genus.split("_"))])
@@ -149,6 +156,7 @@ for primer in sorted(species_dictionary):
             elif max([int(x) for x in line[3:]]) > min_coverage:
                 outfile.write(prepared_line)
 
+    # Commented out to avoid genus and phylum level output files
     ## Genus
     #with open(os.path.join(output_folder, primer + "_genus_results.csv"), "w") as outfile:
     #    for line in genus_table:

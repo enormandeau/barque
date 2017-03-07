@@ -1,7 +1,6 @@
 #!/bin/bash
-# From usearch results, identify cases of multiple hits
-
-# Goal: To create a list of species to remove from the database
+# From usearch results, identify cases of multiple hits in order to create a
+# list of species to remove from the database
 
 for file in 09_usearch_multiple_hits/*.bold
 do

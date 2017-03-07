@@ -5,7 +5,7 @@ INFOFOLDER="02_info"
 SPLITFOLDER="07_split_amplicons"
 USEARCHFOLDER="11_usearch"
 
-# Find best hit in COI database using usearch
+# Find best hit in database using usearch
 for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk '{print $1}')
 do
     database=$(grep -v "^#" "$INFOFOLDER"/primers.csv | grep $amplicon | awk '{print $5}').udb
@@ -29,7 +29,7 @@ do
 
         # usearch local (fast, best in our case)
         usearch -usearch_local "$SPLITFOLDER"/"$fasta" -db 03_databases/"$database" -id 0.9 \
-            -maxaccepts 6 -maxrejects 50 -strand both -blast6out \
+            -maxaccepts 10 -maxrejects 50 -strand both -blast6out \
             "$USEARCHFOLDER"/"${fasta%.fasta}"."${database%.udb}" -top_hit_only -query_cov 0.5
 
         # Cleanup fasta file

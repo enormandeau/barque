@@ -1,7 +1,6 @@
 #!/bin/bash
 # Trim reads and remove
 # - Reads with bad quality
-# - Adapters
 # - Short reads
 
 # Global variables

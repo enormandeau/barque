@@ -3,6 +3,10 @@
 
 Usage:
     python fastq_to_unique_fasta.py inputFile outputFile
+
+Where:
+    inputFile is a .fastq or a .fastq.gz file
+    outputFile is a .fasta or a .fasta.gz file
 """
 
 # Modules
