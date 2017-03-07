@@ -11,5 +11,6 @@
   - Remove need for uncompressed `.fasta` files in `07_split_amplicons`
   - Fix `09_get_most_frequent_non_annotated_sequences.sh` not working with unique reads
 - Add config file for different scripts?
-- Improve README.md
+- Add graphical representation of the pipeline to README.md
+- Provide detailed steps to run the pipeline in README.md
 
