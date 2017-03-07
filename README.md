@@ -4,7 +4,9 @@
 
 ![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque_small.png)
 
-Developed by Eric Normandeau in [Louis Bernatchez](http://www.bio.ulaval.ca/louisbernatchez/presentation.htm)'s laboratory.
+Developed by [Eric Normandeau](https://github.com/enormandeau) in
+[Louis Bernatchez](http://www.bio.ulaval.ca/louisbernatchez/presentation.htm)'s
+laboratory.
 
 Please see licence information at the end of this file.
 
