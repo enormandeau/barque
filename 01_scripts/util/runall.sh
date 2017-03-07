@@ -38,7 +38,7 @@ echo "Running usearch"
 
 # Summarize results
 echo "Summarizing results"
-./01_scripts/07_summarize_results.py 11_usearch/ 12_results/ 02_info/primers.csv 96 130 1
+./01_scripts/07_summarize_results.py 11_usearch/ 12_results/ 02_info/primers.csv 96 130 10
 
 # Looking at sequence dropout
 echo "Looking at sequence dropout"
