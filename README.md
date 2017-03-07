@@ -1,10 +1,10 @@
 # Barque
 
-**Barque** was developed by Eric Normandeau in Louis Bernatchez's laboratory.
-
 ![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque.png)
 
-See licence information at the end of this file.
+**Barque** was developed by Eric Normandeau in Louis Bernatchez's laboratory.
+
+Please see licence information at the end of this file.
 
 ## TODO
 
