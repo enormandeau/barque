@@ -18,9 +18,25 @@ Please see licence information at the end of this file.
 quality metabarcoding databases instead of the generation of operational
 taxonomic unit (OTUs). It is parallelized, fast, and streamlined.
 
+## Use cases
+
+The approaches implemented in **Barque** is especially useful for species
+management projects:
+
+- Large spectrum monitoring of invasive species
+- Confirming the presence of specific species
+- Characterizing meta-communities in varied environments
+- Loss of species over medium to long-term monitoring
+
+Since it depends on the use of high quality metabarcoding databases, it is
+especially useful for COI amplicons used in combination with the Barcode of
+Life Database (BOLD).
+
 ## Installation
 
-To use **Barque**, you will need a local copy of its repository, [found here](https://github.com/enormandeau/barque).
+To use **Barque**, you will need a local copy of its repository,
+[found here](https://github.com/enormandeau/barque). Different releases can
+be [accessed here](https://github.com/enormandeau/barque/releases).
 
 ## Dependencies
 
