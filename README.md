@@ -1,6 +1,6 @@
 # Barque
 
-## Version 1.2
+## Version 1.3
 
 ### An environmental DNA metabarcoding analysis pipeline
 
