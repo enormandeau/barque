@@ -7,6 +7,11 @@
 
 ## Features
 
+- Scripts and files to analyse benchmark data
+  - SRA project file
+  - primers.csv file
+  - fastq-dump download script
+  - de-interleave fastq script
 - Use commas (`,`) instead of tabs for `.csv` files
 - Add `Sum` column to result `.csv`
 - Add config file for different scripts?

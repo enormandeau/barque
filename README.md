@@ -44,7 +44,7 @@ You will also need to have the following programs installed on your computer.
 
 - bash 4+
 - python 2.7
-- wget? (downloading test dataset)
+- fastq-dump from sra-toolkit to download the benchmark dataset
 - gnu parallel
 - trimmomatic
 - flash (read merger)
