@@ -1,5 +1,7 @@
 # Barque
 
+## Version 1.3
+
 ### An environmental DNA metabarcoding analysis pipeline
 
 ![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque_small.png)
@@ -12,17 +14,17 @@ Please see licence information at the end of this file.
 
 ## Description
 
-**Barque** was developped to analyze eDNA and metabarcoding datasets created
-with COI and 18s sequences, although it could easily be extended to other
-cases, as long as a database of amplified sequences exists for a comprehensive
-set of species.
+**Barque** is a metabarcoding dataset analysis pipeline that relies on high
+quality metabarcoding databases instead of the generation of operational
+taxonomic unit (OTUs). It is parallelized, fast, and streamlined.
 
 ## Installation
 
-You will need a local copy of the **Barque** repository and the following programs
-installed on your computer. Once they are installed, you are ready to use the pipeline.
+To use **Barque**, you will need a local copy of its repository, [found here](https://github.com/enormandeau/barque).
 
-#### Dependencies
+## Dependencies
+
+You will also need to have the following programs installed on your computer.
 
 - python 2.7
 - gnu parallel
@@ -34,12 +36,12 @@ installed on your computer. Once they are installed, you are ready to use the pi
 
 During the analyses, the following steps are performed:
 
-- Get and format the database to usearch format (Python scripts, `usearch`)
-- Filter and trim raw sequences (`trimmomatic`)
-- Merge paired-end sequences (`flash`)
-- Split sequence by amplicon (Python script)
+- Get databases and format them to the usearch format (Python scripts, `usearch`)
+- Filter and trim raw reads (`trimmomatic`)
+- Merge paired-end reads (`flash`)
+- Split merged reads by amplicon (Python script)
 - Merge all samples per amplicon (bash script)
-- Find chimeras (`usearch -uchime_denovo`)
+- Look for chimeras (`usearch -uchime_denovo`)
 - Merge unique reads (Python script)
 - Find species associated with each unique read (`usearch`)
 - Summarize results (Python script)
