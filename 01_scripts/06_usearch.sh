@@ -18,7 +18,7 @@ do
     do
         # File names
         fastq=$(basename "$sample")
-        fasta="${fastq%.fastq.gz}"_usearch.fasta
+        fasta="${fastq%.fastq.gz}"_unique.fasta
 
         # Create fasta file
         echo
@@ -33,6 +33,6 @@ do
             "$USEARCHFOLDER"/"${fasta%.fasta}"."${database%.udb}" -top_hit_only -query_cov 0.5
 
         # Cleanup fasta file
-        rm "$SPLITFOLDER"/"$fasta"
+        #rm "$SPLITFOLDER"/"$fasta"
     done
 done

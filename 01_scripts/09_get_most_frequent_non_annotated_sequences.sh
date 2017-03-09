@@ -3,37 +3,34 @@
 # find the 100 most frequent sequences and put them in a fasta file for further
 # blasts on NCBI nr/nt.
 
-# TODO
-# Need to be completely rewritten now that we combine into unique reads
-
 # Get names of unwanted sequences from 11_usearch
 echo "Finding unwanted sequences (these with usearch results)..."
 ls -1 11_usearch/ | cut -d "_" -f 1 | sort -u | while read i
 do
-    cat 11_usearch/"$i"* |
+    cat 11_usearch/"$i"_* |
         awk '{print $1}' |
-        cut -d ";" -f 1 > 14_non_annotated_sequences/"$i"_unwanted.ids
+        cut -d ";" -f 1 > 14_non_annotated_sequences/"$i"_with_result.ids
+
+    # Sort them by decreasing order of count (most frequent sequences first)
+    cat 07_split_amplicons/"$i"_*_unique.fasta > 14_non_annotated_sequences/"$i"_temp.fasta
+    ./01_scripts/util/fasta_sort_by_count.py \
+        14_non_annotated_sequences/"$i"_temp.fasta \
+        14_non_annotated_sequences/"$i"_unique.fasta
+    rm 14_non_annotated_sequences/"$i"_temp.fasta
 done
 
-# Remove these from 06 merged and output a fasta file per sample
+# Remove these from 07_split_amplicons/*.fasta and output a fasta file per sample
 echo "Removing these sequences from the merged sequences of each sample..."
-for i in $(ls -1 14_non_annotated_sequences/ | grep \.ids$)
+for i in 14_non_annotated_sequences/*.ids
 do
-    input="${i%_unwanted.ids}"
-    output="${i%_unwanted.ids}"_wanted.fasta.gz
+    idfile=$(basename "$i")
+    input="${idfile%_with_result.ids}"
+    output="${idfile%_with_result.ids}"_without_result.fasta.gz
     echo "  Treating: $input"
-    ./01_scripts/util/fastq_remove.py 06_merged/"$input"*_merged.fastq.gz 14_non_annotated_sequences/"$i" 14_non_annotated_sequences/"$output"
+    ./01_scripts/util/fasta_remove.py 14_non_annotated_sequences/"$input"_unique.fasta 14_non_annotated_sequences/"$input"_with_result.ids 14_non_annotated_sequences/"$input"_without_result.fasta
 done
 
-# Get the 100 most frequent sequences and their count per sample
-echo "Extracting the 100 most frequent sequences present more than 1000 times in each sample..."
-for i in 14_non_annotated_sequences/*.fasta.gz
-do
-    echo "  Treating: ${i#14_non_annotated_sequences}"
-    gunzip -c "$i" |
-        head -200 > "${i%.fasta.gz}"_most_present.fasta
-done
-
-# Get the 10 most represented sequences per sample
-head -20 14_non_annotated_sequences/*_wanted_most_present.fasta |
-    grep -v "^==" > most_present_non_annotated_sequences.fasta
+# Get the 20 most represented sequences per sample
+head -20 14_non_annotated_sequences/*_without_result.fasta |
+    grep -v "^==" |
+    grep -vE "^$" > most_frequent_non_annotated_sequences.fasta

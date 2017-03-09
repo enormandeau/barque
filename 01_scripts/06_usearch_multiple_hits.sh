@@ -18,7 +18,7 @@ do
     do
         # File names
         fastq=$(basename "$sample")
-        fasta="${fastq%.fastq.gz}"_usearch_multihits.fasta
+        fasta="${fastq%.fastq.gz}"_unique_multihits.fasta
 
         # Create fasta file
         echo
