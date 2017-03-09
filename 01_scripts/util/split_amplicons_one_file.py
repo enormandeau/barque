@@ -199,7 +199,7 @@ for s in sequences:
         s.write_to_file(output_files["not_found"])
 
 ## Report success
-print "Assigned {}% ({}/{}) of the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, fastq_file)
+print "Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, fastq_file)
 
 ## Close file handles
 for f in output_files:
