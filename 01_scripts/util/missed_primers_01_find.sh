@@ -3,7 +3,6 @@
 # Find missed forward primers
 zcat 07_split_amplicons/*not_found* | grep -E "^[ACTG]+$" | head -10000 | cut -c -20 | sort | uniq -c | sort -nr > forward_primers_not_found
 
-
 # Find missed reverse primers
 zcat 07_split_amplicons/*not_found* | grep -E "^[ACTG]+$" | head -10000 | grep -oE ".{20}$" | sort  | rev | tr "actgACTG" "tgacTGAC" | uniq -c | sort -nr > reverse_primers_not_found
 
