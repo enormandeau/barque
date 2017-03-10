@@ -25,6 +25,7 @@ management projects:
 
 - Large spectrum monitoring of invasive species
 - Confirming the presence of specific species
+- Improve species distribution knowledge of cryptic taxa
 - Characterizing meta-communities in varied environments
 - Loss of species over medium to long-term monitoring
 
