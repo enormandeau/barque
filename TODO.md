@@ -1,8 +1,6 @@
 # TODO
 
 ## Bugs
-* `01_scripts/util/find_multiple_hits.sh` searches only for `.bold`
-  - does not report number of reads properly since we use unique reads?
 
 ## Features
 * Use commas (`,`) instead of tabs for `.csv` files
