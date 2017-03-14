@@ -112,9 +112,9 @@ for primer in species_dictionary:
 for primer in sorted(species_dictionary):
 
     # Create header line
-    species_table = [["Phylum,Genus,Species"]]
-    genus_table = [["Phylum,Genus"]]
-    phylum_table = [["Phylum"]]
+    species_table = [["Phylum,Genus,Species,Total"]]
+    genus_table = [["Phylum,Genus,Total"]]
+    phylum_table = [["Phylum,Total"]]
 
     for sample in sorted(species_dictionary[primer]):
         species_table[0].append(sample)
@@ -125,24 +125,38 @@ for primer in sorted(species_dictionary):
     # Species
     for species in species_found[primer]:
         species_table.append([",".join(species.split("_"))])
+        count_sum = 0
+        new_line = []
         for sample in sorted(species_dictionary[primer]):
             count = species_dictionary[primer][sample][species]
-            species_table[-1].append(str(count))
+            count_sum += count
+            new_line.append(str(count))
+        species_table[-1].append(str(count_sum))
+        species_table[-1] += new_line
 
-    # Commented out to avoid genus and phylum level output files
-    ## Genus
-    #for genus in genus_found[primer]:
-    #    genus_table.append([",".join(genus.split("_"))])
-    #    for sample in sorted(genus_dictionary[primer]):
-    #        count = genus_dictionary[primer][sample][genus]
-    #        genus_table[-1].append(str(count))
+    # Genus
+    for genus in genus_found[primer]:
+        genus_table.append([",".join(genus.split("_"))])
+        count_sum = 0
+        new_line = []
+        for sample in sorted(genus_dictionary[primer]):
+            count = genus_dictionary[primer][sample][genus]
+            count_sum += count
+            new_line.append(str(count))
+        genus_table[-1].append(str(count_sum))
+        genus_table[-1] += new_line
 
-    ## Phylum
-    #for phylum in phylum_found[primer]:
-    #    phylum_table.append([",".join(phylum.split("_"))])
-    #    for sample in sorted(phylum_dictionary[primer]):
-    #        count = phylum_dictionary[primer][sample][phylum]
-    #        phylum_table[-1].append(str(count))
+    # Phylum
+    for phylum in phylum_found[primer]:
+        phylum_table.append([",".join(phylum.split("_"))])
+        count_sum = 0
+        new_line = []
+        for sample in sorted(phylum_dictionary[primer]):
+            count = phylum_dictionary[primer][sample][phylum]
+            count_sum += count
+            new_line.append(str(count))
+        phylum_table[-1].append(str(count_sum))
+        phylum_table[-1] += new_line
 
     # Print results to file
     # Species
@@ -156,25 +170,24 @@ for primer in sorted(species_dictionary):
             elif max([int(x) for x in line[3:]]) > min_coverage:
                 outfile.write(prepared_line)
 
-    # Commented out to avoid genus and phylum level output files
-    ## Genus
-    #with open(os.path.join(output_folder, primer + "_genus_results.csv"), "w") as outfile:
-    #    for line in genus_table:
-    #        prepared_line = ",".join(line) + "\n"
+    # Genus
+    with open(os.path.join(output_folder, primer + "_genus_results.csv"), "w") as outfile:
+        for line in genus_table:
+            prepared_line = ",".join(line) + "\n"
 
-    #        if prepared_line.startswith("Phylum"):
-    #            outfile.write(prepared_line)
+            if prepared_line.startswith("Phylum"):
+                outfile.write(prepared_line)
 
-    #        elif max([int(x) for x in line[2:]]) > min_coverage:
-    #            outfile.write(prepared_line)
+            elif max([int(x) for x in line[2:]]) > min_coverage:
+                outfile.write(prepared_line)
 
-    ## Phylum
-    #with open(os.path.join(output_folder, primer + "_phylum_results.csv"), "w") as outfile:
-    #    for line in phylum_table:
-    #        prepared_line = ",".join(line) + "\n"
+    # Phylum
+    with open(os.path.join(output_folder, primer + "_phylum_results.csv"), "w") as outfile:
+        for line in phylum_table:
+            prepared_line = ",".join(line) + "\n"
 
-    #        if prepared_line.startswith("Phylum"):
-    #            outfile.write(prepared_line)
+            if prepared_line.startswith("Phylum"):
+                outfile.write(prepared_line)
 
-    #        elif max([int(x) for x in line[1:]]) > min_coverage:
-    #            outfile.write(prepared_line)
+            elif max([int(x) for x in line[1:]]) > min_coverage:
+                outfile.write(prepared_line)

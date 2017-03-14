@@ -6,7 +6,6 @@
 ## Bugs
 
 ## Features
-* Add `Sum` column to result `.csv`
 * Make compatible with Python 3
 * Create launch script with all parameters in one place
 * When and analysys is run, copy the exact script that was launched
