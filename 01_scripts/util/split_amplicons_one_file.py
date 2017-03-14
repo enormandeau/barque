@@ -96,7 +96,7 @@ except:
 iupac = {}
 with open(iupac_file) as pfile:
     for line in pfile:
-        name, sequence = line.strip().split("\t")
+        name, sequence = line.strip().split(",")
         iupac[name] = sequence
 
 ## Parse primers
@@ -108,7 +108,7 @@ with open(primer_file) as pfile:
             continue
 
         # Get primer infos
-        name, forward, reverse, min_length, database = line.strip().split("\t")
+        name, forward, reverse, min_length, database = line.strip().split(",")
         forward_length = len(forward)
         reverse_length = len(reverse)
 

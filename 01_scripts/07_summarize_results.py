@@ -36,7 +36,7 @@ with open(primer_file) as pfile:
             continue
 
         l = line.strip()
-        primers.append(l.split()[0])
+        primers.append(l.split(",")[0])
 
 # Read usearch results form input_folder
 result_files = os.listdir(input_folder)
@@ -112,8 +112,8 @@ for primer in species_dictionary:
 for primer in sorted(species_dictionary):
 
     # Create header line
-    species_table = [["Phylum\tGenus\tSpecies"]]
-    genus_table = [["Phylum\tGenus"]]
+    species_table = [["Phylum,Genus,Species"]]
+    genus_table = [["Phylum,Genus"]]
     phylum_table = [["Phylum"]]
 
     for sample in sorted(species_dictionary[primer]):
@@ -124,7 +124,7 @@ for primer in sorted(species_dictionary):
     # Add rows to table
     # Species
     for species in species_found[primer]:
-        species_table.append(["\t".join(species.split("_"))])
+        species_table.append([",".join(species.split("_"))])
         for sample in sorted(species_dictionary[primer]):
             count = species_dictionary[primer][sample][species]
             species_table[-1].append(str(count))
@@ -132,14 +132,14 @@ for primer in sorted(species_dictionary):
     # Commented out to avoid genus and phylum level output files
     ## Genus
     #for genus in genus_found[primer]:
-    #    genus_table.append(["\t".join(genus.split("_"))])
+    #    genus_table.append([",".join(genus.split("_"))])
     #    for sample in sorted(genus_dictionary[primer]):
     #        count = genus_dictionary[primer][sample][genus]
     #        genus_table[-1].append(str(count))
 
     ## Phylum
     #for phylum in phylum_found[primer]:
-    #    phylum_table.append(["\t".join(phylum.split("_"))])
+    #    phylum_table.append([",".join(phylum.split("_"))])
     #    for sample in sorted(phylum_dictionary[primer]):
     #        count = phylum_dictionary[primer][sample][phylum]
     #        phylum_table[-1].append(str(count))
@@ -148,7 +148,7 @@ for primer in sorted(species_dictionary):
     # Species
     with open(os.path.join(output_folder, primer + "_species_results.csv"), "w") as outfile:
         for line in species_table:
-            prepared_line = "\t".join(line) + "\n"
+            prepared_line = ",".join(line) + "\n"
 
             if prepared_line.startswith("Phylum"):
                 outfile.write(prepared_line)
@@ -160,7 +160,7 @@ for primer in sorted(species_dictionary):
     ## Genus
     #with open(os.path.join(output_folder, primer + "_genus_results.csv"), "w") as outfile:
     #    for line in genus_table:
-    #        prepared_line = "\t".join(line) + "\n"
+    #        prepared_line = ",".join(line) + "\n"
 
     #        if prepared_line.startswith("Phylum"):
     #            outfile.write(prepared_line)
@@ -171,7 +171,7 @@ for primer in sorted(species_dictionary):
     ## Phylum
     #with open(os.path.join(output_folder, primer + "_phylum_results.csv"), "w") as outfile:
     #    for line in phylum_table:
-    #        prepared_line = "\t".join(line) + "\n"
+    #        prepared_line = ",".join(line) + "\n"
 
     #        if prepared_line.startswith("Phylum"):
     #            outfile.write(prepared_line)

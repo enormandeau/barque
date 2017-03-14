@@ -6,9 +6,9 @@ SPLITFOLDER="07_split_amplicons"
 USEARCHFOLDER="09_usearch_multiple_hits"
 
 # Find best hit in database using usearch
-for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk '{print $1}')
+for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1}')
 do
-    database=$(grep -v "^#" "$INFOFOLDER"/primers.csv | grep $amplicon | awk '{print $5}').udb
+    database=$(grep -v "^#" "$INFOFOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $5}').udb
     echo "#######################"
     echo "# database: $database"
     echo "#######################"

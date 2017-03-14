@@ -7,7 +7,7 @@ SPLITFOLDER="07_split_amplicons"
 CHIMERAFOLDER="08_chimeras"
 
 # Regroup all samples per amplicon
-for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk '{print $1}')
+for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1}')
 do
     echo "Treating: $amplicon"
     REGROUPED="$CHIMERAFOLDER"/all_"$amplicon".fastq

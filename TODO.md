@@ -6,17 +6,18 @@
 ## Bugs
 
 ## Features
-* **Add script to prepare database from bold and silva using parallel**
-* Replace `.tsv` files with `.csv` files
-* Use commas (`,`) instead of tabs for `.csv` files
 * Add `Sum` column to result `.csv`
 * Make compatible with Python 3
-- Support single-end data (no merge -> pseudo-merge script)
-- Add de-interleave fastq script for single-file paired-end
-- Add config file for different scripts?
+* Create launch script with all parameters in one place
+* When and analysys is run, copy the exact script that was launched
+* Add script to prepare database from bold and silva using parallel
+* Add log info directory
+* Support single-end data (no merge -> pseudo-merge script)
+* Add de-interleave fastq script for single-file paired-end
+- Add R script to procude read dropout figure and run from `01_scripts/08_...sh`
 
 ## Documentation
-- Provide detailed steps to run the pipeline in README.md
+- Provide detailed steps to run the pipeline in README.md (or point to paper?)
 - Add graphical representation of the pipeline to README.md
 
 ## Benchmark dataset
