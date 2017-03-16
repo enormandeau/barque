@@ -58,7 +58,7 @@ if __name__ == '__main__':
         unwanted_file = sys.argv[2]
         output_file = sys.argv[3]
     except:
-        print __doc__
+        print(__doc__)
         exit(1)
 
     # Build unwanted set

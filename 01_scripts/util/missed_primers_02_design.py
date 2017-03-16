@@ -14,7 +14,7 @@ import sys
 try:
     input_file = sys.argv[1]
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 # Functions
@@ -56,4 +56,4 @@ primer = []
 for n in degenerate:
     primer.append(iupac[n])
 
-print "".join(primer)
+print("".join(primer))

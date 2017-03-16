@@ -25,7 +25,7 @@ try:
     min_length = int(sys.argv[5])
     min_coverage = int(sys.argv[6])
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 # Read primer_file

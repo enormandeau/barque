@@ -58,7 +58,7 @@ try:
     input_fasta = sys.argv[1]
     output_fasta = sys.argv[2]
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 # Optionally, get file containing (Genus species) to remove
@@ -78,7 +78,7 @@ else:
     species_set = None
 
 # Iterating through sequences
-print input_fasta
+print(input_fasta)
 phylum = os.path.basename(input_fasta).split(".")[0].lower()
 sequences = fasta_iterator(input_fasta)
 found_sequences = {}
@@ -158,12 +158,12 @@ with myopen(output_fasta, "w") as outfile:
             continue
 
         if good_name in found_sequences:
-            #print "Species already found: {}".format(good_name)
+            #print("Species already found: {}".format(good_name))
             if s.sequence in found_sequences[good_name]:
-                #print "Same species same sequence"
+                #print("Same species same sequence")
                 continue
             else:
-                #print "Same species different sequence"
+                #print("Same species different sequence")
                 found_sequences[good_name].append(s.sequence)
                 
         else:

@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """Extract sequences from a fasta file if their name is not in a 'remove' file.
 
 Remove file contains one sequence name per line.
@@ -55,7 +53,7 @@ try:
     remove_file = sys.argv[2] # Input remove file, one gene name per line
     result_file = sys.argv[3] # Output fasta file
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(0)
 
 remove = set()

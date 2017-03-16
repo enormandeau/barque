@@ -57,7 +57,7 @@ try:
     infile = sys.argv[1]
     outfile = sys.argv[2]
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 # Create sequence iterator

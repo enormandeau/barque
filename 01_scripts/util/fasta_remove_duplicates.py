@@ -55,7 +55,7 @@ try:
     input_file = sys.argv[1]
     output_file = sys.argv[2]
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 # Set of seen sequences

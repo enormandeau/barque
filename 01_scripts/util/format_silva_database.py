@@ -55,7 +55,7 @@ try:
     input_fasta = sys.argv[1]
     output_fasta = sys.argv[2]
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 # Iterating through sequences
@@ -125,12 +125,12 @@ with myopen(output_fasta, "w") as outfile:
             continue
 
         if good_name in found_sequences:
-            #print "Specied already found: {}".format(good_name)
+            #print("Specied already found: {}".format(good_name))
             if s.sequence in found_sequences[good_name]:
-                #print "Same species same sequence"
+                #print("Same species same sequence")
                 continue
             else:
-                #print "Same species different sequence"
+                #print("Same species different sequence")
                 s.sequence.replace("U", "T")
                 if set(s.sequence).difference(good_nuc):
                     continue

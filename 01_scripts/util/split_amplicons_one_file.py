@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#!/usr/bin/env python
 
 """Split amplicons using forward and reverse potentially degenerated primers
 
@@ -18,10 +17,10 @@ class Fastq(object):
     """Fastq object with name and sequence
     """
     def __init__(self, name, seq, name2, qual):
-        self.name = name
-        self.seq = seq
-        self.name2 = name2
-        self.qual = qual
+        self.name = str(name)
+        self.seq = str(seq)
+        self.name2 = str(name2)
+        self.qual = str(qual)
     def write_to_file(self, handle):
         handle.write("@" + self.name + "\n")
         handle.write(self.seq + "\n")
@@ -88,7 +87,7 @@ try:
     iupac_file = sys.argv[3]
     output_folder = sys.argv[4]
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(0)
 
 # Main
@@ -199,7 +198,7 @@ for s in sequences:
         s.write_to_file(output_files["not_found"])
 
 ## Report success
-print "Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, fastq_file)
+print("Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, fastq_file))
 
 ## Close file handles
 for f in output_files:
