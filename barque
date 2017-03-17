@@ -1,0 +1,80 @@
+#!/bin/bash
+# Run full Barque pipeline
+
+# Although recommended, it is not necessary to run the full pipeline using this
+# script. A metabarcoding analysis can be run by launching scripts 01 through 09
+# in the '01_scripts' folder in order. Scripts 04 and 05, which look at the
+# presence of chimeras, are not necessary to obtain the final results. It is a
+# good idea however to run them in order to validate the absence of chimeras in
+# the reads. The 05 script may demand a very high amount of memory and computing
+# time for large files (above one million sequences).
+
+# Copy script and config files as they were run
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+SCRIPT=$0
+SCRIPT_NAME=$(basename "$SCRIPT")
+CONFIG_FILE=$1
+CONFIG_FILENAME=$(basename "$CONFIG_FILE")
+LOG_FOLDER="99_log_files"
+
+#cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$SCRIPT_NAME"
+
+# Import configfile and keep copy in 99_log_files
+if [ -e "$CONFIG_FILE" -a -s "$CONFIG_FILE" ]
+then
+    source "$CONFIG_FILE"
+    cp $CONFIG_FILE $LOG_FOLDER/"$TIMESTAMP"_"$CONFIG_FILENAME"
+    cp 02_info/primers.csv $LOG_FOLDER/"$TIMESTAMP"_primers.csv
+else
+    echo "Config file does not exist or is empty."
+    exit 1
+fi
+
+# Trim and clean reads
+echo "Trimming and filtering reads"
+./01_scripts/01_trim.sh "$NCPUS"
+
+# Merge forward and reverse reads
+echo "Merging forward and reverse reads"
+./01_scripts/02_merge.sh "$NCPUS" "$MIN_OVERLAP" "$MAX_OVERLAP"
+
+# Split samples by amplicon
+echo "Splitting samples by amplicon"
+./01_scripts/03_split_amplicons.sh "$NCPUS"
+
+# Regroup amplicons to look for chimeras
+# TODO add config params
+echo "Regrouping amplicons"
+echo "...Skipping for now"
+#./01_scripts/04_regroup_amplicons.sh
+
+# Look for chimeras
+# TODO add config params
+echo "Looking for chimeras"
+echo "...Skipping for now"
+#./01_scripts/05_chimeras.sh
+
+# Run usearch for multiple hits
+echo "Running usearch with multiple hits"
+./01_scripts/06_usearch_multiple_hits.sh "$SIMILARITY_RESULTS" "$SIMILARITY_USEARCH" "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV"
+
+# Summarize results for multiple hits
+echo "Summarizing results with multiple hits"
+./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
+./01_scripts/util/find_multiple_hits.sh
+
+# Run usearch
+echo "Running usearch"
+./01_scripts/06_usearch.sh "$SIMILARITY_RESULTS" "$SIMILARITY_USEARCH" "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV"
+
+# Summarize results
+echo "Summarizing results"
+./01_scripts/07_summarize_results.py 11_usearch/ 12_results/ 02_info/primers.csv "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
+
+# Looking at sequence dropout
+echo "Looking at sequence dropout"
+./01_scripts/08_summarize_read_dropout.sh
+
+# Finding most frequent non-annotated sequences
+echo "Finding most frequent non-annotated sequences"
+./01_scripts/09_get_most_frequent_non_annotated_sequences.sh

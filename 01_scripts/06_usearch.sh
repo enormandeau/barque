@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Parameters
+SIMILARITY_RESULTS=$1
+SIMILARITY_USEARCH=$2
+MAXACCEPTS=$3
+MAXREJECTS=$4
+QUERYCOV=$5
+
 # Global variables
 INFOFOLDER="02_info"
 SPLITFOLDER="07_split_amplicons"
@@ -26,11 +33,9 @@ do
 
         # Run usearch
         echo "Running usearch on $fasta with database $database"
-
-        # usearch local (fast, best in our case)
-        usearch -usearch_local "$SPLITFOLDER"/"$fasta" -db 03_databases/"$database" -id 0.9 \
-            -maxaccepts 10 -maxrejects 50 -strand both -blast6out \
-            "$USEARCHFOLDER"/"${fasta%.fasta}"."${database%.udb}" -top_hit_only -query_cov 0.5
+        usearch -usearch_local "$SPLITFOLDER"/"$fasta" -db 03_databases/"$database" -id "$SIMILARITY_USEARCH" \
+            -maxaccepts "$MAXACCEPTS" -maxrejects "$MAXREJECTS" -strand both -blast6out \
+            "$USEARCHFOLDER"/"${fasta%.fasta}"."${database%.udb}" -top_hit_only -query_cov "$QUERYCOV"
 
         # Cleanup fasta file
         #rm "$SPLITFOLDER"/"$fasta"

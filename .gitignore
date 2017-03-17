@@ -24,7 +24,7 @@
 *~
 .~lock*
 00_archive/*
-02_info/primers.csv.*
+02_info/primers.csv*
 02_info/primers_*
 03_databases/*
 04_data/*

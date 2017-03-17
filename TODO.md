@@ -1,15 +1,11 @@
 # TODO
 
 ## Note
-* Features with an asterix `*` need to be done before finishing the paper
+* **Features with an asterix need to be done before finishing the paper**
 
 ## Bugs
 
 ## Features
-* Make compatible with Python 3
-* Create launch script with all parameters in one place
-* When an analysis is run, copy the exact script that was launched
-* Add log info directory
 * Add script to prepare database from bold and silva using parallel
 - Support single-end data (no merge -> pseudo-merge script)
 - Add de-interleave fastq script for single-file paired-end

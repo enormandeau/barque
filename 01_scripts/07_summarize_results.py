@@ -21,7 +21,7 @@ try:
     input_folder = sys.argv[1]
     output_folder = sys.argv[2]
     primer_file = sys.argv[3]
-    min_similarity = float(sys.argv[4])
+    min_similarity = 100.0 * float(sys.argv[4])
     min_length = int(sys.argv[5])
     min_coverage = int(sys.argv[6])
 except:
