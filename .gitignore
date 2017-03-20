@@ -38,5 +38,6 @@
 12_results/*
 13_read_dropout/*
 14_non_annotated_sequences/*
+99_log_files/*
 most_present_non_annotated_sequences*
 multiple_hits.txt
