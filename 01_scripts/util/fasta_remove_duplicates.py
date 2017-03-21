@@ -25,7 +25,7 @@ class Fasta(object):
         handle.write(self.sequence + "\n")
 
 # Defining functions
-def myopen(infile, mode="r"):
+def myopen(infile, mode="rt"):
     if infile.endswith(".gz"):
         return gzip.open(infile, mode=mode)
     else:
@@ -62,7 +62,7 @@ except:
 seen_sequences = set()
 
 # Iterate through sequences and write to files
-with myopen(output_file, "w") as outf:
+with myopen(output_file, "wt") as outf:
     for s in fasta_iterator(input_file):
         if not s.sequence in seen_sequences:
             seen_sequences.add(s.sequence)

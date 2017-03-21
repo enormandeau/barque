@@ -31,7 +31,7 @@ class Fastq(object):
         handle.write(self.seq + "\n")
 
 # Defining functions
-def myopen(infile, mode="r"):
+def myopen(infile, mode="rt"):
     if infile.endswith(".gz"):
         return gzip.open(infile, mode=mode)
     else:
@@ -69,7 +69,7 @@ for s in sequences:
     unique_sequences[s.seq] += 1
 
 # Treating the sequences
-with myopen(outfile, "w") as ofile:
+with myopen(outfile, "wt") as ofile:
     seq_count = 0
     for s in unique_sequences:
         seq_count += 1

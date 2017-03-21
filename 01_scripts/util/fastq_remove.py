@@ -32,7 +32,7 @@ class Fastq(object):
         handle.write(self.seq + "\n")
 
 # Defining functions
-def myopen(infile, mode="r"):
+def myopen(infile, mode="rt"):
     if infile.endswith(".gz"):
         return gzip.open(infile, mode=mode)
     else:
@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     # Filter sequences
     sequences = fastq_parser(input_file)
-    with myopen(output_file, "w") as out_f:
+    with myopen(output_file, "wt") as out_f:
         for s in sequences:
             if s.name not in unwanted and s.name.split(" ")[0] not in unwanted:
                 s.write_fasta(out_f)

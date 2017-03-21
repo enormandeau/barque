@@ -28,7 +28,7 @@ class Fasta(object):
         return self.name + "\t" + self.sequence[0:31]
 
 # Defining functions
-def myopen(infile, mode="r"):
+def myopen(infile, mode="rt"):
     if infile.endswith(".gz"):
         return gzip.open(infile, mode=mode)
     else:
@@ -69,7 +69,7 @@ for seq in fasta_sequences:
     count = int(seq.name.split("_")[3])
     counts[count].append(seq)
 
-with myopen(output_file, "w") as outf:
+with myopen(output_file, "wt") as outf:
     for c in sorted(counts, reverse=True):
         for s in counts[c]:
             s.write_to_file(outf)
