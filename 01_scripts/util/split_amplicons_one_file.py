@@ -30,7 +30,7 @@ class Fastq(object):
         return "\t".join([self.seq[0:51], self.seq[0:51]])
 
 # Defining functions
-def myopen(infile, mode="r"):
+def myopen(infile, mode="rt"):
     if infile.endswith(".gz"):
         return gzip.open(infile, mode=mode)
     else:
@@ -142,7 +142,7 @@ for p in primers:
                 output_folder,
                 input_file.replace(".fastq", "_" + p + ".fastq")
                 )
-            , "w")
+            , "wt")
 
 ## Read fastq file
 sequences = fastq_iterator(fastq_file)

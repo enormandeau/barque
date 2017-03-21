@@ -25,7 +25,7 @@ class Fasta(object):
         handle.write(self.sequence + "\n")
 
 # Functions
-def myopen(infile, mode="r"):
+def myopen(infile, mode="rt"):
     if infile.endswith(".gz"):
         return gzip.open(infile, mode=mode)
     else:
@@ -65,7 +65,7 @@ treated_sequences = 0
 kept_sequences = 0
 good_nuc = set(list("ACGTN"))
 
-with myopen(output_fasta, "w") as outfile:
+with myopen(output_fasta, "wt") as outfile:
     for s in sequences:
         treated_sequences += 1
 

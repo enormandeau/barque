@@ -63,6 +63,6 @@ except:
 sequences = fastq_parser(infile)
 
 # Treating the sequences
-with myopen(outfile, "w") as ofile:
+with myopen(outfile, "wt") as ofile:
     for s in sequences:
         s.write_fasta(ofile)

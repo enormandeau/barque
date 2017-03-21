@@ -16,7 +16,8 @@ Please see licence information at the end of this file.
 
 **Barque** is a metabarcoding dataset analysis pipeline that relies on high
 quality metabarcoding databases instead of the generation of operational
-taxonomic unit (OTUs). It is parallelized, fast, and streamlined.
+taxonomic unit (OTUs). It is parallelized, fast, and streamlined. It uses
+well-tested programs and is compatible with both Python 2 and 3.
 
 ## Use cases
 
@@ -35,16 +36,17 @@ Life Database (BOLD).
 
 ## Installation
 
-To use **Barque**, you will need a local copy of its repository,
-[found here](https://github.com/enormandeau/barque). Different releases can
-be [accessed here](https://github.com/enormandeau/barque/releases).
+To use **Barque**, you will need a local copy of its repository, which can be
+[found here](https://github.com/enormandeau/barque). Different releases can be
+[accessed here](https://github.com/enormandeau/barque/releases). It is
+recommended to use the latest version or at least version 1.3.
 
 ## Dependencies
 
 You will also need to have the following programs installed on your computer.
 
 - bash 4+
-- python 2.7
+- python 2.7+ or 3.5+
 - fastq-dump from sra-toolkit to download the benchmark dataset
 - gnu parallel
 - trimmomatic
@@ -71,6 +73,12 @@ During the analyses, the following steps are performed:
 ## Running the pipeline
 
 - TODO (step by step, including preparing `primers.csv` and the udb database)
+
+## Citation
+
+When using **Barque**, please cite the following paper:
+
+- TODO Add citation information and link to paper
 
 ## License
 CC share-alike
