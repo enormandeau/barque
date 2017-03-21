@@ -56,5 +56,5 @@ cd ..
 # Put everything together
 step="13_read_dropout"
 cd "$step"
-paste -d "," 04_data 05_trimmed 06_merged 07_split_amplicons_* 12_results_* > sequence_dropout.csv
+paste -d "," 04_data 05_trimmed 06_merged 07_split_amplicons_* 12_results_* > ../12_results/sequence_dropout.csv
 cd ..

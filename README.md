@@ -62,17 +62,23 @@ During the analyses, the following steps are performed:
 - Merge paired-end reads (`flash`)
 - Split merged reads by amplicon (Python script)
 - Merge all samples per amplicon (bash script)
-- Look for chimeras (`usearch -uchime_denovo`)
+- Look for chimeras (optional, `usearch -uchime_denovo`)
 - Merge unique reads (Python script)
 - Find species associated with each unique read (`usearch`)
 - Summarize results (Python script)
+  - Cases of multiple hits with equal scores
   - Number of sequences per species per sample
   - Number of reads remaining at each analysis step
   - Output most frequent but non-annotated sequences for blast on NCBI nt/nr
 
 ## Running the pipeline
 
-- TODO (step by step, including preparing `primers.csv` and the udb database)
+To run **Barque**, make a copy of the file named `02_info/barque_config.sh` and
+modify the parameters as needed, then launch the `barque` executable with the
+name of your configuration file as an argument, like this:
+```
+./barque 02_info/MY_CONFIG_FILE.sh
+```
 
 ## Citation
 

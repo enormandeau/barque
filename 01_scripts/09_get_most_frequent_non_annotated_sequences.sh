@@ -33,4 +33,4 @@ done
 # Get the 20 most represented sequences per sample
 head -20 14_non_annotated_sequences/*_without_result.fasta |
     grep -v "^==" |
-    grep -vE "^$" > most_frequent_non_annotated_sequences.fasta
+    grep -vE "^$" > 12_results/most_frequent_non_annotated_sequences.fasta

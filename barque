@@ -1,13 +1,11 @@
 #!/bin/bash
 # Run full Barque pipeline
 
-# Although recommended, it is not necessary to run the full pipeline using this
-# script. A metabarcoding analysis can be run by launching scripts 01 through 09
-# in the '01_scripts' folder in order. Scripts 04 and 05, which look at the
-# presence of chimeras, are not necessary to obtain the final results. It is a
-# good idea however to run them in order to validate the absence of chimeras in
-# the reads. The 05 script may demand a very high amount of memory and computing
-# time for large files (above one million sequences).
+# Scripts 04 and 05, which look at the presence of chimeras, are not necessary
+# to obtain the final results. It is a good idea however to run them in order to
+# validate the absence of chimeras in the reads. The 05 script may demand a very
+# high amount of memory and computing time for large files (above one million
+# sequences).
 
 # Copy script and config files as they were run
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
@@ -43,13 +41,11 @@ echo "Splitting samples by amplicon"
 ./01_scripts/03_split_amplicons.sh "$NCPUS"
 
 # Regroup amplicons to look for chimeras
-# TODO add config params
 echo "Regrouping amplicons"
 echo "...Skipping for now"
 #./01_scripts/04_regroup_amplicons.sh
 
 # Look for chimeras
-# TODO add config params
 echo "Looking for chimeras"
 echo "...Skipping for now"
 #./01_scripts/05_chimeras.sh
