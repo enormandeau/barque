@@ -37,7 +37,7 @@ Life Database (BOLD).
 ## Installation
 
 To use **Barque**, you will need a local copy of its repository, which can be
-[found here](https://github.com/enormandeau/barque). Different releases can be
+[found here](https://github.com/enormandeau/barque/archive/master.zip). Different releases can be
 [accessed here](https://github.com/enormandeau/barque/releases). It is
 recommended to use the latest version or at least version 1.3.
 
