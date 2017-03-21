@@ -40,15 +40,22 @@ echo "Merging forward and reverse reads"
 echo "Splitting samples by amplicon"
 ./01_scripts/03_split_amplicons.sh "$NCPUS"
 
-# Regroup amplicons to look for chimeras
-echo "Regrouping amplicons"
-echo "...Skipping for now"
-#./01_scripts/04_regroup_amplicons.sh
 
-# Look for chimeras
-echo "Looking for chimeras"
-echo "...Skipping for now"
-#./01_scripts/05_chimeras.sh
+if [ $LOOK_FOR_CHIMERA == "1" ]
+then
+    # Regroup amplicons to look for chimeras
+    echo "Regrouping amplicons"
+    ./01_scripts/04_regroup_amplicons.sh
+
+    # Look for chimeras
+    echo "Looking for chimeras"
+    ./01_scripts/05_chimeras.sh
+elif [ $LOOK_FOR_CHIMERA == "0" ]
+then
+    echo "Skipping chimera detection"
+else
+    echo "WARNING: Invalid value in config file for LOOK_FOR_CHIMERA"
+fi
 
 # Run usearch for multiple hits
 echo "Running usearch with multiple hits"

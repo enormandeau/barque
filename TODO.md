@@ -3,7 +3,6 @@
 ## Bugs
 
 ## Features
-+ Add variable in config file to run chimera detection steps
 + Add script to prepare database from bold and silva using parallel
   (host prepared libraries somewhere?)
 - Support single-end data (no merge -> pseudo-merge script)

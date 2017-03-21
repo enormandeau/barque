@@ -23,7 +23,7 @@ do
     done
 
     # fastq_to_fasta
-    ./01_scripts/util/fastq_to_fasta.py "$REGROUPED" "${REGROUPED%.fastq}".fasta.gz
+    ./01_scripts/util/fastq_to_fasta.py "$REGROUPED" "${REGROUPED%.fastq}".fasta
 
     # Cleanup
     rm "$REGROUPED" 2>/dev/null
