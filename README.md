@@ -10,34 +10,35 @@ Developed by [Eric Normandeau](https://github.com/enormandeau) in
 [Louis Bernatchez](http://www.bio.ulaval.ca/louisbernatchez/presentation.htm)'s
 laboratory.
 
-Please see licence information at the end of this file.
+Please see citation and licence information at the end of this file.
 
 ## Description
 
-**Barque** is a metabarcoding dataset analysis pipeline that relies on high
-quality metabarcoding databases instead of the generation of operational
-taxonomic unit (OTUs). It is parallelized, fast, and streamlined. It uses
-well-tested programs and is compatible with both Python 2 and 3.
+**Barque** is a metabarcoding analysis pipeline that relies on high quality
+metabarcoding-specific databases instead of generating Operational Taxonomic
+Unit (OTUs). It is parallelized, fast, and streamlined. It uses well-tested
+programs and is compatible with both Python 2 and 3.
 
 ## Use cases
 
-The approaches implemented in **Barque** is especially useful for species
+The approach implemented in **Barque** is especially useful for species
 management projects:
 
-- Large spectrum monitoring of invasive species
+- Monitoring of invasive species
 - Confirming the presence of specific species
-- Improve species distribution knowledge of cryptic taxa
 - Characterizing meta-communities in varied environments
-- Loss of species over medium to long-term monitoring
+- Improving species distribution knowledge for cryptic taxa
+- Following loss of species over medium to long-term monitoring
 
 Since it depends on the use of high quality metabarcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
-Life Database (BOLD).
+Life Database (BOLD), although it can also use other databases like Silva.
 
 ## Installation
 
 To use **Barque**, you will need a local copy of its repository, which can be
-[found here](https://github.com/enormandeau/barque/archive/master.zip). Different releases can be
+[found here](https://github.com/enormandeau/barque/archive/master.zip).
+Different releases can be
 [accessed here](https://github.com/enormandeau/barque/releases). It is
 recommended to use the latest version or at least version 1.3.
 
@@ -73,9 +74,37 @@ During the analyses, the following steps are performed:
 
 ## Running the pipeline
 
-To run **Barque**, make a copy of the file named `02_info/barque_config.sh` and
-modify the parameters as needed, then launch the `barque` executable with the
-name of your configuration file as an argument, like this:
+For each new project, get a new copy of **Barque** from the sources listed in
+the **Installation** section and copy your data in the `04_data` folder. You
+will also need to put a `usearch`-indexed database (usually `bold.udb`) in
+the `03_databases` folder. If you do not already have the indexed database
+and want to use BOLD, you will need to download all the animal bins from
+[this BOLD page](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home).
+Put the downloaded Fasta files in `03_databases/bold_bins` (you may need to create that
+folder), and run the commands to format the bold database:
+
+```
+# Note: the `species_to_remove.txt` file is optional
+# Format each bin individually
+ls -1 03_databases/bold_bins/*.fas.gz |
+    parallel echo {} \; ./01_scripts/util/format_bold_database.py \
+    {} {.}_prepared.fasta.gz species_to_remove.txt
+
+# Concatenate the resulting formatted bins into one file
+gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
+
+# Index the BOLD database for usearch
+usearch -makeudb_usearch 03_databases/bold.fasta -output 03_databases/bold.udb
+```
+
+#TODO
+Make a pre-formatted BOLD database available somewhere as a .fasta file?
+
+
+Make a copy of the file named `02_info/barque_config.sh` and modify the
+parameters as needed, then launch the `barque` executable with the name of your
+configuration file as an argument, like this:
+
 ```
 ./barque 02_info/MY_CONFIG_FILE.sh
 ```
@@ -114,6 +143,21 @@ pipeline must be re-run from the `usearch` scripts
 sample for every analysis step. Depending on library and sequencing quality, as
 well as the biological diversity found at the sample site, more or less
 sequences are lost at each of the analysis steps.
+
+### Most frequent bun non-annotated sequences
+
+- `most_frequent_non_annotated_sequences.fasta`: Sequences that are frequent
+in the samples but were not annotated by the pipeline. This Fasta file should be
+used to query the NCBI nt/nr database using the online portal
+[found here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch)
+to see what species may have been missed. Once the NCBI blastn search is
+finished, download the results as a text file and use the following command
+(you will need to adjust the input and output file names) to generate a report
+of the most frequently found species in the non-annotated sequences:
+
+```
+grep -A 11 "^Sequences producing sign" XXXXXXXX_Alignment.txt | awk '{print $2,$3}' | grep -v ^producing | sort | uniq -c | sort -nr | perl -pe 's/^ +//' > most_frequent_non_annotated_sequences_XXXXXXXX.ncbi.txt
+```
 
 ## Citation
 
