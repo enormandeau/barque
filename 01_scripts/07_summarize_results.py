@@ -160,7 +160,7 @@ for primer in sorted(species_dictionary):
 
     # Print results to file
     # Species
-    with open(os.path.join(output_folder, primer + "_species_results.csv"), "wt") as outfile:
+    with open(os.path.join(output_folder, primer + "_species_table.csv"), "wt") as outfile:
         for line in species_table:
             prepared_line = ",".join(line) + "\n"
 
@@ -171,7 +171,7 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
     # Genus
-    with open(os.path.join(output_folder, primer + "_genus_results.csv"), "wt") as outfile:
+    with open(os.path.join(output_folder, primer + "_genus_table.csv"), "wt") as outfile:
         for line in genus_table:
             prepared_line = ",".join(line) + "\n"
 
@@ -182,7 +182,7 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
     # Phylum
-    with open(os.path.join(output_folder, primer + "_phylum_results.csv"), "wt") as outfile:
+    with open(os.path.join(output_folder, primer + "_phylum_table.csv"), "wt") as outfile:
         for line in phylum_table:
             prepared_line = ",".join(line) + "\n"
 
