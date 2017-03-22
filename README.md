@@ -91,7 +91,7 @@ need to download all the animal BINs from
 Put the downloaded Fasta files in `03_databases/bold_bins` (you may need to
 create that folder), and run the commands to format the bold database:
 
-```
+```bash
 # Format each BIN individually (~10 minutes)
 # Note: the `species_to_remove.txt` file is optional
 ls -1 03_databases/bold_bins/*.fas.gz |
@@ -109,7 +109,7 @@ Make a copy of the file named `02_info/barque_config.sh` and modify the
 parameters as needed, then launch the `barque` executable with the name of your
 configuration file as an argument, like this:
 
-```
+```bash
 ./barque 02_info/MY_CONFIG_FILE.sh
 ```
 
@@ -159,8 +159,10 @@ finished, download the results as a text file and use the following command
 (you will need to adjust the input and output file names) to generate a report
 of the most frequently found species in the non-annotated sequences:
 
-```
-grep -A 11 "^Sequences producing sign" XXXXXXXX_Alignment.txt | awk '{print $2,$3}' | grep -v ^producing | sort | uniq -c | sort -nr | perl -pe 's/^ +//' > most_frequent_non_annotated_sequences_XXXXXXXX.ncbi.txt
+```bash
+grep -A 11 "^Sequences producing sign" XXXXXXXX_Alignment.txt |
+    awk '{print $2,$3}' | grep -v ^producing | sort | uniq -c |
+    sort -nr | perl -pe 's/^ +//' > most_frequent_non_annotated_sequences_XXXXXXXX.ncbi.txt
 ```
 
 ## Citation
