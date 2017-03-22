@@ -6,6 +6,9 @@
 # Global parameters
 NCPUS=16                # Number of CPUs to use for analyses (int, 1+)
 
+# Skip data preparation and rerun only from usearch
+SKIP_DATA_PREP=0        # 1 to skip data preparation steps, 0 to run full pipeline
+
 # Merging reads with flash
 MIN_OVERLAP=30          # Minimum number of overlapping nucleotides to merge reads (int, 1+)
 MAX_OVERLAP=280         # Maximum number of overlapping nucleotides to merge reads (int, 1+)
