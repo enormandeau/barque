@@ -80,6 +80,39 @@ name of your configuration file as an argument, like this:
 ./barque 02_info/MY_CONFIG_FILE.sh
 ```
 
+## Results
+
+Once the pipeline has run, all result files are found in the `12_results`
+folder.
+
+### Taxa count tables, named after the primer names
+
+- `PRIMER_phylum_table.csv`
+- `PRIMER_genus_table.csv`
+- `PRIMER_species_table.csv`
+
+### Chimeras
+
+- `all_PRIMER.fasta.unique.chimeras`. No chimera detected if this file is empty.
+
+### Information about sequences with multiple hits of equal score
+
+- `multiple_hits.txt`: This file is divided into groups of species. For each
+groups, the number at the top, listed as `N times(s)`, indicates how many
+unique sequences (which may represent a higher number of sequences) had equal
+quality scores when aligned to sequences of all the species in the group. It is
+worth going through this file and identify species that are very unlikely in
+the area where the samples were taken. These samples can then be added to a
+`species_to_remove.txt` file and the database can be filtered to remove them.
+The database then needs to be re-indexed for use with `usearch` and the
+pipeline must be re-run from the `usearch` scripts
+(`./01_scripts/06_usearch_multiple_hits.sh` and `./01_scripts/06_usearch.sh`).
+
+### Sequence dropout report
+
+- `sequence_dropout.csv`: Listing how many sequences were present in each
+sample for every analysis step.
+
 ## Citation
 
 When using **Barque**, please cite the following paper:
@@ -87,6 +120,7 @@ When using **Barque**, please cite the following paper:
 - TODO Add citation information and link to paper
 
 ## License
+
 CC share-alike
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Barque</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Eric Normandeau</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/enormandeau/barque" rel="dct:source">https://github.com/enormandeau/barque</a>.
