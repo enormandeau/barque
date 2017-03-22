@@ -40,7 +40,6 @@ echo "Merging forward and reverse reads"
 echo "Splitting samples by amplicon"
 ./01_scripts/03_split_amplicons.sh "$NCPUS"
 
-
 if [ $LOOK_FOR_CHIMERA == "1" ]
 then
     # Regroup amplicons to look for chimeras
