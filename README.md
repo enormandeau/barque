@@ -15,7 +15,7 @@ Please see citation and licence information at the end of this file.
 ## Documentation
 
 This documentation file can be
-[found here](https://github.com/enormandeau/barque/blob/1.3/README.md).
+[found here](https://github.com/enormandeau/barque/blob/master/README.md).
 
 ## Description
 
