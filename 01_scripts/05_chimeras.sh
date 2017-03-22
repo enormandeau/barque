@@ -13,6 +13,9 @@ ls -1 "$CHIMERASFOLDER"/*.fasta.unique |
     parallel usearch -uchime_denovo {} -uchimeout {}.uchime -chimeras {}.chimeras \
     -uchimealns {}.alignments \>\& {.}.uchime.message.small
 
+# Copy results in 12_results
+cp "$CHIMERASFOLDER"/*.fasta.unique.chimeras 12_results
+
 # Cleanup
-rm 08_chimeras/*.fasta
-rm 08_chimeras/*.fasta.unique
+#rm 08_chimeras/*.fasta
+#rm 08_chimeras/*.fasta.unique
