@@ -126,7 +126,7 @@ folder.
 
 ### Chimeras
 
-- `all_PRIMER.fasta.unique.chimeras`. No chimera detected if this file is empty.
+- `chimera_PRIMER.fasta.unique.chimeras`. No chimera detected if this file is empty.
 
 ### Information about sequences with multiple hits of equal score
 
