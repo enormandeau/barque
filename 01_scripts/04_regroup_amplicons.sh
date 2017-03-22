@@ -17,7 +17,7 @@ do
     touch "$REGROUPED"
 
     # Concatenate all samples
-    for i in $(ls -1 "$SPLITFOLDER" | grep "$amplicon")
+    for i in $(ls -1 "$SPLITFOLDER" | grep merged_"$amplicon"\.fastq.gz)
     do
         gunzip -c "$SPLITFOLDER"/"$i" >> "$REGROUPED"
     done
