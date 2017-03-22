@@ -3,9 +3,8 @@
 ## Bugs
 
 ## Features
-+ Add script to prepare database from bold and silva using parallel
-  (host prepared libraries somewhere?)
 + Make a pre-formatted BOLD database available somewhere as a .fasta file?
++ Improve names of output files
 - Support single-end data (no merge -> pseudo-merge script)
 - Add de-interleave fastq script for single-file paired-end
 - Add R script to produce read dropout figure and run from `01_scripts/08_...sh`

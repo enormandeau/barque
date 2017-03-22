@@ -86,22 +86,22 @@ will also need to put a usearch-indexed database (usually `bold.udb`) in
 the `03_databases` folder.
 
 If you do not already have the indexed database and want to use BOLD, you will
-need to download all the animal bins from
+need to download all the animal BINs from
 [this BOLD page](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home).
 Put the downloaded Fasta files in `03_databases/bold_bins` (you may need to
 create that folder), and run the commands to format the bold database:
 
 ```
-# Format each bin individually
+# Format each BIN individually (~10 minutes)
 # Note: the `species_to_remove.txt` file is optional
 ls -1 03_databases/bold_bins/*.fas.gz |
-    parallel echo {} \; ./01_scripts/util/format_bold_database.py \
+    parallel ./01_scripts/util/format_bold_database.py \
     {} {.}_prepared.fasta.gz species_to_remove.txt
 
-# Concatenate the resulting formatted bins into one file
+# Concatenate the resulting formatted bins into one file (~10 seconds)
 gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
 
-# Index the BOLD database for usearch
+# Index the BOLD database for usearch (~20 seconds)
 usearch -makeudb_usearch 03_databases/bold.fasta -output 03_databases/bold.udb
 ```
 
