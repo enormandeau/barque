@@ -111,7 +111,9 @@ pipeline must be re-run from the `usearch` scripts
 ### Sequence dropout report
 
 - `sequence_dropout.csv`: Listing how many sequences were present in each
-sample for every analysis step.
+sample for every analysis step. Depending on library and sequencing quality, as
+well as the biological diversity found at the sample site, more or less
+sequences are lost at each of the analysis steps.
 
 ## Citation
 
