@@ -53,17 +53,17 @@ You will also need to have the following programs installed on your computer.
 
 - bash 4+
 - python 2.7+ or 3.5+
-- fastq-dump from sra-toolkit to download the benchmark dataset
 - gnu parallel
 - trimmomatic
 - flash (read merger)
 - usearch
+- REMOVE? *fastq-dump from sra-toolkit to download the benchmark dataset*
 
 ## Overview
 
 During the analyses, the following steps are performed:
 
-- Get databases and format them to the usearch format (Python scripts, `usearch`)
+- Get database and index with usearch (Python scripts, `usearch`)
 - Filter and trim raw reads (`trimmomatic`)
 - Merge paired-end reads (`flash`)
 - Split merged reads by amplicon (Python script)
@@ -72,25 +72,28 @@ During the analyses, the following steps are performed:
 - Merge unique reads (Python script)
 - Find species associated with each unique read (`usearch`)
 - Summarize results (Python script)
+  - Tables of phylum, genus, and species counts per sample
+  - Chimera sequences
   - Cases of multiple hits with equal scores
-  - Number of sequences per species per sample
   - Number of reads remaining at each analysis step
-  - Output most frequent but non-annotated sequences for blast on NCBI nt/nr
+  - Output most frequent but non-annotated sequences to blast on NCBI nt/nr
 
 ## Running the pipeline
 
 For each new project, get a new copy of **Barque** from the sources listed in
 the **Installation** section and copy your data in the `04_data` folder. You
-will also need to put a `usearch`-indexed database (usually `bold.udb`) in
-the `03_databases` folder. If you do not already have the indexed database
-and want to use BOLD, you will need to download all the animal bins from
+will also need to put a usearch-indexed database (usually `bold.udb`) in
+the `03_databases` folder.
+
+If you do not already have the indexed database and want to use BOLD, you will
+need to download all the animal bins from
 [this BOLD page](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home).
-Put the downloaded Fasta files in `03_databases/bold_bins` (you may need to create that
-folder), and run the commands to format the bold database:
+Put the downloaded Fasta files in `03_databases/bold_bins` (you may need to
+create that folder), and run the commands to format the bold database:
 
 ```
-# Note: the `species_to_remove.txt` file is optional
 # Format each bin individually
+# Note: the `species_to_remove.txt` file is optional
 ls -1 03_databases/bold_bins/*.fas.gz |
     parallel echo {} \; ./01_scripts/util/format_bold_database.py \
     {} {.}_prepared.fasta.gz species_to_remove.txt
@@ -101,10 +104,6 @@ gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
 # Index the BOLD database for usearch
 usearch -makeudb_usearch 03_databases/bold.fasta -output 03_databases/bold.udb
 ```
-
-#TODO
-Make a pre-formatted BOLD database available somewhere as a .fasta file?
-
 
 Make a copy of the file named `02_info/barque_config.sh` and modify the
 parameters as needed, then launch the `barque` executable with the name of your
