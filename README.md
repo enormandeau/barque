@@ -161,7 +161,9 @@ file names) to generate a report of the most frequently found species in the
 non-annotated sequences:
 
 ```bash
-./01_scripts/10_report_species_for_non_annotated_sequences.py 12_results/NCBI-Alignment.txt most_frequent_non_annotated_sequences_species_ncbi.csv
+./01_scripts/10_report_species_for_non_annotated_sequences.py \
+    12_results/NCBI-Alignment.txt \
+    most_frequent_non_annotated_sequences_species_ncbi.csv
 ```
 
 ## Citation
