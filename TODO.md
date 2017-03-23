@@ -17,7 +17,7 @@
   - Get database (ideally with `wget`)
   - hit `.barque 02_info/barque_config.sh`
 
--------------------------
+---
 
 ## Later
 

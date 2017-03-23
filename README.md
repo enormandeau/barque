@@ -59,15 +59,20 @@ You will also need to have the following programs installed on your computer.
 - usearch
 - *REMOVE*? trimmomatic
 
-## Overview
+## Preparation
+- Install dependencies
+- Download **Barque** (see **Installation** section above)
+- Get database, format it and index it with usearch (Python scripts, `usearch`)
+- Edit `02_info/primers.csv`
+- Make a copy of `02_info/barque_config.sh` and edit the parameters
+
+## Analyses
 
 During the analyses, the following steps are performed:
 
-- Get database and index with usearch (Python scripts, `usearch`)
 - Filter and trim raw reads (`trimmomatic`)
 - Merge paired-end reads (`flash`)
 - Split merged reads by amplicon (Python script)
-- Merge all samples per amplicon (bash script)
 - Look for chimeras (optional, `usearch -uchime_denovo`)
 - Merge unique reads (Python script)
 - Find species associated with each unique read (`usearch`)
@@ -76,7 +81,23 @@ During the analyses, the following steps are performed:
   - Chimera sequences
   - Cases of multiple hits with equal scores
   - Number of reads remaining at each analysis step
-  - Output most frequent but non-annotated sequences to blast on NCBI nt/nr
+  - Most frequent non-annotated sequences to blast on NCBI nt/nr
+  - Species counts for these non-annotated sequences
+
+
+## Lather, Rince, Repeat
+
+Once the pipeline has been run, it is normal to find that unexpected species
+have been found or that a proportion of the reads have not been identified
+using the database. In these cases, you will need to create a list of unwanted
+species to be later removed from the database or download additional sequences
+for the non-annotated species from NCBI to add them to the database. Once the
+database has been improved, simply run the last part of the pipeline by making
+sure you have `SKIP_DATA_PREP=0` in your config file. You may need to repeat
+this step again until you are satisfied with the results.
+
+NOTE: You should provide justifications in your publications explaining why you
+decided to remove some species from the database.
 
 ## Running the pipeline
 
