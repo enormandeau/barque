@@ -51,13 +51,13 @@ recommended to use the latest version or at least version 1.3.
 
 You will also need to have the following programs installed on your computer.
 
+- OSX or GNU Linux
 - bash 4+
 - python 2.7+ or 3.5+
 - gnu parallel
-- trimmomatic
 - flash (read merger)
 - usearch
-- REMOVE? *fastq-dump from sra-toolkit to download the benchmark dataset*
+- *REMOVE*? trimmomatic
 
 ## Overview
 
@@ -154,15 +154,14 @@ sequences are lost at each of the analysis steps.
 in the samples but were not annotated by the pipeline. This Fasta file should be
 used to query the NCBI nt/nr database using the online portal
 [found here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch)
-to see what species may have been missed. Once the NCBI blastn search is
-finished, download the results as a text file and use the following command
-(you will need to adjust the input and output file names) to generate a report
-of the most frequently found species in the non-annotated sequences:
+to see what species may have been missed. Use `blastn` with default parameters.
+Once the NCBI blastn search is finished, download the results as a text file
+and use the following command (you will need to adjust the input and output
+file names) to generate a report of the most frequently found species in the
+non-annotated sequences:
 
 ```bash
-grep -A 11 "^Sequences producing sign" XXXXXXXX_Alignment.txt |
-    awk '{print $2,$3}' | grep -v ^producing | sort | uniq -c |
-    sort -nr | perl -pe 's/^ +//' > most_frequent_non_annotated_sequences_XXXXXXXX.ncbi.txt
+./01_scripts/10_report_species_for_non_annotated_sequences.py 12_results/NCBI-Alignment.txt most_frequent_non_annotated_sequences_species_ncbi.csv
 ```
 
 ## Citation

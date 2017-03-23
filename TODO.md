@@ -1,10 +1,14 @@
 # Improvements
 
 ## Before next release
-+ Add graphical representation of the pipeline to README.md
 
+### Bugs
+
+### Features
++ Add `NUM_NON_ANNOTATED_SEQ=100` parameter
++ Add graphical representation of the pipeline to README.md
 + (...) Fix hard coded path for trimmomatic (Include .jar in `01_scripts/util`?)
-+ (...) Make a pre-formatted BOLD database available somewhere as a .fasta file
+- (...) Make a pre-formatted BOLD database available somewhere as a .fasta file
 
 ### Benchmark dataset
 + Choose test dataset and include it
@@ -21,6 +25,7 @@
 ### Bugs
 
 ### Features
+- Implement `natural_sort.py` for `08_summarize_read_dropout.sh`
 - Support single-end data (no merge -> pseudo-merge script)
 - Add de-interleave fastq script for single-file paired-end
 - Add R script to produce read dropout figure and run from `01_scripts/08_...sh`
