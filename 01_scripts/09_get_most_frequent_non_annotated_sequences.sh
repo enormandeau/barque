@@ -30,7 +30,7 @@ do
     ./01_scripts/util/fasta_remove.py 14_non_annotated_sequences/"$input"_unique.fasta 14_non_annotated_sequences/"$input"_with_result.ids 14_non_annotated_sequences/"$input"_without_result.fasta
 done
 
-# Get the 20 most represented sequences per sample
-head -20 14_non_annotated_sequences/*_without_result.fasta |
+# Get the 100 most represented unique sequences per sample
+head -100 14_non_annotated_sequences/*_without_result.fasta |
     grep -v "^==" |
     grep -vE "^$" > 12_results/most_frequent_non_annotated_sequences.fasta
