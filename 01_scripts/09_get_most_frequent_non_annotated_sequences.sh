@@ -3,6 +3,9 @@
 # find the 100 most frequent sequences and put them in a fasta file for further
 # blasts on NCBI nr/nt.
 
+# Parameters
+NUM_NON_ANNOTATED_SEQ=$1
+
 # Get names of unwanted sequences from 11_usearch
 echo "Finding unwanted sequences (these with usearch results)..."
 ls -1 11_usearch/ | cut -d "_" -f 1 | sort -u | while read i
@@ -31,6 +34,6 @@ do
 done
 
 # Get the 100 most represented unique sequences per sample
-head -100 14_non_annotated_sequences/*_without_result.fasta |
+head -n $[ $NUM_NON_ANNOTATED_SEQ * 2 ] 14_non_annotated_sequences/*_without_result.fasta |
     grep -v "^==" |
     grep -vE "^$" > 12_results/most_frequent_non_annotated_sequences.fasta

@@ -15,21 +15,19 @@ CONFIG_FILE=$1
 CONFIG_FILENAME=$(basename "$CONFIG_FILE")
 LOG_FOLDER="99_log_files"
 
-#cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$SCRIPT_NAME"
-
 # Import configfile and keep copy in 99_log_files
 if [ -e "$CONFIG_FILE" -a -s "$CONFIG_FILE" ]
 then
     source "$CONFIG_FILE"
-    cp $CONFIG_FILE $LOG_FOLDER/"$TIMESTAMP"_"$CONFIG_FILENAME"
-    cp 02_info/primers.csv $LOG_FOLDER/"$TIMESTAMP"_primers.csv
+    cp "$CONFIG_FILE" "$LOG_FOLDER"/"$TIMESTAMP"_"$CONFIG_FILENAME"
+    cp 02_info/primers.csv "$LOG_FOLDER"/"$TIMESTAMP"_primers.csv
 else
     echo "Config file does not exist or is empty."
     exit 1
 fi
 
 # Data preparation
-if [ $SKIP_DATA_PREP == "0" ]
+if [ "$SKIP_DATA_PREP" == "0" ]
 then
     echo "Preparing data"
 
@@ -46,7 +44,7 @@ then
     ./01_scripts/03_split_amplicons.sh "$NCPUS"
 
     # Chimeras
-    if [ $LOOK_FOR_CHIMERA == "1" ]
+    if [ "$LOOK_FOR_CHIMERA" == "1" ]
     then
         # Regroup amplicons to look for chimeras
         echo "Regrouping amplicons"
@@ -55,14 +53,14 @@ then
         # Look for chimeras
         echo "Looking for chimeras"
         ./01_scripts/05_chimeras.sh
-    elif [ $LOOK_FOR_CHIMERA == "0" ]
+    elif [ "$LOOK_FOR_CHIMERA" == "0" ]
     then
         echo "Skipping chimera detection"
     else
         echo "WARNING: Invalid value in config file for LOOK_FOR_CHIMERA"
     fi
 
-elif [ $SKIP_DATA_PREP == "1" ]
+elif [ "$SKIP_DATA_PREP" == "1" ]
 then
     echo "Skipping data preparation"
 else
@@ -92,4 +90,4 @@ echo "Looking at sequence dropout"
 
 # Finding most frequent non-annotated sequences
 echo "Finding most frequent non-annotated sequences"
-./01_scripts/09_get_most_frequent_non_annotated_sequences.sh
+./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ"
