@@ -3,8 +3,9 @@
 ## Before next release
 
 ### Features
-- (...) Fix hard coded path for trimmomatic (Include .jar in `01_scripts/util`?)
-- (...) Make a pre-formatted BOLD database available somewhere as a .fasta file
++ Write to authors again on Monday
+  - (...) Fix hard coded path for trimmomatic (Include .jar in `01_scripts/util`?)
+  - (...) Make a pre-formatted BOLD database available somewhere as a .fasta file
 
 ---
 
