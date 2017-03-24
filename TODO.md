@@ -2,28 +2,16 @@
 
 ## Before next release
 
-### Bugs
-
 ### Features
-+ Add graphical representation of the pipeline to README.md
-+ (...) Fix hard coded path for trimmomatic (Include .jar in `01_scripts/util`?)
+- (...) Fix hard coded path for trimmomatic (Include .jar in `01_scripts/util`?)
 - (...) Make a pre-formatted BOLD database available somewhere as a .fasta file
-
-### Benchmark dataset
-+ Choose test dataset and include it
-+ Show how to run a small test
-  - Move test dataset from `00_archive` to `04_data`
-  - Move test dataset `primers.csv` to `02_info/primers.csv`
-  - Get database (ideally with `wget`)
-  - hit `.barque 02_info/barque_config.sh`
 
 ---
 
 ## Later
 
-### Bugs
-
 ### Features
+- Add graphical representation of the pipeline for README.md and article
 - Implement `natural_sort.py` for `08_summarize_read_dropout.sh`
 - Support single-end data (no merge -> pseudo-merge script)
 - Add de-interleave fastq script for single-file paired-end

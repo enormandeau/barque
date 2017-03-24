@@ -84,7 +84,6 @@ During the analyses, the following steps are performed:
   - Most frequent non-annotated sequences to blast on NCBI nt/nr
   - Species counts for these non-annotated sequences
 
-
 ## Lather, Rince, Repeat
 
 Once the pipeline has been run, it is normal to find that unexpected species
@@ -186,6 +185,15 @@ non-annotated sequences:
     12_results/NCBI-Alignment.txt \
     most_frequent_non_annotated_sequences_species_ncbi.csv
 ```
+
+## Test dataset
+
+A test dataset and corresponding `primers.csv` file is available as
+[a sister repository on GitHub](https://github.com/enormandeau/barque_test_dataset).
+Download the repository and then move the data in **Barque**'s `04_data` folder
+and the `primers.csv` file in the `02_info` folder. Follow the normal pipeline
+procedure (including database preparation) to analyse this small dataset, which
+should run in one to ten minutes depending on your computer.
 
 ## Citation
 
