@@ -106,6 +106,9 @@ with open(primer_file) as pfile:
         if line.startswith("#"):
             continue
 
+        if not line.strip():
+            continue
+
         # Get primer infos
         name, forward, reverse, min_length, database = line.strip().split(",")
         forward_length = len(forward)

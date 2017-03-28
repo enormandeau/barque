@@ -5,7 +5,7 @@
 
 # Global variables
 BASE=$(basename $1)
-TRIMMOMATIC_JAR=/home/labolb/Software/trinity_pipeline_ibis/00_archive/trimmomatic-0.30.jar
+TRIMMOMATIC_JAR="01_scripts/util/trimmomatic-0.36.jar"
 ADAPTERFILE="02_info/illumina_adapters.fas"
 DATAFOLDER="04_data"
 TRIMMEDFOLDER="05_trimmed"
