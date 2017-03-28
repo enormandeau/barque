@@ -6,8 +6,7 @@
 + Crashes at various steps if no sequences in one of the files
 
 ### Finish paper
-+ ++ Find god damn benchmarking dataset
-  - Use Victoria's but publish only subset?
++ Use Victoria's dataset for benchmark but publish only subset for test
 + Finish first draft
 + Add references
 - Have Anaïs re-read it
@@ -15,8 +14,12 @@
 - Submit!
 
 ### Features
-+ Include trimmomatic .jar file in `01_scripts/util`
 + Permit interleaved input
+
+### Documentation
++ Describe input sequence format requirements
+  - file name
+  - fastq and/or fastq.gz
 
 ---
 

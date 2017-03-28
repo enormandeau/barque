@@ -54,10 +54,9 @@ You will also need to have the following programs installed on your computer.
 - OSX or GNU Linux
 - bash 4+
 - python 2.7+ or 3.5+
-- gnu parallel
-- flash (read merger)
-- usearch
-- *REMOVE*? trimmomatic
+- [gnu parallel](https://www.gnu.org/software/parallel/)
+- [flash (read merger)](https://sourceforge.net/projects/flashpage/)
+- [usearch](http://www.drive5.com/usearch/)
 
 ## Preparation
 - Install dependencies
