@@ -12,6 +12,3 @@ ls -1 "$CHIMERASFOLDER"/*.fasta |
 ls -1 "$CHIMERASFOLDER"/*.fasta.unique |
     parallel vsearch --uchime_denovo {} --chimeras {}.chimeras \
         --nonchimeras {}.nonchimeras --borderline {}.borderline
-
-# Copy results in 12_results
-cp "$CHIMERASFOLDER"/*.fasta.unique.chimeras 12_results
