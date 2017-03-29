@@ -15,7 +15,7 @@ MIN_OVERLAP=30              # Minimum number of overlapping nucleotides to merge
 MAX_OVERLAP=280             # Maximum number of overlapping nucleotides to merge reads (int, 1+)
 
 # Running or skipping chimera detection
-LOOK_FOR_CHIMERA=0          # 1 to search for chimeras, 0 to skip (can be LONG for big samples)
+LOOK_FOR_CHIMERA=1          # 1 to search for chimeras, 0 to skip (can be LONG for big samples)
 
 # Usearch
 SIMILARITY_USEARCH=0.95     # Minimum similarity to database to keep in intermediate results (float, 0-1)
