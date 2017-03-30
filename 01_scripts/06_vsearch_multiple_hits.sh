@@ -16,7 +16,7 @@ VSEARCHFOLDER="09_vsearch_multiple_hits"
 # Find best hit in database using vsearch
 for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1}')
 do
-    database=$(grep -v "^#" "$INFOFOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $6}').fasta
+    database=$(grep -v "^#" "$INFOFOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $6}').fasta.gz
     echo "#######################"
     echo "# database: $database"
     echo "#######################"
@@ -34,9 +34,6 @@ do
 
         # Run vsearch
         echo "Running vsearch on $fasta with database $database"
-        #vsearch -vsearch_local "$CHIMERAFOLDER"/"$fasta" -db 03_databases/"$database" -id "$SIMILARITY_RESULTS" \
-        #    -maxaccepts "$MAX_ACCEPTS" -maxrejects "$MAX_REJECTS" -strand both -blast6out \
-        #    "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.udb}" -top_hits_only -query_cov "$QUERY_COV"
         vsearch --usearch_global "$CHIMERAFOLDER"/"$fasta" -db 03_databases/"$database" \
             --threads "$NCPUS" --qmask none --dbmask none --id "$SIMILARITY_VSEARCH" \
             --blast6out "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta}" \
