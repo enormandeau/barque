@@ -56,12 +56,12 @@ You will also need to have the following programs installed on your computer.
 - python 2.7+ or 3.5+
 - [gnu parallel](https://www.gnu.org/software/parallel/)
 - [flash (read merger)](https://sourceforge.net/projects/flashpage/)
-- [usearch](http://www.drive5.com/usearch/)
+- [vsearch](https://github.com/torognes/vsearch)
 
 ## Preparation
 - Install dependencies
 - Download **Barque** (see **Installation** section above)
-- Get database, format it and index it with usearch (Python scripts, `usearch`)
+- Get database and format it (Python scripts)
 - Edit `02_info/primers.csv`
 - Make a copy of `02_info/barque_config.sh` and edit the parameters
 
@@ -72,9 +72,9 @@ During the analyses, the following steps are performed:
 - Filter and trim raw reads (`trimmomatic`)
 - Merge paired-end reads (`flash`)
 - Split merged reads by amplicon (Python script)
-- Look for chimeras (optional, `usearch -uchime_denovo`)
+- Look for chimeras (optional, `vsearch --vsearch_global`)
 - Merge unique reads (Python script)
-- Find species associated with each unique read (`usearch`)
+- Find species associated with each unique read (`vsearch`)
 - Summarize results (Python script)
   - Tables of phylum, genus, and species counts per sample
   - Chimera sequences
@@ -101,8 +101,8 @@ decided to remove some species from the database.
 
 For each new project, get a new copy of **Barque** from the sources listed in
 the **Installation** section and copy your data in the `04_data` folder. You
-will also need to put a usearch-indexed database (usually `bold.udb`) in
-the `03_databases` folder.
+will also need to put a database in Fasta format (usually `bold.fasta`) in the
+`03_databases` folder.
 
 If you do not already have the indexed database and want to use BOLD, you will
 need to download all the animal BINs from
@@ -119,9 +119,6 @@ ls -1 03_databases/bold_bins/*.fas.gz |
 
 # Concatenate the resulting formatted bins into one file (~10 seconds)
 gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
-
-# Index the BOLD database for usearch (~20 seconds)
-usearch -makeudb_usearch 03_databases/bold.fasta -output 03_databases/bold.udb
 ```
 
 Make a copy of the file named `02_info/barque_config.sh` and modify the
@@ -156,9 +153,8 @@ quality scores when aligned to sequences of all the species in the group. It is
 worth going through this file and identify species that are very unlikely in
 the area where the samples were taken. These samples can then be added to a
 `species_to_remove.txt` file and the database can be filtered to remove them.
-The database then needs to be re-indexed for use with `usearch` and the
-pipeline must be re-run from the `usearch` scripts
-(`./01_scripts/06_usearch_multiple_hits.sh` and `./01_scripts/06_usearch.sh`).
+The pipeline must then be re-run from the `vsearch` scripts
+(`./01_scripts/06_vsearch_multiple_hits.sh` and `./01_scripts/06_vsearch.sh`).
 
 ### Sequence dropout report
 

@@ -69,22 +69,26 @@ else
     echo "WARNING: Invalid value in config file for SKIP_DATA_PREP"
 fi
 
-# Run usearch for multiple hits
-echo "Running usearch with multiple hits"
-./01_scripts/06_usearch_multiple_hits.sh "$SIMILARITY_RESULTS" "$SIMILARITY_USEARCH" "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV"
+# Run vsearch for multiple hits
+echo "Running vsearch with multiple hits"
+./01_scripts/06_vsearch_multiple_hits.sh "$SIMILARITY_RESULTS" "$SIMILARITY_VSEARCH" \
+    "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
 # Summarize results for multiple hits
 echo "Summarizing results with multiple hits"
-./01_scripts/07_summarize_results.py 09_usearch_multiple_hits/ 10_results_multiple_hits/ 02_info/primers.csv "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
+./01_scripts/07_summarize_results.py 09_vsearch_multiple_hits/ 10_results_multiple_hits/ \
+    02_info/primers.csv "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 ./01_scripts/util/find_multiple_hits.sh
 
-# Run usearch
-echo "Running usearch"
-./01_scripts/06_usearch.sh "$SIMILARITY_RESULTS" "$SIMILARITY_USEARCH" "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV"
+# Run vsearch
+echo "Running vsearch"
+./01_scripts/06_vsearch.sh "$SIMILARITY_RESULTS" "$SIMILARITY_VSEARCH" "$MAX_ACCEPTS" \
+    "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
 # Summarize results
 echo "Summarizing results"
-./01_scripts/07_summarize_results.py 11_usearch/ 12_results/ 02_info/primers.csv "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
+./01_scripts/07_summarize_results.py 11_vsearch/ 12_results/ 02_info/primers.csv \
+    "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 
 # Looking at sequence dropout
 echo "Looking at sequence dropout"

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""Summarize usearch results
+"""Summarize vsearch results
 
 Usage:
     ./01_scripts/07_summarize_results.py input_folder output_folder primer_file min_similarity min_length min_coverage
 
 Where:
-    input_folder is either '09_usearch_multiple_hits' or '11_usearch'
+    input_folder is either '09_vsearch_multiple_hits' or '11_vsearch'
     output_folder is either '10_results_multiple_hits' or '12_results'
     primer_file is '02_info/primers.csv'
     min_similarity is a float between 90 and 100
@@ -38,7 +38,7 @@ with open(primer_file) as pfile:
         l = line.strip()
         primers.append(l.split(",")[0])
 
-# Read usearch results form input_folder
+# Read vsearch results form input_folder
 result_files = os.listdir(input_folder)
 species_dictionary = {}
 genus_dictionary = {}
@@ -50,6 +50,7 @@ for primer in primers:
     genus_dictionary[primer] = {}
     phylum_dictionary[primer] = {}
     primer_results = [filename for filename in result_files if primer in filename]
+    primer_results = [filename for filename in primer_results if not filename.endswith("_matched.fasta")]
 
     # Iterate through result files for primer
     for result_file in primer_results:

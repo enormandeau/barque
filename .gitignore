@@ -32,9 +32,9 @@
 06_merged/*
 07_split_amplicons/*
 08_chimeras/*
-09_usearch_multiple_hits/*
+09_vsearch_multiple_hits/*
 10_results_multiple_hits/*
-11_usearch/*
+11_vsearch/*
 12_results/*
 13_read_dropout/*
 14_non_annotated_sequences/*

@@ -1,5 +1,5 @@
 #!/bin/bash
-# For each sample, eliminate the sequences with annotation found with usearch,
+# For each sample, eliminate the sequences with annotation found with vsearch,
 # find the 100 most frequent sequences and put them in a fasta file for further
 # blasts on NCBI nr/nt.
 
@@ -7,11 +7,11 @@
 NUM_NON_ANNOTATED_SEQ=$1
 CHIMERAFOLDER="08_chimeras"
 
-# Get names of unwanted sequences from 11_usearch
-echo "Finding unwanted sequences (these with usearch results)..."
-ls -1 11_usearch/ | cut -d "_" -f 1 | sort -u | while read i
+# Get names of unwanted sequences from 11_vsearch
+echo "Finding unwanted sequences (these with vsearch results)..."
+ls -1 11_vsearch/ | cut -d "_" -f 1 | sort -u | while read i
 do
-    cat 11_usearch/"$i"_* |
+    cat 11_vsearch/"$i"_* |
         awk '{print $1}' |
         cut -d ";" -f 1 > 14_non_annotated_sequences/"$i"_with_result.ids
 

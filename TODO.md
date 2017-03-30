@@ -4,9 +4,10 @@
 
 ## Before next release
 * Use vsearch for the blasts
-  - Test if vsearch gives similar result
+  - Replace bold.udb by bold.fasta in scripts and test data folder
 
 ### Bugs
+- Report real number of reads (not unique reads) affected by multiple hits
 
 ### Benchmarking
 * Victoria's dataset (first 100k sequences per sample)
@@ -17,6 +18,7 @@
   - file name
   - fastq and/or fastq.gz
 + Describe test dataset on `github.com/enormandeau/barque_test_dataset`
+  - Include good `primers.csv` file
 
 ### Finish paper
 - Finish first draft
