@@ -1,27 +1,26 @@
 # Improvements
 
+### Features
+
 ## Before next release
+* Use vsearch for the blasts
+  - Test if vsearch gives similar result
 
 ### Bugs
-+ Crashes at various steps if no sequences in one of the files
 
-### Finish paper
-+ Finish first draft
-+ Add references
-
-### Features
-* Benchmark with Victoria's dataset (make available)
-  - Full dataset
-  - CPU number (1,2,4,8,16)
-  - SSD vs. hard drive
-  - Mermory usage
-  - With and without chimera detection
-  - Impact of dataset size?
+### Benchmarking
+* Victoria's dataset (first 100k sequences per sample)
+  - See benchmarking.xls
 
 ### Documentation
 * Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
++ Describe test dataset on `github.com/enormandeau/barque_test_dataset`
+
+### Finish paper
+- Finish first draft
+- Add references
 
 ---
 

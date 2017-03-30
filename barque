@@ -52,9 +52,11 @@ then
 
         # Look for chimeras
         echo "Looking for chimeras"
-        ./01_scripts/05_chimeras.sh
+        ./01_scripts/05_chimeras.sh "$NCPUS"
     elif [ "$LOOK_FOR_CHIMERA" == "0" ]
     then
+        # Copy files from 07 to 08
+        cp -l 07_split_amplicons/*.fastq.gz 08_chimeras/
         echo "Skipping chimera detection"
     else
         echo "WARNING: Invalid value in config file for LOOK_FOR_CHIMERA"

@@ -5,6 +5,7 @@
 
 # Parameters
 NUM_NON_ANNOTATED_SEQ=$1
+CHIMERAFOLDER="08_chimeras"
 
 # Get names of unwanted sequences from 11_usearch
 echo "Finding unwanted sequences (these with usearch results)..."
@@ -15,14 +16,14 @@ do
         cut -d ";" -f 1 > 14_non_annotated_sequences/"$i"_with_result.ids
 
     # Sort them by decreasing order of count (most frequent sequences first)
-    cat 07_split_amplicons/"$i"_*_unique.fasta > 14_non_annotated_sequences/"$i"_temp.fasta
+    cat "$CHIMERAFOLDER"/"$i"_*_unique.fasta > 14_non_annotated_sequences/"$i"_temp.fasta
     ./01_scripts/util/fasta_sort_by_count.py \
         14_non_annotated_sequences/"$i"_temp.fasta \
         14_non_annotated_sequences/"$i"_unique.fasta
     rm 14_non_annotated_sequences/"$i"_temp.fasta
 done
 
-# Remove these from 07_split_amplicons/*.fasta and output a fasta file per sample
+# Remove these from "$CHIMERAFOLDER"/*.fasta and output a fasta file per sample
 echo "Removing these sequences from the merged sequences of each sample..."
 for i in 14_non_annotated_sequences/*.ids
 do

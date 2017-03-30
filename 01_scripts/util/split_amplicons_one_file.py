@@ -110,7 +110,7 @@ with open(primer_file) as pfile:
             continue
 
         # Get primer infos
-        name, forward, reverse, min_length, database = line.strip().split(",")
+        name, forward, reverse, min_length, max_length, database = line.strip().split(",")
         forward_length = len(forward)
         reverse_length = len(reverse)
 
@@ -127,7 +127,7 @@ with open(primer_file) as pfile:
         forward = "^" + forward
         reverse = reverse + "$"
 
-        primers[name] = (re.compile(forward), re.compile(reverse), min_length, forward_length, reverse_length)
+        primers[name] = (re.compile(forward), re.compile(reverse), min_length, max_length, forward_length, reverse_length)
 
 ## Open output fastq.gz files
 output_files = {}
@@ -136,6 +136,7 @@ input_file = os.path.basename(fastq_file)
 # Add fake primers to automatically open file handles
 primers["not_found"] = "FAKE"
 primers["too_short"] = "FAKE"
+primers["too_long"] = "FAKE"
 primers["forward_only"] = "FAKE"
 
 # Open output file handles
@@ -160,11 +161,16 @@ for s in sequences:
         if primers[p] == "FAKE":
             continue
 
-        forward, reverse, min_length, forward_length, reverse_length = primers[p]
+        forward, reverse, min_length, max_length, forward_length, reverse_length = primers[p]
 
         # Filter short amplicons
         if len(s.seq) - forward_length - reverse_length < int(min_length):
             s.write_to_file(output_files["too_short"])
+            sequence_found = True
+
+        # Filter long amplicons
+        if len(s.seq) - forward_length - reverse_length > int(max_length):
+            s.write_to_file(output_files["too_long"])
             sequence_found = True
 
         else:

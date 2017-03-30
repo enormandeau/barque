@@ -44,6 +44,19 @@ do
 done
 cd ..
 
+# 08_chimeras
+step="08_chimeras"
+cd "$step"
+for i in $(grep -v "^#" ../02_info/primers.csv | awk -F "," '{print $1}')
+do
+    echo -e "$step" > ../13_read_dropout/"$step"_"$i"
+    for j in $(ls -1 *merged_"$i"*.gz | grep "$i")
+    do
+        echo -e $(echo "$j" | cut -d "_" -f 1)"\t"$(echo $(gunzip -c "$j" | wc -l) / 4 | bc | cut -d "." -f 1)
+    done | sort -g | awk '{print $2}' >> ../13_read_dropout/"$step"_"$i"
+done
+cd ..
+
 # 12_results
 step="12_results"
 cd "$step"
@@ -56,5 +69,5 @@ cd ..
 # Put everything together
 step="13_read_dropout"
 cd "$step"
-paste -d "," 04_data 05_trimmed 06_merged 07_split_amplicons_* 12_results_* > ../12_results/sequence_dropout.csv
+paste -d "," 04_data 05_trimmed 06_merged 07_split_amplicons_* 08_chimeras_* 12_results_* > ../12_results/sequence_dropout.csv
 cd ..
