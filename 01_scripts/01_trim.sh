@@ -10,7 +10,6 @@ NCPUS=$1
 DATAFOLDER="04_data"
 
 # Parallelize on all raw data files
-ls -1 "$DATAFOLDER"/*.fastq.gz |
+ls -1 -S "$DATAFOLDER"/*_R1_*.fastq.gz |
     perl -pe 's/R[12].*gz//' |
-    sort -u |
     parallel -k -j "$NCPUS" ./01_scripts/util/trimmomatic.sh {}

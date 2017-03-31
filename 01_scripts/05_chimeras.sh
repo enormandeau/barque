@@ -11,11 +11,11 @@ CHIMERASFOLDER="08_chimeras"
 rm "$CHIMERASFOLDER"/all.chimeras 2>/dev/null
 
 # Remove duplicated sequences
-ls -1 "$CHIMERASFOLDER"/*.fasta |
+ls -1 -S "$CHIMERASFOLDER"/*.fasta |
     parallel vsearch --derep_fulllength {} --output {}.unique --sizeout
 
 # Use regrouped amplicons to find chimeras with uchime
-ls -1 "$CHIMERASFOLDER"/*.fasta.unique |
+ls -1 -S "$CHIMERASFOLDER"/*.fasta.unique |
     parallel vsearch --uchime_denovo {} --chimeras {}.chimeras \
         --nonchimeras {}.nonchimeras --borderline {}.borderline
 
@@ -27,10 +27,10 @@ for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1
 do
     # Remove chimera sequences from split folder
     echo "$amplicon"
-    ls -1 "$SPLITFOLDER"/*"$amplicon"*.fastq.gz | parallel -j "$NCPUS" \
+    ls -1 -S "$SPLITFOLDER"/*"$amplicon"*.fastq.gz | parallel -j "$NCPUS" \
         ./01_scripts/util/remove_chimeras.py {} "$CHIMERASFOLDER"/all.chimeras "$CHIMERASFOLDER"/{/}
 
 done
 
 # Cleanup
-ls -1 "$CHIMERASFOLDER"/chimera_* | parallel -j "$NCPUS" gzip {}
+ls -1 -S "$CHIMERASFOLDER"/chimera_* | parallel -j "$NCPUS" gzip {}

@@ -44,4 +44,4 @@ do
 done
 
 # Cleanup fasta files
-ls -1 "$CHIMERAFOLDER"/*.fasta | parallel -j "$NCPUS" gzip {}
+ls -1 -S "$CHIMERAFOLDER"/*.fasta | parallel -j "$NCPUS" gzip {}

@@ -16,7 +16,7 @@ do
         cut -d ";" -f 1 > 14_non_annotated_sequences/"$i"_with_result.ids
 
     # Sort them by decreasing order of count (most frequent sequences first)
-    cat "$CHIMERAFOLDER"/"$i"_*_unique.fasta > 14_non_annotated_sequences/"$i"_temp.fasta
+    gunzip -c "$CHIMERAFOLDER"/"$i"_*_unique.fasta.gz > 14_non_annotated_sequences/"$i"_temp.fasta
     ./01_scripts/util/fasta_sort_by_count.py \
         14_non_annotated_sequences/"$i"_temp.fasta \
         14_non_annotated_sequences/"$i"_unique.fasta

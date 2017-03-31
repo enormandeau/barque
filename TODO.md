@@ -43,8 +43,6 @@
 - Have 2 values for the number of CPUs:
   - For data preparation steps (read-write intensive)
   - For the vsearch steps (computation intensive)
-- Always treat biggest samples first in each step
-- Find single-thread operations and parallelize them
 - Blast only unique sequences for the whole dataset (v2.0)
   (big boost if lots of samples)
   - Create dictionary of unique reads
