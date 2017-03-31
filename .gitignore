@@ -33,11 +33,12 @@
 07_split_amplicons/*
 08_chimeras/*
 09_vsearch_multiple_hits/*
-10_results_multiple_hits/*
+10_summary_multiple_hits/*
 11_vsearch/*
-12_results/*
+12_summary/*
 13_read_dropout/*
 14_non_annotated_sequences/*
+15_results/*
 99_log_files/*
 most_present_non_annotated_sequences*
 multiple_hits.txt

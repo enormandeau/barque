@@ -131,7 +131,7 @@ configuration file as an argument, like this:
 
 ## Results
 
-Once the pipeline has run, all result files are found in the `12_results`
+Once the pipeline has run, all result files are found in the `15_results`
 folder.
 
 ### Taxa count tables, named after the primer names
@@ -175,9 +175,10 @@ and use the following command (you will need to adjust the input and output
 file names) to generate a report of the most frequently found species in the
 non-annotated sequences:
 
+#TODO update this part
 ```bash
 ./01_scripts/10_report_species_for_non_annotated_sequences.py \
-    12_results/NCBI-Alignment.txt \
+    12_summary/NCBI-Alignment.txt \
     most_frequent_non_annotated_sequences_species_ncbi.csv
 ```
 

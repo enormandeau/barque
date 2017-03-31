@@ -6,7 +6,7 @@ Usage:
 
 Where:
     input_folder is either '09_vsearch_multiple_hits' or '11_vsearch'
-    output_folder is either '10_results_multiple_hits' or '12_results'
+    output_folder is either '10_summary_multiple_hits' or '12_summary'
     primer_file is '02_info/primers.csv'
     min_similarity is a float between 90 and 100
 """

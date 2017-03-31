@@ -16,7 +16,7 @@ do
         cut -d ";" -f 1 > 14_non_annotated_sequences/"$i"_with_result.ids
 
     # Sort them by decreasing order of count (most frequent sequences first)
-    gunzip -c "$CHIMERAFOLDER"/"$i"_*_unique.fasta.gz > 14_non_annotated_sequences/"$i"_temp.fasta
+    cp "$CHIMERAFOLDER"/"$i"_*_unique.fasta 14_non_annotated_sequences/"$i"_temp.fasta
     ./01_scripts/util/fasta_sort_by_count.py \
         14_non_annotated_sequences/"$i"_temp.fasta \
         14_non_annotated_sequences/"$i"_unique.fasta
@@ -37,4 +37,4 @@ done
 # Get the 100 most represented unique sequences per sample
 head -n $[ $NUM_NON_ANNOTATED_SEQ * 2 ] 14_non_annotated_sequences/*_without_result.fasta |
     grep -v "^==" |
-    grep -vE "^$" > 12_results/most_frequent_non_annotated_sequences.fasta
+    grep -vE "^$" > 15_results/most_frequent_non_annotated_sequences.fasta

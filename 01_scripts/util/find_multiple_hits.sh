@@ -18,4 +18,4 @@ done | perl -pe 's/\n/_newline_/g' |
     awk '{print $1,$2}' |
     perl -pe 's/ / time(s):\n/' |
     perl -pe 's/_newline_/\n/g' |
-    perl -pe 's/^(\d)/\n\1/' > 12_results/multiple_hits.txt
+    perl -pe 's/^(\d)/\n\1/' > 15_results/multiple_hits.txt

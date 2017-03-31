@@ -76,7 +76,7 @@ echo "Running vsearch with multiple hits"
 
 # Summarize results for multiple hits
 echo "Summarizing results with multiple hits"
-./01_scripts/07_summarize_results.py 09_vsearch_multiple_hits/ 10_results_multiple_hits/ \
+./01_scripts/07_summarize_results.py 09_vsearch_multiple_hits/ 10_summary_multiple_hits/ \
     02_info/primers.csv "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 ./01_scripts/util/find_multiple_hits.sh
 
@@ -87,8 +87,9 @@ echo "Running vsearch"
 
 # Summarize results
 echo "Summarizing results"
-./01_scripts/07_summarize_results.py 11_vsearch/ 12_results/ 02_info/primers.csv \
+./01_scripts/07_summarize_results.py 11_vsearch/ 12_summary/ 02_info/primers.csv \
     "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
+cp 12_summary/*_species_table.csv 15_results
 
 # Looking at sequence dropout
 echo "Looking at sequence dropout"
