@@ -40,8 +40,8 @@ do
             --dbmatched "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta}_matched.fasta" \
             --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits 1 \
             --query_cov "$QUERY_COV"
-
-        # Cleanup fasta file
-        #rm "$CHIMERAFOLDER"/"$fasta"
     done
 done
+
+# Cleanup fasta files
+ls -1 "$CHIMERAFOLDER"/*.fasta | parallel -j "$NCPUS" gzip {}
