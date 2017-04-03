@@ -25,7 +25,7 @@ QUERY_COV=0.6               # At least that proportion of the sequence must matc
 
 # Filters
 SIMILARITY_RESULTS=0.96     # Minimum similarity to database to keep in results (float, 0-1)
-MIN_HIT_LENGTH=100          # Minimum vsearch hit length to keep in results (int, 1+)
+MIN_HIT_LENGTH=120          # Minimum vsearch hit length to keep in results (int, 1+)
 MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at least one sample
                             #   to keep in results (int, 1+)
 # Non-annotated reads

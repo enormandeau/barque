@@ -33,7 +33,7 @@ then
 
     # Trim and clean reads
     echo "Trimming and filtering reads"
-    ./01_scripts/01_trim.sh "$NCPUS"
+    ./01_scripts/01_trim.sh "$NCPUS" "$MIN_HIT_LENGTH"
 
     # Merge forward and reverse reads
     echo "Merging forward and reverse reads"

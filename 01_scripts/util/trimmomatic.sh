@@ -5,6 +5,7 @@
 
 # Global variables
 BASE=$(basename $1)
+MIN_HIT_LENGTH=$2
 TRIMMOMATIC_JAR="01_scripts/util/trimmomatic-0.36.jar"
 ADAPTERFILE="02_info/illumina_adapters.fas"
 DATAFOLDER="04_data"
@@ -22,7 +23,7 @@ java -XX:ParallelGCThreads=1 -cp $TRIMMOMATIC_JAR org.usadellab.trimmomatic.Trim
     LEADING:20 \
     TRAILING:20 \
     SLIDINGWINDOW:20:20 \
-    MINLEN:100
+    MINLEN:$MIN_HIT_LENGTH
 
 ## Cleanup
 rm "$TRIMMEDFOLDER"/"$BASE"R1_001.single.fastq.gz 2>/dev/null

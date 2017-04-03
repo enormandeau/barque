@@ -1,11 +1,13 @@
 # Before 1.3
 
-## Bugs
-+ Confirm sequence lengths at each step
-  - `07_split_by_amplicon.py` seems to keep reads that are too short (down to 61bp)
+## Results
++ Report barcode splitting results (too long, too short...)
 
 ## Interface
-- Improve messages for each step
++ Improve messages for each step
+
+## Benchmarking
+- Victoria's dataset first 100k sequences per sample
 
 ## Documentation
 - Describe input sequence format requirements
@@ -13,9 +15,6 @@
   - fastq and/or fastq.gz
 - Describe test dataset on `github.com/enormandeau/barque_test_dataset`
   - Include good `primers.csv` file
-
-## Benchmarking
-+ Victoria's dataset first 100k sequences per sample
 
 ## Finish paper
 - Finish first draft

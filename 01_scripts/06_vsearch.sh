@@ -39,7 +39,7 @@ do
             --blast6out "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta}" \
             --dbmatched "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta}_matched.fasta" \
             --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits 1 \
-            --query_cov "$QUERY_COV"
+            --query_cov "$QUERY_COV" --fasta_width 0
     done
 done
 

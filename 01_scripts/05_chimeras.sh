@@ -12,12 +12,12 @@ rm "$CHIMERASFOLDER"/all.chimeras 2>/dev/null
 
 # Remove duplicated sequences
 ls -1 -S "$CHIMERASFOLDER"/*.fasta |
-    parallel vsearch --derep_fulllength {} --output {}.unique --sizeout
+    parallel vsearch --derep_fulllength {} --output {}.unique --sizeout --fasta_width 0
 
 # Use regrouped amplicons to find chimeras with uchime
 ls -1 -S "$CHIMERASFOLDER"/*.fasta.unique |
     parallel vsearch --uchime_denovo {} --chimeras {}.chimeras \
-        --nonchimeras {}.nonchimeras --borderline {}.borderline
+        --nonchimeras {}.nonchimeras --borderline {}.borderline --fasta_width 0
 
 # Concatenate all chimera and borderline seqneces found
 cat "$CHIMERASFOLDER"/*.chimeras "$CHIMERASFOLDER"/*.borderline > "$CHIMERASFOLDER"/all.chimeras
@@ -34,3 +34,6 @@ done
 
 # Cleanup
 ls -1 -S "$CHIMERASFOLDER"/chimera_* | parallel -j "$NCPUS" gzip {}
+
+# Report results
+gunzip -c "$CHIMERASFOLDER"/chimera_*.chimeras.gz > 15_results/chimera_sequences.fasta

@@ -182,6 +182,8 @@ for s in sequences:
                 reverse_found = reverse.findall(s.seq)
 
                 if len(reverse_found) >= 1:
+                    # TODO avoid removing internal primers?
+                    # else flush sequence
                     # Remove forward primer (+ trim quality)
                     s.seq = re.sub(forward_found[0], "", s.seq)
                     length = len(forward_found[0])
@@ -193,11 +195,22 @@ for s in sequences:
                     s.qual = s.qual[:length]
 
                     # Adjust tracking params
-                    num += 1
-                    sequence_found = True
+                    # Filter short amplicons
+                    if len(s.seq) < int(min_length):
+                        s.write_to_file(output_files["too_short"])
+                        sequence_found = True
 
-                    # Write to file
-                    s.write_to_file(output_files[p])
+                    # Filter long amplicons
+                    elif len(s.seq) > int(max_length):
+                        s.write_to_file(output_files["too_long"])
+                        sequence_found = True
+
+                    else:
+                        num += 1
+                        sequence_found = True
+
+                        # Write to file
+                        s.write_to_file(output_files[p])
 
                 else:
                     # Write to special file
