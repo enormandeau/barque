@@ -1,8 +1,6 @@
-# Barque
+# Barque v1.3
 
-## Version 1.3
-
-### An environmental DNA metabarcoding analysis pipeline
+## An environmental DNA metabarcoding analysis pipeline
 
 ![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque_small.png)
 
