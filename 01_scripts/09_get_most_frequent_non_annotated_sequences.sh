@@ -8,7 +8,6 @@ NUM_NON_ANNOTATED_SEQ=$1
 CHIMERAFOLDER="08_chimeras"
 
 # Get names of unwanted sequences from 11_vsearch
-echo "Finding unwanted sequences (these with vsearch results)..."
 ls -1 11_vsearch/ | cut -d "_" -f 1 | sort -u | while read i
 do
     cat 11_vsearch/"$i"_* |
@@ -24,13 +23,11 @@ do
 done
 
 # Remove these from "$CHIMERAFOLDER"/*.fasta and output a fasta file per sample
-echo "Removing these sequences from the merged sequences of each sample..."
 for i in 14_non_annotated_sequences/*.ids
 do
     idfile=$(basename "$i")
     input="${idfile%_with_result.ids}"
     output="${idfile%_with_result.ids}"_without_result.fasta.gz
-    echo "  Treating: $input"
     ./01_scripts/util/fasta_remove.py 14_non_annotated_sequences/"$input"_unique.fasta 14_non_annotated_sequences/"$input"_with_result.ids 14_non_annotated_sequences/"$input"_without_result.fasta
 done
 

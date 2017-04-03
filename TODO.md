@@ -1,11 +1,5 @@
 # Before 1.3
 
-## Results
-+ Report barcode splitting results (too long, too short...)
-
-## Interface
-+ Improve messages for each step
-
 ## Benchmarking
 - Victoria's dataset first 100k sequences per sample
 
@@ -33,6 +27,7 @@
 
 ## Features
 - Report real number of reads (not unique reads) affected by multiple hits
+- Report barcode splitting results for each sample
 - R script to produce read dropout figure and run from `01_scripts/08_...sh`
 - Support single-end data (no merge -> pseudo-merge script)
 - Support interleaved input (flash can treat it)

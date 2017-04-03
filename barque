@@ -22,79 +22,79 @@ then
     cp "$CONFIG_FILE" "$LOG_FOLDER"/"$TIMESTAMP"_"$CONFIG_FILENAME"
     cp 02_info/primers.csv "$LOG_FOLDER"/"$TIMESTAMP"_primers.csv
 else
-    echo "Config file does not exist or is empty."
+    echo "BARQUE: Config file does not exist or is empty."
     exit 1
 fi
 
 # Data preparation
 if [ "$SKIP_DATA_PREP" == "0" ]
 then
-    echo "Preparing data"
+    echo "BARQUE: Preparing data"
 
     # Trim and clean reads
-    echo "Trimming and filtering reads"
+    echo "BARQUE: Trimming and filtering reads"
     ./01_scripts/01_trim.sh "$NCPUS" "$MIN_HIT_LENGTH"
 
     # Merge forward and reverse reads
-    echo "Merging forward and reverse reads"
+    echo "BARQUE: Merging forward and reverse reads"
     ./01_scripts/02_merge.sh "$NCPUS" "$MIN_OVERLAP" "$MAX_OVERLAP"
 
     # Split samples by amplicon
-    echo "Splitting samples by amplicon"
+    echo "BARQUE: Splitting samples by amplicon"
     ./01_scripts/03_split_amplicons.sh "$NCPUS"
 
     # Chimeras
     if [ "$LOOK_FOR_CHIMERA" == "1" ]
     then
         # Regroup amplicons to look for chimeras
-        echo "Regrouping amplicons"
+        echo "BARQUE: Regrouping amplicons"
         ./01_scripts/04_regroup_amplicons.sh
 
         # Look for chimeras
-        echo "Looking for chimeras"
+        echo "BARQUE: Looking for chimeras"
         ./01_scripts/05_chimeras.sh "$NCPUS"
     elif [ "$LOOK_FOR_CHIMERA" == "0" ]
     then
         # Copy files from 07 to 08
         cp -l 07_split_amplicons/*.fastq.gz 08_chimeras/
-        echo "Skipping chimera detection"
+        echo "BARQUE: Skipping chimera detection"
     else
         echo "WARNING: Invalid value in config file for LOOK_FOR_CHIMERA"
     fi
 
 elif [ "$SKIP_DATA_PREP" == "1" ]
 then
-    echo "Skipping data preparation"
+    echo "BARQUE: Skipping data preparation"
 else
     echo "WARNING: Invalid value in config file for SKIP_DATA_PREP"
 fi
 
 # Run vsearch for multiple hits
-echo "Running vsearch with multiple hits"
+echo "BARQUE: Running vsearch with multiple hits"
 ./01_scripts/06_vsearch_multiple_hits.sh "$SIMILARITY_RESULTS" "$SIMILARITY_VSEARCH" \
     "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
 # Summarize results for multiple hits
-echo "Summarizing results with multiple hits"
+echo "BARQUE: Summarizing results with multiple hits"
 ./01_scripts/07_summarize_results.py 09_vsearch_multiple_hits/ 10_summary_multiple_hits/ \
     02_info/primers.csv "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 ./01_scripts/util/find_multiple_hits.sh
 
 # Run vsearch
-echo "Running vsearch"
+echo "BARQUE: Running vsearch"
 ./01_scripts/06_vsearch.sh "$SIMILARITY_RESULTS" "$SIMILARITY_VSEARCH" "$MAX_ACCEPTS" \
     "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
 # Summarize results
-echo "Summarizing results"
+echo "BARQUE: Summarizing results"
 ./01_scripts/07_summarize_results.py 11_vsearch/ 12_summary/ 02_info/primers.csv \
     "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 cp 12_summary/*_species_table.csv 15_results
 
 # Looking at sequence dropout
-echo "Looking at sequence dropout"
+echo "BARQUE: Looking at sequence dropout"
 ./01_scripts/08_summarize_read_dropout.sh
 
 # Finding most frequent non-annotated sequences
-echo "Finding most frequent non-annotated sequences"
+echo "BARQUE: Finding most frequent non-annotated sequences"
 ./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ"

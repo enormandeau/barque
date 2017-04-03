@@ -17,9 +17,9 @@ VSEARCHFOLDER="09_vsearch_multiple_hits"
 for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1}')
 do
     database=$(grep -v "^#" "$INFOFOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $6}').fasta.gz
-    echo "#######################"
-    echo "# database: $database"
-    echo "#######################"
+    echo "#############################"
+    echo "# Using database: $database"
+    echo "#############################"
 
     # Treat each sample
     for sample in $(ls -1 "$CHIMERAFOLDER"/*"$amplicon"*.fastq.gz)

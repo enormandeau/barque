@@ -26,7 +26,7 @@ cat "$CHIMERASFOLDER"/*.chimeras "$CHIMERASFOLDER"/*.borderline > "$CHIMERASFOLD
 for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1}')
 do
     # Remove chimera sequences from split folder
-    echo "$amplicon"
+    echo "Removing chimeras from: $amplicon"
     ls -1 -S "$SPLITFOLDER"/*"$amplicon"*.fastq.gz | parallel -j "$NCPUS" \
         ./01_scripts/util/remove_chimeras.py {} "$CHIMERASFOLDER"/all.chimeras "$CHIMERASFOLDER"/{/}
 

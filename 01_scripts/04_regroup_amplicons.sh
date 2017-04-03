@@ -9,7 +9,7 @@ CHIMERAFOLDER="08_chimeras"
 # Regroup all samples per amplicon
 for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1}')
 do
-    echo "Treating: $amplicon"
+    echo "Regrouping: $amplicon"
     REGROUPED="$CHIMERAFOLDER"/chimera_"$amplicon".fastq
 
     # Create empty fastq file
