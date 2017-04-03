@@ -38,7 +38,7 @@ do
             --threads "$NCPUS" --qmask none --dbmask none --id "$SIMILARITY_VSEARCH" \
             --blast6out "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}" \
             --dbmatched "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}_matched.fasta" \
-            --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits 1 \
+            --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits 10 \
             --query_cov "$QUERY_COV" --fasta_width 0
     done
 done

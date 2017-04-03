@@ -2,7 +2,7 @@
 # From vsearch results, identify cases of multiple hits in order to create a
 # list of species to remove from the database
 
-for file in 09_vsearch_multiple_hits/*
+for file in 11_vsearch/*
 do
     for i in $(awk '{print $1}' $file | sort | uniq -c | sort -nr | head | awk '{print $2}')
     do

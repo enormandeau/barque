@@ -60,25 +60,29 @@ for primer in primers:
         phylum_dictionary[primer][sample] = defaultdict(int)
 
         # Get infos form result file
+        seen = set()
         with open(os.path.join(input_folder, result_file)) as rfile:
             for line in rfile:
-                l = line.strip().split()
-                species = l[1] # "_".join(l[1].split("_")[0:3])
-                similarity = float(l[2])
-                length = int(l[3])
-                count = int(l[0].split("_")[3])
+                sequence_name = line.split()[0]
+                if not sequence_name in seen:
+                    seen.add(sequence_name)
+                    l = line.strip().split()
+                    species = l[1] # "_".join(l[1].split("_")[0:3])
+                    similarity = float(l[2])
+                    length = int(l[3])
+                    count = int(l[0].split("_")[3])
 
-                if similarity >= min_similarity and length >= min_length:
-                    # Species
-                    species_dictionary[primer][sample][species] += count
+                    if similarity >= min_similarity and length >= min_length:
+                        # Species
+                        species_dictionary[primer][sample][species] += count
 
-                    # Genus
-                    genus = "_".join(species.split("_")[0:2])
-                    genus_dictionary[primer][sample][genus] += count
+                        # Genus
+                        genus = "_".join(species.split("_")[0:2])
+                        genus_dictionary[primer][sample][genus] += count
 
-                    # Phylum
-                    phylum = "_".join(species.split("_")[0:1])
-                    phylum_dictionary[primer][sample][phylum] += count
+                        # Phylum
+                        phylum = "_".join(species.split("_")[0:1])
+                        phylum_dictionary[primer][sample][phylum] += count
 
 # Get represented taxons
 species_found = {}

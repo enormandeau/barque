@@ -1,5 +1,15 @@
 # Before 1.3
 
+## Performance
+- Parallelize read dropout computation
+  - Make functions and call them with parallel
+  - or launch in background and `wait` to summarize
+
+## Feature
+- Report real number of reads (not unique reads) affected by multiple hits
+  - Python script
+- Make `bold.fasta.gz` available online
+
 ## Benchmarking
 - Victoria's dataset first 100k sequences per sample
 
@@ -23,12 +33,10 @@
   - Correctness
   - Possible to retain more sequences?
   - Shortest sequences at ~300bp. Too short?
-- Make `bold.fasta.gz` available online
 
 ## Features
-- Report real number of reads (not unique reads) affected by multiple hits
-- Report barcode splitting results for each sample
 - R script to produce read dropout figure and run from `01_scripts/08_...sh`
+- Report barcode splitting results for each sample
 - Support single-end data (no merge -> pseudo-merge script)
 - Support interleaved input (flash can treat it)
 
