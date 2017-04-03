@@ -13,9 +13,9 @@ SCRIPT=$0
 SCRIPT_NAME=$(basename "$SCRIPT")
 CONFIG_FILE=$1
 CONFIG_FILENAME=$(basename "$CONFIG_FILE")
-LOG_FOLDER="99_log_files"
+LOG_FOLDER="00_archive/log_files"
 
-# Import configfile and keep copy in 99_log_files
+# Import configfile and keep copy in 00_archive/log_files
 if [ -e "$CONFIG_FILE" -a -s "$CONFIG_FILE" ]
 then
     source "$CONFIG_FILE"
@@ -78,10 +78,8 @@ echo -e "\nBARQUE: Running vsearch with multiple hits"
 
 # Summarize results
 echo -e "\nBARQUE: Summarizing results"
-./01_scripts/07_summarize_results.py 11_vsearch/ 12_summary/ 02_info/primers.csv \
+./01_scripts/07_summarize_results.py 09_vsearch/ 12_results/ 02_info/primers.csv \
     "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
-
-cp 12_summary/*_species_table.csv 15_results
 
 # Looking at sequence dropout
 echo -e "\nBARQUE: Looking at sequence dropout"

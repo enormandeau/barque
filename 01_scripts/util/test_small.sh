@@ -5,7 +5,8 @@
 CONFIGFILE=$1
 
 # Cleanup temporary data and result directories
-rm 04_data/* 05_trimmed/* 06_merged/* 07_split_amplicons/* 08_chimeras/* 09_vsearch_multiple_hits/* 10_summary_multiple_hits/* 11_vsearch/* 12_summary/* 13_read_dropout/* 14_non_annotated_sequences/* 15_results/* most_frequent_non_annotated_sequences.fasta multiple_hits.txt 2>/dev/null
+rm 04_data/*
+./01_scripts/util/cleanup_analyses.sh
 
 # Import small dataset, database, and primers
 cp /home/labolb/temp.backup/barque_test_dataset/*.fastq.gz 04_data

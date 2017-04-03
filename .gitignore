@@ -24,6 +24,7 @@
 *~
 .~lock*
 00_archive/*
+00_archive/log_files/*
 02_info/primers.csv*
 02_info/primers_*
 03_databases/*
@@ -32,13 +33,7 @@
 06_merged/*
 07_split_amplicons/*
 08_chimeras/*
-09_vsearch_multiple_hits/*
-10_summary_multiple_hits/*
-11_vsearch/*
-12_summary/*
-13_read_dropout/*
-14_non_annotated_sequences/*
-15_results/*
-99_log_files/*
-most_present_non_annotated_sequences*
-multiple_hits.txt
+09_vsearch/*
+10_read_dropout/*
+11_non_annotated/*
+12_results/*

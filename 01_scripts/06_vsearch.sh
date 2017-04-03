@@ -11,7 +11,7 @@ NCPUS=$6
 # Global variables
 INFOFOLDER="02_info"
 CHIMERAFOLDER="08_chimeras"
-VSEARCHFOLDER="11_vsearch"
+VSEARCHFOLDER="09_vsearch"
 
 # Find best hit in database using vsearch
 for amplicon in $(grep -v "^#" "$INFOFOLDER"/primers.csv | awk -F "," '{print $1}')

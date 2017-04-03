@@ -36,4 +36,4 @@ done
 ls -1 -S "$CHIMERASFOLDER"/chimera_* | parallel -j "$NCPUS" gzip {}
 
 # Report results
-gunzip -c "$CHIMERASFOLDER"/chimera_*.chimeras.gz > 15_results/chimera_sequences.fasta
+gunzip -c "$CHIMERASFOLDER"/chimera_*.chimeras.gz > 12_results/chimera_sequences.fasta
