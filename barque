@@ -74,7 +74,7 @@ echo -e "\nBARQUE: Running vsearch with multiple hits"
 ./01_scripts/06_vsearch.sh "$SIMILARITY_RESULTS" "$SIMILARITY_VSEARCH" \
     "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
-./01_scripts/util/find_multiple_hits.sh
+./01_scripts/util/find_multiple_hits.py 09_vsearch/ bold 12_results/multiple_hits.csv
 
 # Summarize results
 echo -e "\nBARQUE: Summarizing results"
