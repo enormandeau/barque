@@ -1,12 +1,5 @@
 # Before 1.3
 
-## Feature
-- R scripts to produce read dropout and count table figures
-- BOLD database
-  - Validate formatting script
-  - Recreate `bold.fasta.gz`
-  - Make it available online
-
 ## Benchmarking
 - Victoria's dataset first 100k sequences per sample
   - Find way to get time plus CPU and memory usage through time
@@ -27,6 +20,7 @@
 # Later
 
 ## Features
+- R scripts to produce read dropout and count table figures
 - Report barcode splitting results for each sample
 - Support single-end data (no merge -> pseudo-merge script)
 - Support interleaved input (flash can treat it)

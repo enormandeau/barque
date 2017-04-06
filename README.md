@@ -102,6 +102,10 @@ the **Installation** section and copy your data in the `04_data` folder. You
 will also need to put a database in Fasta format (usually `bold.fasta`) in the
 `03_databases` folder.
 
+#TODO
+The pre-formated BOLD database can be
+[downloaded here](http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz).
+
 If you do not already have the indexed database and want to use BOLD, you will
 need to download all the animal BINs from
 [this BOLD page](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home).
