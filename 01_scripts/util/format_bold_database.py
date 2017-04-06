@@ -15,6 +15,7 @@ Where:
 import gzip
 import sys
 import os
+import re
 
 # Classes
 class Fasta(object):
@@ -108,7 +109,11 @@ with myopen(output_fasta, "wt") as outfile:
 
         # Remove sequences with '-' characters
         if "-" in s.sequence:
-            continue
+            # Replace starting and ending cases of "-"
+            s.sequence = re.sub("^\-+", "", s.sequence)
+            s.sequence = re.sub("\-+$", "", s.sequence)
+            if "-" in s.sequence:
+                continue
 
         # Non genus/species taxa
         if "-" in good_name:
@@ -130,6 +135,11 @@ with myopen(output_fasta, "wt") as outfile:
         if len(good_name.split(" ")) > 2:
             good_name = "_".join(good_name.split(" ")[0:2])
 
+        # Capitalized genus and lower caps species
+        if not names[0][0].isupper() or not names[1][0].islower():
+            print(s.name)
+            continue
+
         # Remove leading and trailing Ns
         s.sequence = s.sequence.replace("-", "N").strip("N")
 
@@ -147,8 +157,8 @@ with myopen(output_fasta, "wt") as outfile:
                 continue
 
         # Remove Homo_sapiens
-        if s.name == "Homo_sapiens":
-            continue
+        #if s.name == "Homo_sapiens":
+        #    continue
 
         # Adding phylum name
         s.name = phylum + "_" + s.name
@@ -157,15 +167,12 @@ with myopen(output_fasta, "wt") as outfile:
         if set(s.sequence).difference(good_nuc):
             continue
 
+        # Keep only one instance of each sequence for each species
         if good_name in found_sequences:
-            #print("Species already found: {}".format(good_name))
             if s.sequence in found_sequences[good_name]:
-                #print("Same species same sequence")
                 continue
             else:
-                #print("Same species different sequence")
                 found_sequences[good_name].append(s.sequence)
-                
         else:
             found_sequences[good_name] = [s.sequence]
 
