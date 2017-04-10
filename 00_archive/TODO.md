@@ -26,6 +26,7 @@
 - Support interleaved input (flash can treat it)
 
 ## Performance
+- Run `vsearch --usearch_global` in parallel
 - Have 2 values for the number of CPUs:
   - For data preparation steps (read-write intensive)
   - For the vsearch steps (computation intensive)

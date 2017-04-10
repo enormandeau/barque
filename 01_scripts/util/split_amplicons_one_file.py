@@ -163,58 +163,46 @@ for s in sequences:
 
         forward, reverse, min_length, max_length, forward_length, reverse_length = primers[p]
 
-        # Filter short amplicons
-        if len(s.seq) - forward_length - reverse_length < int(min_length):
-            s.write_to_file(output_files["too_short"])
-            sequence_found = True
+        # Look for forward primer
+        forward_found = forward.findall(s.seq)
 
-        # Filter long amplicons
-        if len(s.seq) - forward_length - reverse_length > int(max_length):
-            s.write_to_file(output_files["too_long"])
-            sequence_found = True
+        if len(forward_found) >= 1:
+            # Look for reverse primer
+            reverse_found = reverse.findall(s.seq)
 
-        else:
-            # Look for forward primer
-            forward_found = forward.findall(s.seq)
+            if len(reverse_found) >= 1:
+                # TODO avoid removing internal primers?
+                # else flush sequence
+                # Remove forward primer (+ trim quality)
+                s.seq = re.sub(forward_found[0], "", s.seq)
+                length = len(forward_found[0])
+                s.qual = s.qual[length:]
 
-            if len(forward_found) >= 1:
-                # Look for reverse primer
-                reverse_found = reverse.findall(s.seq)
+                # Remove reverse primer (+ trim quality)
+                s.seq = re.sub(reverse_found[0], "", s.seq)
+                length = len(s.seq)
+                s.qual = s.qual[:length]
 
-                if len(reverse_found) >= 1:
-                    # TODO avoid removing internal primers?
-                    # else flush sequence
-                    # Remove forward primer (+ trim quality)
-                    s.seq = re.sub(forward_found[0], "", s.seq)
-                    length = len(forward_found[0])
-                    s.qual = s.qual[length:]
+                # Filter short amplicons
+                if len(s.seq) < int(min_length):
+                    s.write_to_file(output_files["too_short"])
+                    sequence_found = True
 
-                    # Remove reverse primer (+ trim quality)
-                    s.seq = re.sub(reverse_found[0], "", s.seq)
-                    length = len(s.seq)
-                    s.qual = s.qual[:length]
-
-                    # Adjust tracking params
-                    # Filter short amplicons
-                    if len(s.seq) < int(min_length):
-                        s.write_to_file(output_files["too_short"])
-                        sequence_found = True
-
-                    # Filter long amplicons
-                    elif len(s.seq) > int(max_length):
-                        s.write_to_file(output_files["too_long"])
-                        sequence_found = True
-
-                    else:
-                        num += 1
-                        sequence_found = True
-
-                        # Write to file
-                        s.write_to_file(output_files[p])
+                # Filter long amplicons
+                elif len(s.seq) > int(max_length):
+                    s.write_to_file(output_files["too_long"])
+                    sequence_found = True
 
                 else:
-                    # Write to special file
-                    s.write_to_file(output_files["forward_only"])
+                    # Write to primer file
+                    s.write_to_file(output_files[p])
+                    sequence_found = True
+                    num += 1
+
+            else:
+                # Write to forward_only file
+                s.write_to_file(output_files["forward_only"])
+                sequence_found = True
 
     if not sequence_found:
         s.write_to_file(output_files["not_found"])
