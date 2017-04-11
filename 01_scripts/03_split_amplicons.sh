@@ -8,6 +8,7 @@ NCPUS=$1
 INFOFOLDER="02_info"
 MERGEDFOLDER="06_merged"
 SPLITFOLDER="07_split_amplicons"
+RESULTFOLDER="12_results"
 
 # Split amplicons in parallel
 ls -1 -S "$MERGEDFOLDER"/*.fastq.gz |
@@ -15,3 +16,6 @@ ls -1 -S "$MERGEDFOLDER"/*.fastq.gz |
     "$INFOFOLDER"/primers.csv \
     "$INFOFOLDER"/iupac.csv \
     "$SPLITFOLDER"
+
+# Create summary in results folder
+paste "$SPLITFOLDER"/*_summary.csv | perl -pe 's/\t[^,]+,/,/g' > "$RESULTFOLDER"/amplicon_split_summary.csv

@@ -20,8 +20,6 @@
 # Later
 
 ## Features
-- R scripts to produce read dropout and count table figures
-- Report barcode splitting results for each sample
 - Support single-end data (no merge -> pseudo-merge script)
 - Support interleaved input (flash can treat it)
 
@@ -30,11 +28,8 @@
 - Have 2 values for the number of CPUs:
   - For data preparation steps (read-write intensive)
   - For the vsearch steps (computation intensive)
-- Blast only unique sequences for the whole dataset (v2.0)
-  (big boost if lots of samples)
-  - Create dictionary of unique reads
+- Blast only unique sequences
+  - Big boost if lots of samples
+  - Create dictionary of unique reads for each combined amplicons
   - Blast them and store results
   - Assign results to each read of each pop
-- Parallelize read dropout computation
-  - Make functions and call them with parallel
-  - or launch in background and `wait` to summarize

@@ -7,6 +7,7 @@ Usage:
 """
 
 # Importing modules
+from collections import defaultdict
 import gzip
 import sys
 import re
@@ -141,12 +142,10 @@ primers["forward_only"] = "FAKE"
 
 # Open output file handles
 for p in primers:
-    output_files[p] = myopen(
-            os.path.join(
-                output_folder,
-                input_file.replace(".fastq", "_" + p + ".fastq")
-                )
-            , "wt")
+    output_files[p] = myopen(os.path.join(output_folder, input_file.replace(".fastq", "_" + p + ".fastq")), "wt")
+
+## Prepare summary of splitting
+primers_summary = defaultdict(int)
 
 ## Read fastq file
 sequences = fastq_iterator(fastq_file)
@@ -167,12 +166,11 @@ for s in sequences:
         forward_found = forward.findall(s.seq)
 
         if len(forward_found) >= 1:
+
             # Look for reverse primer
             reverse_found = reverse.findall(s.seq)
 
             if len(reverse_found) >= 1:
-                # TODO avoid removing internal primers?
-                # else flush sequence
                 # Remove forward primer (+ trim quality)
                 s.seq = re.sub(forward_found[0], "", s.seq)
                 length = len(forward_found[0])
@@ -186,26 +184,48 @@ for s in sequences:
                 # Filter short amplicons
                 if len(s.seq) < int(min_length):
                     s.write_to_file(output_files["too_short"])
+                    primers_summary["too_short"] += 1
                     sequence_found = True
 
                 # Filter long amplicons
                 elif len(s.seq) > int(max_length):
                     s.write_to_file(output_files["too_long"])
+                    primers_summary["too_long"] += 1
                     sequence_found = True
 
                 else:
                     # Write to primer file
                     s.write_to_file(output_files[p])
+                    primers_summary[p] += 1
                     sequence_found = True
                     num += 1
 
             else:
                 # Write to forward_only file
                 s.write_to_file(output_files["forward_only"])
+                primers_summary["forward_only"] += 1
                 sequence_found = True
 
     if not sequence_found:
         s.write_to_file(output_files["not_found"])
+        primers_summary["not_found"] += 1
+
+## Write summary file
+with open(os.path.join(output_folder, input_file.replace(".fastq.gz", "_summary.csv")), "wt") as summary:
+
+    # Write sample name
+    sample_name = input_file.split("_")[0]
+    summary.write(",".join(["Primer", sample_name]) + "\n")
+
+    # Wanted amplicons
+    for p in sorted(primers_summary):
+        if primers[p] != "FAKE":
+            summary.write(",".join([p, str(primers_summary[p])]) + "\n")
+
+    # Filtered sequences
+    for p in ["forward_only", "too_short", "too_long", "not_found"]:
+        if primers[p] == "FAKE":
+            summary.write(",".join([p, str(primers_summary[p])]) + "\n")
 
 ## Report success
 if count == 0:
