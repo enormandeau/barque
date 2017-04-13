@@ -15,6 +15,20 @@ CONFIG_FILE=$1
 CONFIG_FILENAME=$(basename "$CONFIG_FILE")
 LOG_FOLDER="00_archive/log_files"
 
+logo () {
+    echo ""
+    echo '        |    |    |'
+    echo '       )_)  )_)  )_)'
+    echo '      )___))___))___)\'
+    echo '     )____)____)_____)\\'
+    echo '   _____|____|____|____\\\__'
+    echo '   \    BARQUE v1.3    /'
+    echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+    echo "^^^   ^^^^^^    ^^^^^^  ^^^^^"
+}
+
+logo
+
 # Import configfile and keep copy in 00_archive/log_files
 if [ -e "$CONFIG_FILE" -a -s "$CONFIG_FILE" ]
 then
@@ -70,7 +84,7 @@ else
 fi
 
 # Run vsearch
-echo -e "\nBARQUE: Running vsearch with multiple hits"
+echo -e "\nBARQUE: Running vsearch"
 ./01_scripts/06_vsearch.sh "$SIMILARITY_RESULTS" "$SIMILARITY_VSEARCH" \
     "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
