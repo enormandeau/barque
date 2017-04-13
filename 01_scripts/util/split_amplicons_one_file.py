@@ -223,7 +223,7 @@ with open(os.path.join(output_folder, input_file.replace(".fastq.gz", "_summary.
             summary.write(",".join([p, str(primers_summary[p])]) + "\n")
 
     # Filtered sequences
-    for p in ["forward_only", "too_short", "too_long", "not_found"]:
+    for p in ["not_found", "forward_only", "too_long", "too_short"]:
         if primers[p] == "FAKE":
             summary.write(",".join([p, str(primers_summary[p])]) + "\n")
 
