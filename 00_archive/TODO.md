@@ -26,6 +26,7 @@
 ---
 
 # Performance
+- Look for chimeras on _per sample_ basis?
 - Run `vsearch --usearch_global` in parallel
 - Have 2 values for the number of CPUs:
   - For data preparation steps (read-write intensive)
