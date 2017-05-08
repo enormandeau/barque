@@ -1,6 +1,12 @@
-# Before 1.3
+# Features
+- Validate project before launching Barque
+  - Databases used in primers.csv file are present (.fasta.gz)
+  - Data files (.fastq.gz or .fq.gz) are present in 04-data
+  - Data files are properly named (sample name + "-")
+- Support single-end data (no merge -> pseudo-merge script)
+- Support interleaved input (flash can treat it)
 
-## Documentation
+# Documentation
 - Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
@@ -9,25 +15,17 @@
 
 ---
 
-# For paper
-
-## Benchmarking
+# Benchmarking
 - Victoria's dataset first 100k sequences per sample
   - Find way to get time plus CPU and memory usage through time
 
-## Finish paper
+# Paper
 - Finish first draft
 - Add references
 
 ---
 
-# Later
-
-## Features
-- Support single-end data (no merge -> pseudo-merge script)
-- Support interleaved input (flash can treat it)
-
-## Performance
+# Performance
 - Run `vsearch --usearch_global` in parallel
 - Have 2 values for the number of CPUs:
   - For data preparation steps (read-write intensive)
