@@ -8,7 +8,7 @@ Developed by [Eric Normandeau](https://github.com/enormandeau) in
 [Louis Bernatchez](http://www.bio.ulaval.ca/louisbernatchez/presentation.htm)'s
 laboratory.
 
-Please see citation and licence information at the end of this file.
+See citation and licence information at the end of this file.
 
 ## Documentation
 
