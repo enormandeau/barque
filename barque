@@ -35,6 +35,7 @@ then
     source "$CONFIG_FILE"
     cp "$CONFIG_FILE" "$LOG_FOLDER"/"$TIMESTAMP"_"$CONFIG_FILENAME"
     cp 02_info/primers.csv "$LOG_FOLDER"/"$TIMESTAMP"_primers.csv
+
 else
     echo -e "\nBARQUE: Config file does not exist or is empty."
     exit 1
@@ -67,11 +68,18 @@ then
         # Look for chimeras
         echo -e "\nBARQUE: Looking for chimeras"
         ./01_scripts/05_chimeras.sh "$NCPUS"
+
     elif [ "$LOOK_FOR_CHIMERA" == "0" ]
     then
         # Copy files from 07 to 08
         cp -l 07_split_amplicons/*.fastq.gz 08_chimeras/
         echo -e "\nBARQUE: Skipping chimera detection"
+
+    elif [ "$LOOK_FOR_CHIMERA" == "2" ]
+    then
+        # Use prepared reads already treated for chimeras
+        echo -e "\nBARQUE: Using prepared reads already treated for chimeras"
+
     else
         echo -e "\nWARNING: Invalid value in config file for LOOK_FOR_CHIMERA"
     fi
@@ -79,6 +87,7 @@ then
 elif [ "$SKIP_DATA_PREP" == "1" ]
 then
     echo -e "\nBARQUE: Skipping data preparation"
+
 else
     echo -e "\nWARNING: Invalid value in config file for SKIP_DATA_PREP"
 fi
