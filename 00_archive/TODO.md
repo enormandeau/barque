@@ -1,4 +1,6 @@
 # Features
+- Remove sequences with multiple hits from results
+  - If impossible species are removed, this should bring most of them back
 - Validate project before launching Barque
   - Databases used in primers.csv file are present (.fasta.gz)
   - Data files (.fastq.gz or .fq.gz) are present in 04-data
