@@ -15,7 +15,7 @@ CONFIG_FILE=$1
 CONFIG_FILENAME=$(basename "$CONFIG_FILE")
 LOG_FOLDER="00_archive/log_files"
 
-logo () {
+print_logo () {
     echo ""
     echo '        |    |    |'
     echo '       )_)  )_)  )_)'
@@ -27,7 +27,7 @@ logo () {
     echo "^^^   ^^^^^^    ^^^^^^  ^^^^^"
 }
 
-logo
+print_logo
 
 # Import configfile and keep copy in 00_archive/log_files
 if [ -e "$CONFIG_FILE" -a -s "$CONFIG_FILE" ]
@@ -38,6 +38,7 @@ then
 
 else
     echo -e "\nBARQUE: Config file does not exist or is empty."
+    echo -e "\n        Please specify a valid config file."
     exit 1
 fi
 
@@ -58,31 +59,9 @@ then
     echo -e "\nBARQUE: Splitting samples by amplicon"
     ./01_scripts/03_split_amplicons.sh "$NCPUS"
 
-    # Chimeras
-    if [ "$LOOK_FOR_CHIMERA" == "1" ]
-    then
-        # Regroup amplicons to look for chimeras
-        echo -e "\nBARQUE: Regrouping amplicons"
-        ./01_scripts/04_regroup_amplicons.sh
-
-        # Look for chimeras
-        echo -e "\nBARQUE: Looking for chimeras"
-        ./01_scripts/05_chimeras.sh "$NCPUS"
-
-    elif [ "$LOOK_FOR_CHIMERA" == "0" ]
-    then
-        # Copy files from 07 to 08
-        cp -l 07_split_amplicons/*.fastq.gz 08_chimeras/
-        echo -e "\nBARQUE: Skipping chimera detection"
-
-    elif [ "$LOOK_FOR_CHIMERA" == "2" ]
-    then
-        # Use prepared reads already treated for chimeras
-        echo -e "\nBARQUE: Using prepared reads already treated for chimeras"
-
-    else
-        echo -e "\nWARNING: Invalid value in config file for LOOK_FOR_CHIMERA"
-    fi
+    # Regroup amplicons to look for chimeras
+    echo -e "\nBARQUE: Regrouping amplicons"
+    ./01_scripts/04_regroup_amplicons.sh
 
 elif [ "$SKIP_DATA_PREP" == "1" ]
 then
@@ -90,6 +69,23 @@ then
 
 else
     echo -e "\nWARNING: Invalid value in config file for SKIP_DATA_PREP"
+fi
+
+# Chimeras
+if [ "$LOOK_FOR_CHIMERA" == "1" ]
+then
+    # Look for chimeras
+    echo -e "\nBARQUE: Looking for chimeras"
+    ./01_scripts/05_chimeras.sh "$NCPUS"
+
+elif [ "$LOOK_FOR_CHIMERA" == "0" ]
+then
+    # Copy files from 07 to 08
+    cp -l 07_split_amplicons/*.fastq.gz 08_chimeras/
+    echo -e "\nBARQUE: Skipping chimera detection"
+
+else
+    echo -e "\nWARNING: Invalid value in config file for LOOK_FOR_CHIMERA"
 fi
 
 # Run vsearch
