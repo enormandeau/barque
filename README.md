@@ -1,6 +1,6 @@
 # Barque v1.3
 
-## An environmental DNA metabarcoding analysis pipeline
+## Environmental DNA metabarcoding analysis pipeline
 
 ![Barque](https://raw.githubusercontent.com/enormandeau/barque/master/00_archive/barque_small.png)
 
@@ -18,9 +18,9 @@ This documentation file can be
 ## Description
 
 **Barque** is a metabarcoding analysis pipeline that relies on high quality
-metabarcoding-specific databases instead of generating Operational Taxonomic
-Unit (OTUs). It is parallelized, fast, and streamlined. It uses well-tested
-programs and is compatible with both Python 2 and 3.
+barcoding databases instead of generating Operational Taxonomic Unit (OTUs). It
+is parallelized and streamlined. It uses well-tested programs and is compatible
+with both Python 2 and 3.
 
 ## Use cases
 
@@ -33,14 +33,16 @@ management projects:
 - Improving species distribution knowledge for cryptic taxa
 - Following loss of species over medium to long-term monitoring
 
-Since it depends on the use of high quality metabarcoding databases, it is
+Since it depends on the use of high quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
-Life Database (BOLD), although it can also use other databases like Silva.
+Life Database (BOLD), although it can also use other databases, like for
+exampe Silva for the 18s gene.
 
 ## Installation
 
 To use **Barque**, you will need a local copy of its repository, which can be
 [found here](https://github.com/enormandeau/barque/archive/master.zip).
+
 Different releases can be
 [accessed here](https://github.com/enormandeau/barque/releases). It is
 recommended to use the latest version or at least version 1.3.
@@ -57,6 +59,7 @@ You will also need to have the following programs installed on your computer.
 - [vsearch](https://github.com/torognes/vsearch)
 
 ## Preparation
+
 - Install dependencies
 - Download **Barque** (see **Installation** section above)
 - Get database and format it (Python scripts)
@@ -89,11 +92,12 @@ using the database. In these cases, you will need to create a list of unwanted
 species to be later removed from the database or download additional sequences
 for the non-annotated species from NCBI to add them to the database. Once the
 database has been improved, simply run the last part of the pipeline by making
-sure you have `SKIP_DATA_PREP=0` in your config file. You may need to repeat
-this step again until you are satisfied with the results.
+sure you have `SKIP_DATA_PREP=1` and `LOOK_FOR_CHIMERA=2` in your config file.
+You may need to repeat this step again until you are satisfied with the
+results.
 
-NOTE: You should provide justifications in your publications explaining why you
-decided to remove some species from the database.
+NOTE: You should provide justifications in your publications if you decide to
+remove some species from the database.
 
 ## Running the pipeline
 
@@ -102,7 +106,8 @@ the **Installation** section and copy your data in the `04_data` folder. You
 will also need to put a database in Fasta format (usually `bold.fasta`) in the
 `03_databases` folder.
 
-#TODO
+## TODO
+
 The pre-formated BOLD database can be
 [downloaded here](http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz).
 
@@ -165,7 +170,7 @@ sample for every analysis step. Depending on library and sequencing quality, as
 well as the biological diversity found at the sample site, more or less
 sequences are lost at each of the analysis steps.
 
-### Most frequent bun non-annotated sequences
+### Most frequent non-annotated sequences
 
 - `most_frequent_non_annotated_sequences.fasta`: Sequences that are frequent
 in the samples but were not annotated by the pipeline. This Fasta file should be
@@ -177,11 +182,12 @@ and use the following command (you will need to adjust the input and output
 file names) to generate a report of the most frequently found species in the
 non-annotated sequences:
 
-#TODO update this part
+### Summarize species found in non-annotated sequences
+
 ```bash
 ./01_scripts/10_report_species_for_non_annotated_sequences.py \
     12_results/NCBI-Alignment.txt \
-    most_frequent_non_annotated_sequences_species_ncbi.csv
+    12_results/most_frequent_non_annotated_sequences_species_ncbi.csv
 ```
 
 ## Test dataset
@@ -197,7 +203,7 @@ should run in one to ten minutes depending on your computer.
 
 When using **Barque**, please cite the following paper:
 
-- TODO Add citation information and link to paper
+## TODO Add citation information and link to paper
 
 ## License
 
