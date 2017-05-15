@@ -10,7 +10,7 @@ rm 04_data/*
 
 # Import small dataset, database, and primers
 cp /home/labolb/temp.backup/barque_test_dataset/*.fastq.gz 04_data
-cp /home/labolb/temp.backup/barque_test_dataset/bold_small.fasta.gz 03_databases/bold.fasta.gz
+cp /home/labolb/temp.backup/barque_test_dataset/bold.fasta.gz 03_databases/bold.fasta.gz
 cp 02_info/primers.csv 02_info/primers.csv.bak_$(date +%Y-%m-%d_%H-%M-%S)
 cp /home/labolb/temp.backup/barque_test_dataset/primers.csv 02_info
 
