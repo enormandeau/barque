@@ -8,17 +8,23 @@ NUM_NON_ANNOTATED_SEQ=$1
 CHIMERAFOLDER="08_chimeras"
 
 # Get names of unwanted sequences from 09_vsearch
-ls -1 09_vsearch/ | cut -d "_" -f 1 | sort -u | while read i
+ls -1 09_vsearch/ | grep -v _matched\.fasta | cut -d "_" -f 1 | sort -u | while read i
 do
-    cat 09_vsearch/"$i"_* |
-        awk '{print $1}' |
-        cut -d ";" -f 1 > 11_non_annotated/"$i"_with_result.ids
+    rm 11_non_annotated/"$i"_with_result.ids 2> /dev/null
+
+    for j in $(ls -1 09_vsearch/"$i"_* | grep -v "_matched\.fasta")
+    do
+        cat "$j" |
+            awk '{print $1}' |
+            cut -d ";" -f 1 >> 11_non_annotated/"$i"_with_result.ids
+    done
 
     # Sort them by decreasing order of count (most frequent sequences first)
     cat "$CHIMERAFOLDER"/"$i"_*_unique.fasta > 11_non_annotated/"$i"_temp.fasta
     ./01_scripts/util/fasta_sort_by_count.py \
         11_non_annotated/"$i"_temp.fasta \
         11_non_annotated/"$i"_unique.fasta
+
     rm 11_non_annotated/"$i"_temp.fasta
 done
 
