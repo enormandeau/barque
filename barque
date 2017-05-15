@@ -38,7 +38,7 @@ then
 
 else
     echo -e "\nBARQUE: Config file does not exist or is empty."
-    echo -e "\n        Please specify a valid config file."
+    echo -e "        Please specify a valid config file."
     exit 1
 fi
 
