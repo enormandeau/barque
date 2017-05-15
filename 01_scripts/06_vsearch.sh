@@ -38,10 +38,7 @@ do
             --threads "$NCPUS" --qmask none --dbmask none --id "$SIMILARITY_VSEARCH" \
             --blast6out "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}" \
             --dbmatched "$VSEARCHFOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}_matched.fasta" \
-            --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits 10 \
+            --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits "$MAX_ACCEPTS" \
             --query_cov "$QUERY_COV" --fasta_width 0
     done
 done
-
-# Cleanup fasta files
-#ls -1 -S "$CHIMERAFOLDER"/*.fasta | parallel -j "$NCPUS" gzip {}
