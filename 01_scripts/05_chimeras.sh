@@ -29,7 +29,6 @@ do
     echo "Removing chimeras from: $amplicon"
     ls -1 -S "$SPLITFOLDER"/*"$amplicon"*.fastq.gz | parallel -j "$NCPUS" \
         ./01_scripts/util/remove_chimeras.py {} "$CHIMERASFOLDER"/all.chimeras "$CHIMERASFOLDER"/{/}
-
 done
 
 # Cleanup
