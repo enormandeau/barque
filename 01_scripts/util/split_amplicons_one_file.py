@@ -156,6 +156,9 @@ for s in sequences:
     sequence_found = False
 
     for p in primers:
+        # NOTE If multiple primer pairs share the same forward primer,
+        # the extraction will not work properly
+
         # Skip fake primers
         if primers[p] == "FAKE":
             continue
