@@ -15,7 +15,7 @@ do
         cut -d ";" -f 1 > 11_non_annotated/"$i"_with_result.ids
 
     # Sort them by decreasing order of count (most frequent sequences first)
-    cp "$CHIMERAFOLDER"/"$i"_*_unique.fasta 11_non_annotated/"$i"_temp.fasta
+    cat "$CHIMERAFOLDER"/"$i"_*_unique.fasta > 11_non_annotated/"$i"_temp.fasta
     ./01_scripts/util/fasta_sort_by_count.py \
         11_non_annotated/"$i"_temp.fasta \
         11_non_annotated/"$i"_unique.fasta
@@ -27,8 +27,8 @@ for i in 11_non_annotated/*.ids
 do
     idfile=$(basename "$i")
     input="${idfile%_with_result.ids}"
-    output="${idfile%_with_result.ids}"_without_result.fasta.gz
-    ./01_scripts/util/fasta_remove.py 11_non_annotated/"$input"_unique.fasta \
+    ./01_scripts/util/fasta_remove.py \
+        11_non_annotated/"$input"_unique.fasta \
         11_non_annotated/"$input"_with_result.ids \
         11_non_annotated/"$input"_without_result.fasta
 done
