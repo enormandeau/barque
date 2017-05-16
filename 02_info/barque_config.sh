@@ -20,14 +20,13 @@ LOOK_FOR_CHIMERA=1          # 1 to search for chimeras (RECOMMENDED), 0 to skip 
 
 # vsearch
 SIMILARITY_VSEARCH=0.97     # Minimum similarity to database to keep in intermediate results (float, 0-1)
-MAX_ACCEPTS=20              # Accept at most this number of sequences before stoping search (int, 1+)
+MAX_ACCEPTS=10              # Accept at most this number of sequences before stoping search (int, 1+)
 MAX_REJECTS=50              # Reject at most this number of sequences before stoping search (int, 1+)
 QUERY_COV=0.6               # At least that proportion of the sequence must match the database (float, 0-1)
 
 # Filters
-SIMILARITY_RESULTS=0.97     # Minimum similarity to database to keep in results (float, 0-1)
 MIN_HIT_LENGTH=100          # Minimum vsearch hit length to keep in results (int, 1+)
 MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at least one sample
                             #   to keep in results (int, 1+)
 # Non-annotated reads
-NUM_NON_ANNOTATED_SEQ=50    # Number of unique most-frequent non-annotated reads to keep per site (int, 1+)
+NUM_NON_ANNOTATED_SEQ=100    # Number of unique most-frequent non-annotated reads to keep per site (int, 1+)

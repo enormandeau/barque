@@ -90,7 +90,7 @@ fi
 
 # Run vsearch
 echo -e "\nBARQUE: Running vsearch"
-./01_scripts/06_vsearch.sh "$SIMILARITY_RESULTS" "$SIMILARITY_VSEARCH" \
+./01_scripts/06_vsearch.sh "$SIMILARITY_VSEARCH" \
     "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
 ./01_scripts/util/find_multiple_hits.py 09_vsearch/ bold 12_results/multiple_hits.csv
@@ -98,7 +98,7 @@ echo -e "\nBARQUE: Running vsearch"
 # Summarize results
 echo -e "\nBARQUE: Summarizing results"
 ./01_scripts/07_summarize_results.py 09_vsearch/ 12_results/ 02_info/primers.csv \
-    "$SIMILARITY_RESULTS" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
+    "$SIMILARITY_VSEARCH" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 
 # Looking at sequence dropout
 echo -e "\nBARQUE: Looking at sequence dropout"
