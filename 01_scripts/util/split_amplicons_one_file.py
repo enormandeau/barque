@@ -128,7 +128,8 @@ with open(primer_file) as pfile:
         forward = "^" + forward
         reverse = reverse + "$"
 
-        primers[name] = (re.compile(forward), re.compile(reverse), min_length, max_length, forward_length, reverse_length)
+        primers[name] = (re.compile(forward), re.compile(reverse), min_length,
+                         max_length, forward_length, reverse_length)
 
 ## Open output fastq.gz files
 output_files = {}
@@ -157,7 +158,9 @@ for s in sequences:
 
     for p in primers:
         # NOTE If multiple primer pairs share the same forward primer,
-        # the extraction will not work properly
+        # or if a sequence's primer fits with two degenerate forward primers,
+        # the amplicon might be discarted if the reverse primer of the sequence
+        # is found in another pair.
 
         # Skip fake primers
         if primers[p] == "FAKE":
