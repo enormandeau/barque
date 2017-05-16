@@ -5,7 +5,7 @@
 CONFIGFILE=$1
 
 # Cleanup temporary data and result directories
-rm 04_data/*
+rm 04_data/* 2> /dev/null
 ./01_scripts/util/cleanup_analyses.sh
 
 # Import small dataset, database, and primers
