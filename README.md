@@ -92,8 +92,8 @@ using the database. In these cases, you will need to create a list of unwanted
 species to be later removed from the database or download additional sequences
 for the non-annotated species from NCBI to add them to the database. Once the
 database has been improved, simply run the last part of the pipeline by making
-sure you have `SKIP_DATA_PREP=1` and `LOOK_FOR_CHIMERA=2` in your config file.
-You may need to repeat this step again until you are satisfied with the
+sure you have `SKIP_DATA_PREP=1` and `SKIP_CHIMERA_DETECTION=1` in your config
+file. You may need to repeat this step again until you are satisfied with the
 results.
 
 NOTE: You should provide justifications in your publications if you decide to

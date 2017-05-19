@@ -72,20 +72,20 @@ else
 fi
 
 # Chimeras
-if [ "$LOOK_FOR_CHIMERA" == "1" ]
+if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then
     # Look for chimeras
     echo -e "\nBARQUE: Looking for chimeras"
     ./01_scripts/05_chimeras.sh "$NCPUS"
 
-elif [ "$LOOK_FOR_CHIMERA" == "0" ]
+elif [ "$SKIP_CHIMERA_DETECTION" == "1" ]
 then
     # Copy files from 07 to 08
     cp -l 07_split_amplicons/*.fastq.gz 08_chimeras/
     echo -e "\nBARQUE: Skipping chimera detection"
 
 else
-    echo -e "\nWARNING: Invalid value in config file for LOOK_FOR_CHIMERA"
+    echo -e "\nWARNING: Invalid value in config file for SKIP_CHIMERA_DETECTION"
 fi
 
 # Run vsearch
