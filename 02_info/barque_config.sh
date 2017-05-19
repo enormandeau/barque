@@ -15,7 +15,7 @@ MIN_OVERLAP=30              # Minimum number of overlapping nucleotides to merge
 MAX_OVERLAP=280             # Maximum number of overlapping nucleotides to merge reads (int, 1+)
 
 # Running or skipping chimera detection
-SKIP_CHIMERA_DETECTION=1    # 0 to search for chimeras (RECOMMENDED), 1 to skip chimera detection
+SKIP_CHIMERA_DETECTION=0    # 0 to search for chimeras (RECOMMENDED), 1 to skip chimera detection
                             #   or use already created chimera cleaned files
 
 # vsearch
