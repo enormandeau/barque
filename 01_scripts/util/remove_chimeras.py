@@ -61,7 +61,9 @@ def fasta_iterator(input_file):
                 begun = True
             else:
                 sequence += line
-        yield Fasta(name, sequence)
+
+        if name != "":
+            yield Fasta(name, sequence)
 
 def fastq_parser(input_file):
     """Takes a fastq file infile and returns a fastq object iterator

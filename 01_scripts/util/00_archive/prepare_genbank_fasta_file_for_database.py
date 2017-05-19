@@ -47,7 +47,9 @@ def fasta_iterator(input_file):
             else:
                 sequence.append(line)
                 complete_sequence = "".join(sequence)
-        yield Fasta(name, complete_sequence)
+
+        if name != "":
+            yield Fasta(name, sequence)
 
 # Parse user input
 try:
