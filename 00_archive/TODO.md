@@ -30,11 +30,9 @@
 # Performance
 - Look for chimeras on _per sample_ basis?
 - Run `vsearch --usearch_global` in parallel
-- Have 2 values for the number of CPUs:
-  - For data preparation steps (read-write intensive)
-  - For the vsearch steps (computation intensive)
 - Blast only unique sequences
-  - Big boost if lots of samples
-  - Create dictionary of unique reads for each combined amplicons
-  - Blast them and store results
+  - Create dictionary of unique reads for all dataset
+  - Blast them and store results (sequence, hit)
   - Assign results to each read of each pop
+  - Big boost if lots of samples
+  - Database will be read only once
