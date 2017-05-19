@@ -39,7 +39,11 @@ do
         11_non_annotated/"$input"_without_result.fasta
 done
 
-# Get the 100 most represented unique sequences per sample
-head -n $[ $NUM_NON_ANNOTATED_SEQ * 2 ] 11_non_annotated/*_without_result.fasta |
-    grep -v "^==" |
-    grep -vE "^$" > 12_results/most_frequent_non_annotated_sequences.fasta
+# Get the top most represented unique sequences per sample
+cat 11_non_annotated/*_without_result.fasta > 12_results/most_frequent_non_annotated_sequences.temp
+
+# Recombine identical sequence
+./01_scripts/util/combine_unique_sequences.py 12_results/most_frequent_non_annotated_sequences.temp $[ $NUM_NON_ANNOTATED_SEQ * 2 ] 12_results/most_frequent_non_annotated_sequences.fasta
+
+# Cleanup
+rm 12_results/most_frequent_non_annotated_sequences.temp
