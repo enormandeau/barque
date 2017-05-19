@@ -43,7 +43,7 @@ done
 cat 11_non_annotated/*_without_result.fasta > 12_results/most_frequent_non_annotated_sequences.temp
 
 # Recombine identical sequence
-./01_scripts/util/combine_unique_sequences.py 12_results/most_frequent_non_annotated_sequences.temp $[ $NUM_NON_ANNOTATED_SEQ * 2 ] 12_results/most_frequent_non_annotated_sequences.fasta
+./01_scripts/util/combine_unique_sequences.py 12_results/most_frequent_non_annotated_sequences.temp $NUM_NON_ANNOTATED_SEQ 12_results/most_frequent_non_annotated_sequences.fasta
 
 # Cleanup
 rm 12_results/most_frequent_non_annotated_sequences.temp
