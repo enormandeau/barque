@@ -1,3 +1,6 @@
+# BugFixes
+- Sort num reads per step in similar way (lines that cross in dropouts)
+
 # Features
 - Remove sequences with multiple hits from results
   - If impossible species are removed, this should bring most of them back
