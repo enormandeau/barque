@@ -8,7 +8,7 @@ Developed by [Eric Normandeau](https://github.com/enormandeau) in
 [Louis Bernatchez](http://www.bio.ulaval.ca/louisbernatchez/presentation.htm)'s
 laboratory.
 
-See citation and licence information at the end of this file.
+See licence information at the end of this file.
 
 ## Documentation
 
@@ -198,12 +198,6 @@ Download the repository and then move the data in **Barque**'s `04_data` folder
 and the `primers.csv` file in the `02_info` folder. Follow the normal pipeline
 procedure (including database preparation) to analyse this small dataset. it
 should run in one to ten minutes depending on your computer.
-
-## Citation
-
-When using **Barque**, please cite the following paper:
-
-## TODO Add citation information and link to paper
 
 ## License
 
