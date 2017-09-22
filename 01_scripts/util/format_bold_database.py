@@ -4,11 +4,12 @@
 - Keep only 'Genus species' sequences
 
 Usage:
-    ./01_scripts/format_bold_database.py input_fasta output_fasta
+    ./01_scripts/format_bold_database.py input_fasta output_fasta species_to_remove
 
 Where:
     input_fasta is a .fasta or a .fasta.gz file
     output_fasta is a .fasta or a .fasta.gz file
+    species_to_remove [optional] is a file with one "Genus species" name per line
 """
 
 # Modules
