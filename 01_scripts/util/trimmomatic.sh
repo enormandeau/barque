@@ -8,23 +8,23 @@ BASE=$(basename $1)
 MIN_HIT_LENGTH=$2
 TRIMMOMATIC_JAR="01_scripts/util/trimmomatic-0.36.jar"
 ADAPTERFILE="02_info/illumina_adapters.fas"
-DATAFOLDER="04_data"
-TRIMMEDFOLDER="05_trimmed"
+DATA_FOLDER="04_data"
+TRIMMED_FOLDER="05_trimmed"
 
 # Trimmomatic
 java -XX:ParallelGCThreads=1 -cp $TRIMMOMATIC_JAR org.usadellab.trimmomatic.TrimmomaticPE \
     -phred33 \
-    "$DATAFOLDER"/"$BASE"R1_001.fastq.gz \
-    "$DATAFOLDER"/"$BASE"R2_001.fastq.gz \
-    "$TRIMMEDFOLDER"/"$BASE"R1_001.fastq.gz \
-    "$TRIMMEDFOLDER"/"$BASE"R1_001.single.fastq.gz \
-    "$TRIMMEDFOLDER"/"$BASE"R2_001.fastq.gz \
-    "$TRIMMEDFOLDER"/"$BASE"R2_001.single.fastq.gz \
+    "$DATA_FOLDER"/"$BASE"R1_001.fastq.gz \
+    "$DATA_FOLDER"/"$BASE"R2_001.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R1_001.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R1_001.single.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R2_001.fastq.gz \
+    "$TRIMMED_FOLDER"/"$BASE"R2_001.single.fastq.gz \
     LEADING:20 \
     TRAILING:20 \
     SLIDINGWINDOW:20:20 \
     MINLEN:$MIN_HIT_LENGTH
 
 ## Cleanup
-rm "$TRIMMEDFOLDER"/"$BASE"R1_001.single.fastq.gz 2>/dev/null
-rm "$TRIMMEDFOLDER"/"$BASE"R2_001.single.fastq.gz 2>/dev/null
+rm "$TRIMMED_FOLDER"/"$BASE"R1_001.single.fastq.gz 2>/dev/null
+rm "$TRIMMED_FOLDER"/"$BASE"R2_001.single.fastq.gz 2>/dev/null
