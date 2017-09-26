@@ -1,10 +1,5 @@
 # Roadmap for v1.4
 ## Features
-- Validate project before launching Barque
-  - Databases used in primers.csv file are present (.fasta.gz)
-  - Data files (.fastq.gz or .fq.gz) are present in 04-data
-  - Data files are properly named (sample name + "-")
-
 - Run chimera search by sample
 - Evalue cutoff for ncbi blasts
 
