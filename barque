@@ -42,6 +42,12 @@ else
     exit 1
 fi
 
+# Validate that database and samples are present
+if ! ./01_scripts/00_validate_project.sh
+then
+    exit 1
+fi
+
 # Data preparation
 if [ "$SKIP_DATA_PREP" == "0" ]
 then
