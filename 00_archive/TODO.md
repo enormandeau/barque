@@ -1,15 +1,15 @@
 # Roadmap for v1.4
 ## Features
+- Move deprecated scripts to `01_scripts/util/01_deprecated`
+
 - Blast only unique sequences
   - Create dictionary of unique reads for all dataset (after chimeras)
   - Blast them and store results (sequence, hit)
   - Assign results to each read of each pop
 
-- Move deprecated scripts to `01_scripts/util/01_deprecated`
-
 ## Bugs
 - Number of reads are not sorted in the same order for different steps
-- Skipping chimera detection will crash
+- Skipping chimera detection will crash (mimmic file names and format)
 
 ## Documentation
 - Describe input sequence format requirements
