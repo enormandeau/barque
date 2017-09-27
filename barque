@@ -14,6 +14,7 @@ SCRIPT_NAME=$(basename "$SCRIPT")
 CONFIG_FILE=$1
 CONFIG_FILENAME=$(basename "$CONFIG_FILE")
 LOG_FOLDER="00_archive/log_files"
+RESULT_FOLDER="12_results"
 
 print_logo () {
     echo ""
@@ -65,10 +66,6 @@ then
     echo -e "\nBARQUE: Splitting samples by amplicon"
     ./01_scripts/03_split_amplicons.sh "$NCPUS"
 
-    # Regroup amplicons to look for chimeras
-    echo -e "\nBARQUE: Regrouping amplicons"
-    ./01_scripts/04_regroup_amplicons.sh
-
 elif [ "$SKIP_DATA_PREP" == "1" ]
 then
     echo -e "\nBARQUE: Skipping data preparation"
@@ -80,6 +77,11 @@ fi
 # Chimeras
 if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then
+    ## Regroup amplicons to look for chimeras
+    # DEPRECATED: Now searching chimeras per sample
+    #echo -e "\nBARQUE: Regrouping amplicons"
+    #./01_scripts/04_regroup_amplicons.sh
+
     # Look for chimeras
     echo -e "\nBARQUE: Looking for chimeras"
     ./01_scripts/05_chimeras.sh "$NCPUS"
@@ -87,6 +89,8 @@ then
 elif [ "$SKIP_CHIMERA_DETECTION" == "1" ]
 then
     # Copy files from 07 to 08
+    # TODO copy only the file for the amplicons, not all
+    # TODO respect new file (and file name) format
     cp -l 07_split_amplicons/*.fastq.gz 08_chimeras/
     echo -e "\nBARQUE: Skipping chimera detection"
 
@@ -99,11 +103,13 @@ echo -e "\nBARQUE: Running vsearch"
 ./01_scripts/06_vsearch.sh "$SIMILARITY_VSEARCH" \
     "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
-./01_scripts/util/find_multiple_hits.py 09_vsearch/ bold 12_results/multiple_hits.csv
+# Find multiple hits
+echo -e "\nBARQUE: Finding multiple hits"
+./01_scripts/util/find_multiple_hits.py 09_vsearch/ bold "$RESULT_FOLDER"/multiple_hits.csv
 
 # Summarize results
 echo -e "\nBARQUE: Summarizing results"
-./01_scripts/07_summarize_results.py 09_vsearch/ 12_results/ 02_info/primers.csv \
+./01_scripts/07_summarize_results.py 09_vsearch/ "$RESULT_FOLDER"/ 02_info/primers.csv \
     "$SIMILARITY_VSEARCH" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 
 # Looking at sequence dropout

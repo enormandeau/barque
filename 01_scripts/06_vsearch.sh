@@ -15,21 +15,22 @@ VSEARCH_FOLDER="09_vsearch"
 # Find best hit in database using vsearch
 for amplicon in $(grep -v "^#" "$INFO_FOLDER"/primers.csv | awk -F "," '{print $1}')
 do
+    echo "$amplicon"
     database=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $6}').fasta.gz
     echo "#############################"
     echo "# Using database: $database"
     echo "#############################"
 
     # Treat each sample
-    for sample in $(ls -1 "$CHIMERA_FOLDER"/*"$amplicon"*.fastq.gz)
+    for sample in $(ls -1 "$CHIMERA_FOLDER"/*"$amplicon"*.fasta)
     do
         # File names
-        fastq=$(basename "$sample")
-        fasta="${fastq%.fastq.gz}"_unique.fasta
+        vsearch_fasta=$(basename "$sample")
+        fasta="${vsearch_fasta%_nonchimeras.fasta}"_unique.fasta
 
         # Create fasta file
-        echo
-        ./01_scripts/util/fastq_to_unique_fasta.py "$CHIMERA_FOLDER"/"$fastq" "$CHIMERA_FOLDER"/"$fasta"
+        ./01_scripts/util/fasta_format_non_chimera.py \
+            "$CHIMERA_FOLDER"/"$vsearch_fasta" "$CHIMERA_FOLDER"/"$fasta"
 
         # Run vsearch
         echo "Running vsearch on $fasta with database $database"

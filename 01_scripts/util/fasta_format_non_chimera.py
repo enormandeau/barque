@@ -1,26 +1,15 @@
 #!/usr/bin/env python
-"""Combine most frequent sequences into unique sequences while keeping an
-accurate count information with each sequence.
+"""Convert vsearch unique fasta to barque unique fasta
 
 Usage:
-    ./01_scripts/util/combine_unique_sequences.py input_fasta num_sequences output_fasta
+    python fasta_to_unique_fasta.py inputFile outputFile
 
-Note:
-    the sequence names in input_fasta must have the following format:
-
-    >sequence_466_found_676_times
-    >sequence_392_found_377_times
-    >sequence_45_found_373_times
-    >sequence_11_found_184_times
-    >sequence_74_found_115_times
-    >sequence_343_found_74_times
-    >sequence_25_found_30_times
-    >sequence_476_found_23_times
-    >sequence_319_found_17_times
-    >sequence_57_found_14_times
+Where:
+    inputFile is a .fasta or a .fasta.gz file from vsearch
+    outputFile is a .fasta or a .fasta.gz file in barque unique format
 """
 
-# Importing modules
+# Modules
 from collections import defaultdict
 import gzip
 import sys
@@ -66,28 +55,20 @@ def fasta_iterator(input_file):
 
 # Parsing user input
 try:
-    input_fasta = sys.argv[1]
-    num_sequences = int(sys.argv[2])
-    output_fasta = sys.argv[3]
+    infile = sys.argv[1]
+    outfile = sys.argv[2]
 except:
     print(__doc__)
     sys.exit(1)
 
-# Count sequences
-fasta_sequences = fasta_iterator(input_fasta)
-fasta_dict = defaultdict(int)
+# Create sequence iterator
+sequences = fasta_iterator(infile)
 
-for s in fasta_sequences:
-    num = int(s.name.split("_")[3])
-    fasta_dict[s.sequence] += num
-
-sequence_counts = sorted([(x[1], x[0]) for x in fasta_dict.items()], reverse=True)
-counter = 1
-
-with open(output_fasta, "w") as outfile:
-    for seq in sequence_counts[:num_sequences]:
-        name = "sequence_" + str(counter) + "_found_" + str(seq[0]) + "_times"
-        sequence = seq[1]
-        s = Fasta(name, sequence)
+# Treating the sequences
+with myopen(outfile, "wt") as outfile:
+    seq_num = 1
+    for s in sequences:
+        count = s.name.split("=")[-1].replace(";", "")
+        s.name = "sequence_" + str(seq_num) + "_found_" + count + "_times"
+        seq_num += 1
         s.write_to_file(outfile)
-        counter += 1

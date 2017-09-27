@@ -6,6 +6,7 @@
 # Parameters
 NUM_NON_ANNOTATED_SEQ=$1
 CHIMERA_FOLDER="08_chimeras"
+RESULT_FOLDER="12_results"
 
 # Get names of unwanted sequences from 09_vsearch
 ls -1 09_vsearch/ | grep -v _matched\.fasta | cut -d "_" -f 1 | sort -u | while read i
@@ -40,10 +41,10 @@ do
 done
 
 # Get the top most represented unique sequences per sample
-cat 11_non_annotated/*_without_result.fasta > 12_results/most_frequent_non_annotated_sequences.temp
+cat 11_non_annotated/*_without_result.fasta > "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
 
 # Recombine identical sequence
-./01_scripts/util/combine_unique_sequences.py 12_results/most_frequent_non_annotated_sequences.temp $NUM_NON_ANNOTATED_SEQ 12_results/most_frequent_non_annotated_sequences.fasta
+./01_scripts/util/combine_unique_sequences.py "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp $NUM_NON_ANNOTATED_SEQ "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.fasta
 
 # Cleanup
-rm 12_results/most_frequent_non_annotated_sequences.temp
+rm "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
