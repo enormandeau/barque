@@ -77,11 +77,6 @@ fi
 # Chimeras
 if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then
-    ## Regroup amplicons to look for chimeras
-    # DEPRECATED: Now searching chimeras per sample
-    #echo -e "\nBARQUE: Regrouping amplicons"
-    #./01_scripts/04_regroup_amplicons.sh
-
     # Look for chimeras
     echo -e "\nBARQUE: Looking for chimeras"
     ./01_scripts/05_chimeras.sh "$NCPUS"
