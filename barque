@@ -84,7 +84,10 @@ echo -e "\nBARQUE: Running vsearch"
 
 # Find multiple hits
 echo -e "\nBARQUE: Finding multiple hits"
-./01_scripts/util/find_multiple_hits.py 09_vsearch/ bold "$RESULT_FOLDER"/multiple_hits.csv
+for db in $(cat 02_info/primers.csv | grep -v "^#" | cut -d "," -f 6 | sort -u)
+do
+    ./01_scripts/util/find_multiple_hits.py 09_vsearch/ "$db" "$RESULT_FOLDER"/multiple_hits_"$db".csv
+done
 
 # Summarize results
 echo -e "\nBARQUE: Summarizing results"
