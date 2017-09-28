@@ -5,10 +5,10 @@ Usage:
     ./01_scripts/07_summarize_results.py input_folder output_folder primer_file min_similarity min_length min_coverage
 
 Where:
-    input_folder is either '09_vsearch_multiple_hits' or '09_vsearch'
-    output_folder is either '10_summary_multiple_hits' or '12_results'
+    input_folder is '09_vsearch'
+    output_folder is '12_results'
     primer_file is '02_info/primers.csv'
-    min_similarity is a float between 90 and 100
+    min_similarity is a float between 0 and 1 (typically >= 0.9)
 """
 
 # Modules
