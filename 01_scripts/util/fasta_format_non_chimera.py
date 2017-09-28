@@ -2,7 +2,7 @@
 """Convert vsearch unique fasta to barque unique fasta
 
 Usage:
-    python fasta_to_unique_fasta.py inputFile outputFile
+    python fasta_format_non_chimera.py inputFile outputFile
 
 Where:
     inputFile is a .fasta or a .fasta.gz file from vsearch
