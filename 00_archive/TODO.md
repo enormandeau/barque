@@ -1,5 +1,6 @@
 # Roadmap for v1.4
 ## Features
+- Report multiple hits per amplicon
 - Blast only unique sequences
   - Create dictionary of unique reads for all dataset (after chimeras)
   - Blast them and store results (sequence, hit)
