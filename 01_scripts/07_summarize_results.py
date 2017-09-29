@@ -9,12 +9,23 @@ Where:
     output_folder is '12_results'
     primer_file is '02_info/primers.csv'
     min_similarity is a float between 0 and 1 (typically >= 0.9)
+    min_length is the minimum length of the hits to keep (typically >= 100)
+    min_coverage is the minimun number of hits a taxon (species, genus or phylum)
+        must have in *at least* one sample in order for the taxon to be kept
 """
 
 # Modules
 from collections import defaultdict
+import gzip
 import sys
 import os
+
+# Defining functions
+def myopen(infile, mode="rt"):
+    if infile.endswith(".gz"):
+        return gzip.open(infile, mode=mode)
+    else:
+        return open(infile, mode=mode)
 
 # Parsing user input
 try:
@@ -50,7 +61,7 @@ for primer in primers:
     genus_dictionary[primer] = {}
     phylum_dictionary[primer] = {}
     primer_results = [filename for filename in result_files if primer in filename]
-    primer_results = [filename for filename in primer_results if not filename.endswith("_matched.fasta")]
+    primer_results = [filename for filename in primer_results if not filename.endswith("_matched.fasta.gz")]
 
     # Iterate through result files for primer
     for result_file in primer_results:
@@ -61,7 +72,7 @@ for primer in primers:
 
         # Get infos form result file
         seen = set()
-        with open(os.path.join(input_folder, result_file)) as rfile:
+        with myopen(os.path.join(input_folder, result_file)) as rfile:
             for line in rfile:
                 sequence_name = line.split()[0]
                 if not sequence_name in seen:

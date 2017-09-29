@@ -100,4 +100,4 @@ echo -e "\nBARQUE: Looking at sequence dropout"
 
 # Finding most frequent non-annotated sequences
 echo -e "\nBARQUE: Finding most frequent non-annotated sequences"
-./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ"
+./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS"

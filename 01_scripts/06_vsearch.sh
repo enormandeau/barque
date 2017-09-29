@@ -22,11 +22,11 @@ do
     echo "#############################"
 
     # Treat each sample
-    for sample in $(ls -1 "$CHIMERA_FOLDER"/*"$amplicon"*.fasta)
+    for sample in $(ls -1 "$CHIMERA_FOLDER"/*"$amplicon"*_nonchimeras.fasta.gz)
     do
         # File names
         vsearch_fasta=$(basename "$sample")
-        fasta="${vsearch_fasta%_nonchimeras.fasta}"_unique.fasta
+        fasta="${vsearch_fasta%_nonchimeras.fasta}"_unique.fasta.gz
 
         # Create fasta file
         ./01_scripts/util/fasta_format_non_chimera.py \
@@ -42,3 +42,6 @@ do
             --query_cov "$QUERY_COV" --fasta_width 0
     done
 done
+
+# Cleanup
+ls -1 -S "$VSEARCH_FOLDER"/* | parallel -j "$NCPUS" gzip

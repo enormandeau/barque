@@ -7,8 +7,16 @@ Usage:
 
 # Modules
 from collections import defaultdict
+import gzip
 import sys
 import os
+
+# Defining functions
+def myopen(infile, mode="rt"):
+    if infile.endswith(".gz"):
+        return gzip.open(infile, mode=mode)
+    else:
+        return open(infile, mode=mode)
 
 # Parsing user input
 try:
@@ -21,12 +29,12 @@ except:
 
 # Iterate through files
 result_files = os.listdir(inputFolder)
-result_files = [x for x in result_files if x.endswith(database)]
+result_files = [x for x in result_files if x.endswith(database + ".gz")]
 
 species_dict = defaultdict(list)
 
 for result_file in result_files:
-    with open(os.path.join(inputFolder, result_file), "rt") as rfile:
+    with myopen(os.path.join(inputFolder, result_file), "rt") as rfile:
         hits = defaultdict(list)
         for line in rfile:
             l = line.strip().split()
@@ -47,6 +55,6 @@ for s in species_dict:
 sorted_multiple_hits = sorted(multiple_hits, reverse=True)
 
 # Write results to file
-with open(outputFile, "wt") as outfile:
+with myopen(outputFile, "wt") as outfile:
     for species in sorted_multiple_hits: 
         outfile.write(str(species[0]) + "," + species[1] + "\n")

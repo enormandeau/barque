@@ -50,9 +50,9 @@ cd "$step"
 for i in $(grep -v "^#" ../02_info/primers.csv | awk -F "," '{print $1}')
 do
     echo -e "$step" > ../10_read_dropout/"$step"_"$i"
-    for j in $(ls -1 *merged_"$i"*_unique.fasta | grep "$i")
+    for j in $(ls -1 *merged_"$i"*_unique.fasta.gz | grep "$i")
     do
-        echo -e $(echo "$j" | cut -d "_" -f 1)"\t"$(echo $(grep ">" "$j" | cut -d "_" -f 4 | awk '{s+=$1}END{print s}'))
+        echo -e $(echo "$j" | cut -d "_" -f 1)"\t"$(echo $(gunzip -c "$j" | grep ">" | cut -d "_" -f 4 | awk '{s+=$1}END{print s}'))
     done | sort -g | awk '{print $2}' >> ../10_read_dropout/"$step"_"$i"
 done
 cd ..

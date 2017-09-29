@@ -1,6 +1,5 @@
 # Roadmap for v1.4
 ## Features
-- Compress fasta files in 08, 09, 11 and 12 (...chimeras.fasta)
 - Blast only unique sequences
   - Create dictionary of unique reads for all dataset (after chimeras)
   - Blast them and store results (sequence, hit)

@@ -41,7 +41,9 @@ then
 
     for i in "$CHIMERA_FOLDER"/*.nonchimeras
     do
-        mv "$i" "${i%.fastq.fasta.unique.nonchimeras}"_nonchimeras.fasta
+        gzip "$i"
+        mv "$i".gz "${i%.fastq.fasta.unique.nonchimeras}"_nonchimeras.fasta.gz
+
     done
 
 elif [ "$SKIP_CHIMERA_DETECTION" == "1" ]
@@ -50,7 +52,7 @@ then
 
     for i in "$CHIMERA_FOLDER"/*.unique
     do
-        mv "$i" "${i%.fastq.fasta.unique}"_nonchimeras.fasta
+        gzip -c "$i" > "${i%.fastq.fasta.unique}"_nonchimeras.fasta.gz
     done
 
     ls -1 -S "$CHIMERA_FOLDER"/*.{fastq.fasta,fastq.fasta_unique.fasta} 2>/dev/null | parallel -j "$NCPUS" gzip {}

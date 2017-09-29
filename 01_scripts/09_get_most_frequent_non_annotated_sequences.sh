@@ -5,46 +5,49 @@
 
 # Parameters
 NUM_NON_ANNOTATED_SEQ=$1
+NCPUS=$2
 CHIMERA_FOLDER="08_chimeras"
 RESULT_FOLDER="12_results"
+NON_ANNOTATED_FOLDER="11_non_annotated"
 
 # Get names of unwanted sequences from 09_vsearch
 ls -1 09_vsearch/ | grep -v _matched\.fasta | cut -d "_" -f 1 | sort -u | while read i
 do
-    rm 11_non_annotated/"$i"_with_result.ids 2> /dev/null
+    rm "$NON_ANNOTATED_FOLDER"/"$i"_with_result.ids 2> /dev/null
 
     for j in $(ls -1 09_vsearch/"$i"_* | grep -v "_matched\.fasta")
     do
         cat "$j" |
             awk '{print $1}' |
-            cut -d ";" -f 1 >> 11_non_annotated/"$i"_with_result.ids
+            cut -d ";" -f 1 >> "$NON_ANNOTATED_FOLDER"/"$i"_with_result.ids
     done
 
     # Sort them by decreasing order of count (most frequent sequences first)
-    cat "$CHIMERA_FOLDER"/"$i"_*_unique.fasta > 11_non_annotated/"$i"_temp.fasta
+    gunzip -c "$CHIMERA_FOLDER"/"$i"_*_unique.fasta.gz > "$NON_ANNOTATED_FOLDER"/"$i"_temp.fasta
     ./01_scripts/util/fasta_sort_by_count.py \
-        11_non_annotated/"$i"_temp.fasta \
-        11_non_annotated/"$i"_unique.fasta
+        "$NON_ANNOTATED_FOLDER"/"$i"_temp.fasta \
+        "$NON_ANNOTATED_FOLDER"/"$i"_unique.fasta
 
-    rm 11_non_annotated/"$i"_temp.fasta
+    rm "$NON_ANNOTATED_FOLDER"/"$i"_temp.fasta
 done
 
 # Remove these from "$CHIMERA_FOLDER"/*.fasta and output a fasta file per sample
-for i in 11_non_annotated/*.ids
+for i in "$NON_ANNOTATED_FOLDER"/*.ids
 do
     idfile=$(basename "$i")
     input="${idfile%_with_result.ids}"
     ./01_scripts/util/fasta_remove.py \
-        11_non_annotated/"$input"_unique.fasta \
-        11_non_annotated/"$input"_with_result.ids \
-        11_non_annotated/"$input"_without_result.fasta
+        "$NON_ANNOTATED_FOLDER"/"$input"_unique.fasta \
+        "$NON_ANNOTATED_FOLDER"/"$input"_with_result.ids \
+        "$NON_ANNOTATED_FOLDER"/"$input"_without_result.fasta
 done
 
 # Get the top most represented unique sequences per sample
-cat 11_non_annotated/*_without_result.fasta > "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
+cat "$NON_ANNOTATED_FOLDER"/*_without_result.fasta > "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
 
 # Recombine identical sequence
 ./01_scripts/util/combine_unique_sequences.py "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp $NUM_NON_ANNOTATED_SEQ "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.fasta
 
 # Cleanup
 rm "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
+ls -1 -S "$NON_ANNOTATED_FOLDER"/* | parallel -j "$NCPUS" gzip
