@@ -234,10 +234,11 @@ with open(os.path.join(output_folder, input_file.replace(".fastq.gz", "_summary.
             summary.write(",".join([p, str(primers_summary[p])]) + "\n")
 
 ## Report success
+filename = fastq_file.split("/")[-1]
 if count == 0:
-    print("Assigned 0% (0/0)\t\tof the sequences to an amplicon ({})".format(fastq_file))
+    print("Assigned 0% (0/0)\t\tof the sequences to an amplicon ({})".format(filename))
 else:
-    print("Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, fastq_file))
+    print("Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, filename))
 
 ## Close file handles
 for f in output_files:
