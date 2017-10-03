@@ -77,7 +77,6 @@ with myopen(output_fasta, "wt") as outfile:
         if not "Eukaryota" in info[0]:
             continue
 
-        #TODO
         # Keep only Metazoa?
         if not "Metazoa" in s.name:
             continue

@@ -159,10 +159,6 @@ with myopen(output_fasta, "wt") as outfile:
                 removed_species += 1
                 continue
 
-        # Remove Homo_sapiens
-        #if s.name == "Homo_sapiens":
-        #    continue
-
         # Adding phylum name
         s.name = phylum + "_" + s.name
 
