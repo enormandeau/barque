@@ -1,4 +1,4 @@
-# Roadmap for v1.4
+# Roadmap for v1.5
 ## Features
 - Blast only unique sequences
   - Create dictionary of unique reads for all dataset (after chimeras)
