@@ -1,6 +1,5 @@
 # Roadmap for v1.5
 ## Features
-* Specify the similarity threshold by database (eg: bold=0.97; silva=0.99)
 * Treat multiple hits in `07_summarize_results.py` directly
 - Blast only unique sequences
   - Create dictionary of unique reads for all dataset (after chimeras)
@@ -8,8 +7,6 @@
   - Assign results to each read of each pop
 
 ## Bugs
-* When re-runing the pipeline, gzip will bug when trying to re-compress files
-  - Use `gzip --force`
 - Number of reads are not sorted in the same order for different steps
 
 ## Documentation

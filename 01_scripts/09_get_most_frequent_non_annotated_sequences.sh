@@ -50,4 +50,4 @@ cat "$NON_ANNOTATED_FOLDER"/*_without_result.fasta > "$RESULT_FOLDER"/most_frequ
 
 # Cleanup
 rm "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
-ls -1 -S "$NON_ANNOTATED_FOLDER"/* | parallel -j "$NCPUS" gzip
+ls -1 -S "$NON_ANNOTATED_FOLDER"/* | grep -v "\.gz$" | parallel -j "$NCPUS" gzip --force {}

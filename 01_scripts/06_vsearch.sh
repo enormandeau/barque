@@ -45,4 +45,4 @@ do
 done
 
 # Cleanup
-ls -1 -S "$VSEARCH_FOLDER"/* | parallel -j "$NCPUS" gzip
+ls -1 -S "$VSEARCH_FOLDER"/* | grep -v "\.gz$" | parallel -j "$NCPUS" gzip --force {}

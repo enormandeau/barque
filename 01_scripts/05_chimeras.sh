@@ -37,11 +37,11 @@ then
     cat "$CHIMERA_FOLDER"/*.unique.chimeras | gzip -c - > "$RESULT_FOLDER"/chimera_sequences.fasta.gz
 
     # Cleanup
-    ls -1 -S "$CHIMERA_FOLDER"/*.{fasta,unique,borderline,chimeras} 2>/dev/null | parallel -j "$NCPUS" gzip {}
+    ls -1 -S "$CHIMERA_FOLDER"/*.{fasta,unique,borderline,chimeras} 2>/dev/null | parallel -j "$NCPUS" gzip --force {}
 
     for i in "$CHIMERA_FOLDER"/*.nonchimeras
     do
-        gzip "$i"
+        gzip --force "$i"
         mv "$i".gz "${i%.fastq.fasta.unique.nonchimeras}"_nonchimeras.fasta.gz
 
     done
@@ -55,7 +55,7 @@ then
         gzip -c "$i" > "${i%.fastq.fasta.unique}"_nonchimeras.fasta.gz
     done
 
-    ls -1 -S "$CHIMERA_FOLDER"/*.{fastq.fasta,fastq.fasta_unique.fasta} 2>/dev/null | parallel -j "$NCPUS" gzip {}
+    ls -1 -S "$CHIMERA_FOLDER"/*.{fastq.fasta,fastq.fasta_unique.fasta} 2>/dev/null | parallel -j "$NCPUS" gzip --force {}
 
 else
     echo -e "\nWARNING: Invalid value in config file for SKIP_CHIMERA_DETECTION"
