@@ -79,8 +79,7 @@ fi
 
 # Run vsearch
 echo -e "\nBARQUE: Running vsearch"
-./01_scripts/06_vsearch.sh "$SIMILARITY_VSEARCH" \
-    "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
+./01_scripts/06_vsearch.sh "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
 # Find multiple hits
 echo -e "\nBARQUE: Finding multiple hits"

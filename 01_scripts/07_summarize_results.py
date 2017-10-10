@@ -57,10 +57,17 @@ phylum_dictionary = {}
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
+    # Get minimum similarity for the primer
+    primer_info = [x.strip().split(",") for x in open(primer_file).readlines() if x.startswith(primer + ",")][0]
+    min_similarity = primer_info[6]
+
+    # Create summary dictionary
     species_dictionary[primer] = {}
     genus_dictionary[primer] = {}
     phylum_dictionary[primer] = {}
-    primer_results = [filename for filename in result_files if primer in filename]
+
+    # List result files for primer
+    primer_results = [filename for filename in result_files if "_" + primer + "_" in filename]
     primer_results = [filename for filename in primer_results if not filename.endswith("_matched.fasta.gz")]
 
     # Iterate through result files for primer
@@ -75,6 +82,10 @@ for primer in primers:
         with myopen(os.path.join(input_folder, result_file)) as rfile:
             for line in rfile:
                 sequence_name = line.split()[0]
+                # TODO read all hits for each sequence and decide what to do with multiplehits
+                # TODO If all hits to same species, keep name
+                # TODO If all hits to same genus, replace species name by ".sp"
+                # TODO Create multiple hit tale in this script instead of 01_scripts/util/find_multiple_hits.sh
                 if not sequence_name in seen:
                     seen.add(sequence_name)
                     l = line.strip().split()
@@ -184,6 +195,7 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[3:]]) > min_coverage:
+                # TODO add criteria that '.sp' species do not count
                 outfile.write(prepared_line)
 
     # Genus

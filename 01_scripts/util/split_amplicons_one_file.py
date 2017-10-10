@@ -111,7 +111,7 @@ with open(primer_file) as pfile:
             continue
 
         # Get primer infos
-        name, forward, reverse, min_length, max_length, database = line.strip().split(",")
+        name, forward, reverse, min_length, max_length, database, min_similarity = line.strip().split(",")
         forward_length = len(forward)
         reverse_length = len(reverse)
 
