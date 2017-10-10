@@ -43,8 +43,9 @@ for result_file in result_files:
             hits[sequence].append(species)
 
         for k, v in hits.items():
-            if len(v) > 1:
-                species_dict[tuple(set(v))].append(k)
+            if len(set(v)) > 1:
+                sp_group = tuple(sorted(list(set(v))))
+                species_dict[sp_group].append(k)
 
 # Count occurences of multiple hits
 multiple_hits = []
