@@ -59,7 +59,7 @@ phylum_dictionary = {}
 for primer in primers:
     # Get minimum similarity for the primer
     primer_info = [x.strip().split(",") for x in open(primer_file).readlines() if x.startswith(primer + ",")][0]
-    min_similarity = primer_info[6]
+    min_similarity = 100 * float(primer_info[6])
 
     # Create summary dictionary
     species_dictionary[primer] = {}
