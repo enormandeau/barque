@@ -80,12 +80,12 @@ for primer in primers:
         # Get infos form result file
         seen = set()
         with myopen(os.path.join(input_folder, result_file)) as rfile:
+            # TODO read all hits for each sequence and decide what to do with multiplehits
+            # TODO If all hits to same species, keep name
+            # TODO If all hits to same genus, replace species name by ".sp"
+            # TODO Create multiple hit tale in this script instead of 01_scripts/util/find_multiple_hits.sh
             for line in rfile:
                 sequence_name = line.split()[0]
-                # TODO read all hits for each sequence and decide what to do with multiplehits
-                # TODO If all hits to same species, keep name
-                # TODO If all hits to same genus, replace species name by ".sp"
-                # TODO Create multiple hit tale in this script instead of 01_scripts/util/find_multiple_hits.sh
                 if not sequence_name in seen:
                     seen.add(sequence_name)
                     l = line.strip().split()
@@ -195,7 +195,7 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[3:]]) > min_coverage:
-                # TODO add criteria that '.sp' species do not count
+                # TODO add criteria that 'noSpecies' species do not count
                 outfile.write(prepared_line)
 
     # Genus
@@ -207,6 +207,7 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[2:]]) > min_coverage:
+                # TODO add criteria that 'noGenus' genus do not count
                 outfile.write(prepared_line)
 
     # Phylum
