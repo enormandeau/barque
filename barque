@@ -86,6 +86,7 @@ echo -e "\nBARQUE: Finding multiple hits"
 for db in $(cat 02_info/primers.csv | grep -v "^#" | cut -d "," -f 6 | sort -u)
 do
     ./01_scripts/util/find_multiple_hits.py 09_vsearch/ "$db" "$RESULT_FOLDER"/multiple_hits_"$db".csv
+    ./01_scripts/util/reduce_multiple_hits.py "$RESULT_FOLDER"/multiple_hits_"$db".csv "$RESULT_FOLDER"/multiple_hits_"$db"_reduced.csv
 done
 
 # Summarize results
