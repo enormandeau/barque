@@ -17,10 +17,11 @@ except:
     print(__doc__)
     sys.exit(1)
 
-# Reduce
+# Create dictionary of species lists and counts
 groups = list()
 all_species = set()
 species_dict = defaultdict(list)
+
 with open(inputFile) as infile:
     for line in infile:
         l = line.strip().split(",")
@@ -32,15 +33,16 @@ with open(inputFile) as infile:
             all_species.add(s)
             species_dict[s].append((count, species))
 
+# Reduce species lists and cumulate counts
 for sp in all_species:
     species_group = []
 
+    # Combine all groups that contain a species
     for n, g in enumerate(groups):
         if sp in g[1]:
-            # Combine all groups that contain a species
             species_group.append(groups.pop(n))
 
-    # Compute new some and new species list
+    # Compute new sum and new species list
     count = sum([int(x[0]) for x in species_group])
     species = [x[1] for x in species_group]
 
@@ -50,7 +52,11 @@ for sp in all_species:
     # Add new compound group to list
     groups = [(count, species)] + groups
 
+# Sort by presence
+groups = [(int(g[0]), g[1]) for g in groups]
 groups = sorted(groups, reverse=True)
+
+# Prepare string for output
 groups = [str(g[0]) + "," + ";".join(g[1]) + "\n" for g in groups]
 
 with open(outputFile, "w") as outfile:
