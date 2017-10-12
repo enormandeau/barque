@@ -2,13 +2,12 @@
 """Summarize vsearch results
 
 Usage:
-    ./01_scripts/07_summarize_results.py input_folder output_folder primer_file min_similarity min_length min_coverage
+    ./01_scripts/07_summarize_results.py input_folder output_folder primer_file min_length min_coverage
 
 Where:
     input_folder is '09_vsearch'
     output_folder is '12_results'
     primer_file is '02_info/primers.csv'
-    min_similarity is a float between 0 and 1 (typically >= 0.9)
     min_length is the minimum length of the hits to keep (typically >= 100)
     min_coverage is the minimun number of hits a taxon (species, genus or phylum)
         must have in *at least* one sample in order for the taxon to be kept
@@ -32,7 +31,6 @@ try:
     input_folder = sys.argv[1]
     output_folder = sys.argv[2]
     primer_file = sys.argv[3]
-    min_similarity = 100.0 * float(sys.argv[4])
     min_length = int(sys.argv[5])
     min_coverage = int(sys.argv[6])
 except:
