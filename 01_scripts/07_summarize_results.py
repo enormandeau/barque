@@ -31,8 +31,8 @@ try:
     input_folder = sys.argv[1]
     output_folder = sys.argv[2]
     primer_file = sys.argv[3]
-    min_length = int(sys.argv[5])
-    min_coverage = int(sys.argv[6])
+    min_length = int(sys.argv[4])
+    min_coverage = int(sys.argv[5])
 except:
     print(__doc__)
     sys.exit(1)
