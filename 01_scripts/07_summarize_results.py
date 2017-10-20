@@ -52,6 +52,7 @@ result_files = os.listdir(input_folder)
 species_dictionary = {}
 genus_dictionary = {}
 phylum_dictionary = {}
+multiple_hits = defaultdict(int)
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
@@ -99,12 +100,8 @@ for primer in primers:
                     and float(x[1]) >= min_similarity
                     and int(x[2]) >= min_length)])
 
-            # No hit matches min_similarity and min_length, do nothing
-            if len(best_species) == 0:
-                pass
-
             # Species level identification
-            elif len(best_species) == 1:
+            if len(best_species) == 1:
                 species = list(best_species)[0]
                 species_dictionary[primer][sample][species] += count
 
@@ -114,18 +111,34 @@ for primer in primers:
                 phylum = list(best_species)[0].split("_")[0]
                 phylum_dictionary[primer][sample][phylum] += count
 
-            # Genus level identification
-            elif len(set([x.split("_")[1] for x in best_species])) == 1:
-                genus = "_".join(list(best_species)[0].split("_")[:2])
-                genus_dictionary[primer][sample][genus] += count
+            elif len(best_species) > 1:
+                # Summaryze multiple hits
+                multiple_hits[";".join(sorted(list(best_species)))] += count
 
-                phylum = list(best_species)[0].split("_")[0]
-                phylum_dictionary[primer][sample][phylum] += count
+                # Genus level identification
+                if len(set([x.split("_")[1] for x in best_species])) == 1:
+                    genus = "_".join(list(best_species)[0].split("_")[:2])
+                    genus_dictionary[primer][sample][genus] += count
 
-            # Phylum level identification
-            else:
-                phylum = list(best_species)[0].split("_")[0]
-                phylum_dictionary[primer][sample][phylum] += count
+                    phylum = list(best_species)[0].split("_")[0]
+                    phylum_dictionary[primer][sample][phylum] += count
+
+                # Phylum level identification
+                else:
+                    phylum = list(best_species)[0].split("_")[0]
+                    phylum_dictionary[primer][sample][phylum] += count
+
+# Write multiple hit summary
+lines = []
+for group in sorted(multiple_hits.keys()):
+    lines.append((multiple_hits[group], group))
+
+lines = sorted(lines, reverse=True)
+lines = [str(x[0]) + "," + x[1] for x in lines]
+
+with open(os.path.join(output_folder, "multiple_hits_bold.csv"), "w") as outfile:
+    for l in lines:
+        outfile.write(l + "\n")
 
 # Get represented taxons
 species_found = {}
