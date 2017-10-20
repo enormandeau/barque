@@ -1,6 +1,7 @@
 # Version 1.6
 ## Features
 - Index databases only once (beginning of pipeline, with option to skip if existing)
+- Sort output files better
 
 ## Bugs
 - Number of reads are not sorted in the same order for different steps
@@ -19,6 +20,7 @@
   - Include good `primers.csv` file
 
 # Maybe
+- Create figures (amplicon split, multiple hits, read dropout)
 - Blast only unique sequences
   - Create dictionary of unique reads for all dataset (after chimeras)
   - Blast them and store results (sequence, hit)
