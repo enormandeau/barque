@@ -1,7 +1,6 @@
-# Version 1.5
+# Version 1.6
 ## Features
-- Create table of multiple hits in `07_summarize_results.py`
-- Remove `Uncultured` results from most frequent non-annotated blasts if equivalent hit quality
+- Index databases only once (beginning of pipeline, with option to skip if existing)
 
 ## Bugs
 - Number of reads are not sorted in the same order for different steps
@@ -11,7 +10,6 @@
 ## Features
 - Use Genbank for annotation (create DB with efetch)
 - Annotate reads then create OTUs and report on those too
-- Index databases only once (beginning of pipeline, with option to skip if existing)
 
 ## Documentation
 - Describe input sequence format requirements
