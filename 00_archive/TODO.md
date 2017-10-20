@@ -1,6 +1,6 @@
 # Version 1.5
 ## Features
-* Treat taxon level (species, genus, phylum) in `07_summarize_results`
+- Create table of multiple hits in `07_summarize_results.py`
 - Remove `Uncultured` results from most frequent non-annotated blasts if equivalent hit quality
 
 ## Bugs

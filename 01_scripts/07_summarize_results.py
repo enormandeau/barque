@@ -55,6 +55,7 @@ phylum_dictionary = {}
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
+
     # Get minimum similarity for the primer
     primer_info = [x.strip().split(",") for x in open(primer_file).readlines() if x.startswith(primer + ",")][0]
     min_similarity = 100 * float(primer_info[6])
@@ -77,42 +78,59 @@ for primer in primers:
 
         # Get infos form result file
         seen = set()
+        sequence_dict = defaultdict(list)
+        sequence_list = []
+
+        # Read all hits for each sequence into a dictionary
         with myopen(os.path.join(input_folder, result_file)) as rfile:
-            # TODO read all hits for each sequence and decide what to do with multiplehits
-            # TODO If all hits to same species, keep name
-            # TODO If all hits to same genus, replace species name by ".sp"
-            # TODO Create multiple hit tale in this script instead of 01_scripts/util/find_multiple_hits.sh
             for line in rfile:
                 sequence_name = line.split()[0]
+                sequence_dict[sequence_name].append(line.strip().split()[1:])
                 if not sequence_name in seen:
                     seen.add(sequence_name)
-                    l = line.strip().split()
-                    species = l[1] # "_".join(l[1].split("_")[0:3])
-                    similarity = float(l[2])
-                    length = int(l[3])
-                    count = int(l[0].split("_")[3])
+                    sequence_list.append(sequence_name)
 
-                    if similarity >= min_similarity and length >= min_length:
-                        # Species
-                        species_dictionary[primer][sample][species] += count
+        # Treat each sequence
+        for seq in sequence_list:
+            count = int(seq.split("_")[3])
+            best_score = min([float(x[1]) for x in sequence_dict[seq]])
+            best_species = set([x[0] for x in sequence_dict[seq]
+                if (float(x[1]) == best_score
+                    and float(x[1]) >= min_similarity
+                    and int(x[2]) >= min_length)])
 
-                        # Genus
-                        genus = "_".join(species.split("_")[0:2])
-                        genus_dictionary[primer][sample][genus] += count
+            # No hit matches min_similarity and min_length, do nothing
+            if len(best_species) == 0:
+                pass
 
-                        # Phylum
-                        phylum = "_".join(species.split("_")[0:1])
-                        phylum_dictionary[primer][sample][phylum] += count
+            # Species level identification
+            elif len(best_species) == 1:
+                species = list(best_species)[0]
+                species_dictionary[primer][sample][species] += count
+
+                genus = "_".join(list(best_species)[0].split("_")[:2])
+                genus_dictionary[primer][sample][genus] += count
+
+                phylum = list(best_species)[0].split("_")[0]
+                phylum_dictionary[primer][sample][phylum] += count
+
+            # Genus level identification
+            elif len(set([x.split("_")[1] for x in best_species])) == 1:
+                genus = "_".join(list(best_species)[0].split("_")[:2])
+                genus_dictionary[primer][sample][genus] += count
+
+                phylum = list(best_species)[0].split("_")[0]
+                phylum_dictionary[primer][sample][phylum] += count
+
+            # Phylum level identification
+            else:
+                phylum = list(best_species)[0].split("_")[0]
+                phylum_dictionary[primer][sample][phylum] += count
 
 # Get represented taxons
 species_found = {}
-genus_found = {}
-phylum_found = {}
-
 for primer in species_dictionary:
     species_found[primer] = set()
-    genus_found[primer] = set()
-    phylum_found[primer] = set()
 
     for sample in species_dictionary[primer]:
         for species in species_dictionary[primer][sample]:
@@ -121,16 +139,34 @@ for primer in species_dictionary:
                 # Species
                 species_found[primer].add(species)
 
+    species_found[primer] = sorted(list(species_found[primer]))
+
+genus_found = {}
+for primer in genus_dictionary:
+    genus_found[primer] = set()
+
+    for sample in genus_dictionary[primer]:
+        for genus in genus_dictionary[primer][sample]:
+            count = genus_dictionary[primer][sample][genus]
+            if count > 0:
+
                 # Genus
-                genus = "_".join(species.split("_")[0:2])
                 genus_found[primer].add(genus)
 
+    genus_found[primer] = sorted(list(genus_found[primer]))
+
+phylum_found = {}
+for primer in phylum_dictionary:
+    phylum_found[primer] = set()
+
+    for sample in phylum_dictionary[primer]:
+        for phylum in phylum_dictionary[primer][sample]:
+            count = phylum_dictionary[primer][sample][phylum]
+            if count > 0:
+
                 # Phylum
-                phylum = "_".join(species.split("_")[0:1])
                 phylum_found[primer].add(phylum)
 
-    species_found[primer] = sorted(list(species_found[primer]))
-    genus_found[primer] = sorted(list(genus_found[primer]))
     phylum_found[primer] = sorted(list(phylum_found[primer]))
 
 # Summarize results
@@ -193,7 +229,6 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[3:]]) > min_coverage:
-                # TODO add criteria that 'noSpecies' species do not count
                 outfile.write(prepared_line)
 
     # Genus
@@ -205,7 +240,6 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[2:]]) > min_coverage:
-                # TODO add criteria that 'noGenus' genus do not count
                 outfile.write(prepared_line)
 
     # Phylum
