@@ -6,6 +6,7 @@
 
 # Global parameters
 NCPUS=10                    # Number of CPUs to use for analyses (int, 1+)
+PRIMER_FILE=02_info/primers.csv # File with PCR primers information
 
 # Skip data preparation and rerun only from vsearch
 SKIP_DATA_PREP=0            # 1 to skip data preparation steps, 0 to run full pipeline
