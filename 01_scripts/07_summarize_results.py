@@ -38,24 +38,24 @@ except:
     sys.exit(1)
 
 # Read primer_file
-primers = []
+primers = dict()
 with open(primer_file) as pfile:
     for line in pfile:
         if line.startswith("#"):
             continue
 
-        l = line.strip()
-        primers.append(l.split(",")[0])
+        l = line.strip().split(",")
+        primers[l[0]] = l[5]
 
 # Read vsearch results form input_folder
 result_files = os.listdir(input_folder)
 species_dictionary = {}
 genus_dictionary = {}
 phylum_dictionary = {}
-multiple_hits = defaultdict(int)
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
+    multiple_hits = defaultdict(int)
 
     # Get minimum similarity for the primer
     primer_info = [x.strip().split(",") for x in open(primer_file).readlines() if x.startswith(primer + ",")][0]
@@ -128,17 +128,17 @@ for primer in primers:
                     phylum = list(best_species)[0].split("_")[0]
                     phylum_dictionary[primer][sample][phylum] += count
 
-# Write multiple hit summary
-lines = []
-for group in sorted(multiple_hits.keys()):
-    lines.append((multiple_hits[group], group))
+    # Write multiple hit summary
+    lines = []
+    for group in sorted(multiple_hits.keys()):
+        lines.append((multiple_hits[group], group))
 
-lines = sorted(lines, reverse=True)
-lines = [str(x[0]) + "," + x[1] for x in lines]
+    lines = sorted(lines, reverse=True)
+    lines = [str(x[0]) + "," + x[1] for x in lines]
 
-with open(os.path.join(output_folder, "multiple_hits_bold.csv"), "w") as outfile:
-    for l in lines:
-        outfile.write(l + "\n")
+    with open(os.path.join(output_folder, "multiple_hits_" + primer + "_" + primers[primer] + ".csv"), "w") as outfile:
+        for l in lines:
+            outfile.write(l + "\n")
 
 # Get represented taxons
 species_found = {}
