@@ -1,4 +1,4 @@
-# Barque v1.5
+# Barque v1.5.1
 
 ## Environmental DNA metabarcoding analysis
 
@@ -45,7 +45,7 @@ To use **Barque**, you will need a local copy of its repository, which can be
 
 Different releases can be
 [accessed here](https://github.com/enormandeau/barque/releases). It is
-recommended to use the latest version or at least version 1.3.
+recommended to use the latest version or at least version 1.5.1.
 
 ## Dependencies
 

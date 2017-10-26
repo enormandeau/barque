@@ -1,13 +1,10 @@
-# Version 1.5.1
-- Blast with lower %identity (min 80%) to recover genus and phylum info
-- Sort taxa count output files better
-
 # Version 1.5.2
 - Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
 - Describe test dataset on `github.com/enormandeau/barque_test_dataset`
   - Include good `primers.csv` file
+- Sort taxa count output files better
 
 # Version 1.6
 - Annotate by reads OR by OTUs
