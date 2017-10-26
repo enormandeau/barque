@@ -14,13 +14,15 @@ VSEARCH_FOLDER="09_vsearch"
 # Find best hit in database using vsearch
 for amplicon in $(grep -v "^#" "$INFO_FOLDER"/primers.csv | awk -F "," '{print $1}')
 do
-    echo "$amplicon"
+    echo "Amplicon: $amplicon"
     database=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $6}').fasta.gz
     min_similarity=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $9}')
 
+    echo
     echo "#############################"
     echo "# Using database: $database"
     echo "#############################"
+    echo
 
     # Treat each sample
     for sample in $(ls -1 "$CHIMERA_FOLDER"/*"$amplicon"*_nonchimeras.fasta.gz)
