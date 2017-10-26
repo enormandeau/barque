@@ -16,7 +16,7 @@ for amplicon in $(grep -v "^#" "$INFO_FOLDER"/primers.csv | awk -F "," '{print $
 do
     echo "$amplicon"
     database=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $6}').fasta.gz
-    similarity=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $7}')
+    min_similarity=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep $amplicon | awk -F "," '{print $9}')
 
     echo "#############################"
     echo "# Using database: $database"
@@ -36,7 +36,7 @@ do
         # Run vsearch
         echo "Running vsearch on $fasta with database $database"
         vsearch --usearch_global "$CHIMERA_FOLDER"/"$fasta" -db 03_databases/"$database" \
-            --threads "$NCPUS" --qmask none --dbmask none --id "$similarity" \
+            --threads "$NCPUS" --qmask none --dbmask none --id "$min_similarity" \
             --blast6out "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}" \
             --dbmatched "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}_matched.fasta" \
             --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits "$MAX_ACCEPTS" \

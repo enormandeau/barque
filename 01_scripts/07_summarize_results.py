@@ -59,7 +59,9 @@ for primer in primers:
 
     # Get minimum similarity for the primer
     primer_info = [x.strip().split(",") for x in open(primer_file).readlines() if x.startswith(primer + ",")][0]
-    min_similarity = 100 * float(primer_info[6])
+    min_species_similarity = 100 * float(primer_info[6])
+    min_genus_similarity = 100 * float(primer_info[7])
+    min_phylum_similarity = 100 * float(primer_info[8])
 
     # Create summary dictionary
     species_dictionary[primer] = {}
@@ -95,9 +97,21 @@ for primer in primers:
         for seq in sequence_list:
             count = int(seq.split("_")[3])
             best_score = min([float(x[1]) for x in sequence_dict[seq]])
+
+            # Find best species, genus or phylum
             best_species = set([x[0] for x in sequence_dict[seq]
                 if (float(x[1]) == best_score
-                    and float(x[1]) >= min_similarity
+                    and float(x[1]) >= min_species_similarity
+                    and int(x[2]) >= min_length)])
+
+            best_genus = set(["_".join(x[0].split("_")[:2]) for x in sequence_dict[seq]
+                if (float(x[1]) == best_score
+                    and float(x[1]) >= min_genus_similarity
+                    and int(x[2]) >= min_length)])
+
+            best_phylum = set([x[0].split("_")[0] for x in sequence_dict[seq]
+                if (float(x[1]) == best_score
+                    and float(x[1]) >= min_phylum_similarity
                     and int(x[2]) >= min_length)])
 
             # Species level identification
@@ -105,27 +119,27 @@ for primer in primers:
                 species = list(best_species)[0]
                 species_dictionary[primer][sample][species] += count
 
-                genus = "_".join(list(best_species)[0].split("_")[:2])
+                genus = list(best_genus)[0]
                 genus_dictionary[primer][sample][genus] += count
 
-                phylum = list(best_species)[0].split("_")[0]
+                phylum = list(best_phylum)[0]
                 phylum_dictionary[primer][sample][phylum] += count
 
+            # Summaryze multiple hits
             elif len(best_species) > 1:
-                # Summaryze multiple hits
                 multiple_hits[";".join(sorted(list(best_species)))] += count
 
                 # Genus level identification
-                if len(set([x.split("_")[1] for x in best_species])) == 1:
-                    genus = "_".join(list(best_species)[0].split("_")[:2])
+                if len(best_genus) == 1:
+                    genus = list(best_genus)[0]
                     genus_dictionary[primer][sample][genus] += count
 
-                    phylum = list(best_species)[0].split("_")[0]
+                    phylum = list(best_phylum)[0]
                     phylum_dictionary[primer][sample][phylum] += count
 
                 # Phylum level identification
                 else:
-                    phylum = list(best_species)[0].split("_")[0]
+                    phylum = list(best_phylum)[0]
                     phylum_dictionary[primer][sample][phylum] += count
 
     # Write multiple hit summary
