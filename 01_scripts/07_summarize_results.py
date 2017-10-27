@@ -14,6 +14,7 @@ Where:
 """
 
 # Modules
+from distutils.version import LooseVersion
 from collections import defaultdict
 import gzip
 import sys
@@ -48,7 +49,7 @@ with open(primer_file) as pfile:
         primers[l[0]] = l[5]
 
 # Read vsearch results form input_folder
-result_files = sorted(os.listdir(input_folder))
+result_files = sorted(os.listdir(input_folder), key=LooseVersion)
 species_dictionary = {}
 genus_dictionary = {}
 phylum_dictionary = {}
@@ -71,7 +72,8 @@ for primer in primers:
 
     # List result files for primer
     primer_results = [filename for filename in result_files if "_" + primer + "_" in filename]
-    primer_results = [filename for filename in primer_results if not filename.endswith("_matched.fasta.gz")]
+    primer_results = [filename for filename in primer_results if not (filename.endswith("_matched.fasta.gz")
+            or filename.endswith("_matched.fasta"))]
 
     # Iterate through result files for primer
     for result_file in primer_results:
