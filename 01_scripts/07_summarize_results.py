@@ -56,7 +56,8 @@ phylum_dictionary = {}
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
-    print "Primer:", primer
+    print("")
+    print("Primer: " + primer)
     multiple_hits = defaultdict(int)
 
     # Get minimum similarity for the primer
@@ -78,7 +79,8 @@ for primer in primers:
     # Iterate through result files for primer
     for result_file in primer_results:
         sample = result_file.split("_")[0]
-        print " " + sample
+        sys.stdout.write("  " + sample)
+        sys.stdout.flush()
         species_dictionary[primer][sample] = defaultdict(int)
         genus_dictionary[primer][sample] = defaultdict(int)
         phylum_dictionary[primer][sample] = defaultdict(int)
@@ -145,6 +147,9 @@ for primer in primers:
                 else:
                     phylum = list(best_phylum)[0]
                     phylum_dictionary[primer][sample][phylum] += count
+
+    # Write new line after all the samples of a primer pair are finished
+    print("")
 
     # Write multiple hit summary
     lines = []
