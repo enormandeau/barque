@@ -1,9 +1,14 @@
 # Version 1.5.2
+- Option to remove unique reads (before or after blasts?)
 - Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
 - Describe test dataset on `github.com/enormandeau/barque_test_dataset`
   - Include good `primers.csv` file
+- Add commands in README.md to run test with test dataset
+  - Clone test data
+  - Copy in data folder
+  - `time ./barque 02_info/barque.conf`
 - Sort taxa count output files better
 
 # Version 1.6
