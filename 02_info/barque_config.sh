@@ -20,8 +20,8 @@ SKIP_CHIMERA_DETECTION=0    # 0 to search for chimeras (RECOMMENDED), 1 to skip 
                             #   or use already created chimera cleaned files
 
 # vsearch
-MAX_ACCEPTS=100             # Accept at most this number of sequences before stoping search (int, 1+)
-MAX_REJECTS=50              # Reject at most this number of sequences before stoping search (int, 1+)
+MAX_ACCEPTS=20              # Accept at most this number of sequences before stoping search (int, 1+)
+MAX_REJECTS=20              # Reject at most this number of sequences before stoping search (int, 1+)
 QUERY_COV=0.6               # At least that proportion of the sequence must match the database (float, 0-1)
 
 # Filters
