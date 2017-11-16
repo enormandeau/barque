@@ -1,5 +1,6 @@
 # Version 1.5.2
 - Index databases only once (beginning of pipeline, with option to skip if existing)
+- Produce genus level multiple hits
 - Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
