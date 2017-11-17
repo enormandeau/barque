@@ -58,7 +58,8 @@ phylum_dictionary = {}
 for primer in primers:
     print("")
     print("Primer: " + primer)
-    multiple_hits = defaultdict(int)
+    multiple_hits_species = defaultdict(int)
+    multiple_hits_genus = defaultdict(int)
 
     # Get minimum similarity for the primer
     primer_info = [x.strip().split(",") for x in open(primer_file).readlines() if x.startswith(primer + ",")][0]
@@ -133,7 +134,7 @@ for primer in primers:
 
             # Summaryze multiple hits
             elif len(best_species) > 1:
-                multiple_hits[";".join(sorted(list(best_species)))] += count
+                multiple_hits_species[";".join(sorted(list(best_species)))] += count
 
                 # Genus level identification
                 if len(best_genus) == 1:
@@ -143,6 +144,9 @@ for primer in primers:
                     phylum = list(best_phylum)[0]
                     phylum_dictionary[primer][sample][phylum] += count
 
+                if len(best_genus) > 1:
+                    multiple_hits_genus[":".join(sorted(list(best_genus)))] += count
+
                 # Phylum level identification
                 else:
                     phylum = list(best_phylum)[0]
@@ -151,16 +155,32 @@ for primer in primers:
     # Write new line after all the samples of a primer pair are finished
     print("")
 
-    # Write multiple hit summary
-    lines = []
-    for group in sorted(multiple_hits.keys()):
-        lines.append((multiple_hits[group], group))
+    # Write multiple hit summary for species
+    lines_species = []
+    for group in sorted(multiple_hits_species.keys()):
+        lines_species.append((multiple_hits_species[group], group))
 
-    lines = sorted(lines, reverse=True)
-    lines = [str(x[0]) + "," + x[1] for x in lines]
+    lines_species = sorted(lines_species, reverse=True)
+    lines_species = [str(x[0]) + "," + x[1] for x in lines_species]
 
-    with open(os.path.join(output_folder, "multiple_hits_" + primer + "_" + primers[primer] + ".csv"), "w") as outfile:
-        for l in lines:
+    with open(os.path.join(output_folder,
+        "multiple_hits_" + primer + "_" + primers[primer] + "_species.csv"),
+        "w") as outfile:
+        for l in lines_species:
+            outfile.write(l + "\n")
+
+    # Write multiple hit summary for species
+    lines_genus = []
+    for group in sorted(multiple_hits_genus.keys()):
+        lines_genus.append((multiple_hits_genus[group], group))
+
+    lines_genus = sorted(lines_genus, reverse=True)
+    lines_genus = [str(x[0]) + "," + x[1] for x in lines_genus]
+
+    with open(os.path.join(output_folder,
+        "multiple_hits_" + primer + "_" + primers[primer] + "_genus.csv"),
+        "w") as outfile:
+        for l in lines_genus:
             outfile.write(l + "\n")
 
 # Get represented taxons

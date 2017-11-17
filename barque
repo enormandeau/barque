@@ -91,9 +91,15 @@ echo -e "\nBARQUE: Finding multiple hits"
 for primer in $(cat "$PRIMER_FILE" | grep -v "^#" | cut -d "," -f 1 | sort -u)
 do
     db=$(cat "$PRIMER_FILE" | grep $primer | cut -d "," -f 6)
-    infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db".csv
-    outfile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_reduced.csv
 
+    # Species
+    infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species.csv
+    outfile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species_reduced.csv
+    ./01_scripts/util/reduce_multiple_hits.py "$infile" "$outfile"
+
+    # Genus
+    infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_genus.csv
+    outfile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_genus_reduced.csv
     ./01_scripts/util/reduce_multiple_hits.py "$infile" "$outfile"
 done
 
