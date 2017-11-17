@@ -4,7 +4,7 @@
 - Keep only 'Genus species' sequences
 
 Usage:
-    ./01_scripts/format_bold_database.py input_fasta output_fasta species_to_remove
+    ./01_scripts/format_bold_database.py input_fasta output_fasta species_to_remove sequence_to_remove
 
 Where:
     input_fasta is a .fasta or a .fasta.gz file
@@ -71,6 +71,12 @@ try:
 except:
     species_file = None
 
+# Optionally, get file containing BOLD sequence IDs to remove
+try:
+    sequence_file = sys.argv[4]
+except:
+    sequence_file = None
+
 # Create set of unwanted species
 if species_file:
     species_set = set()
@@ -81,6 +87,17 @@ if species_file:
 else:
     species_set = None
 
+# Create set of unwanted BOLD IDs
+if sequence_file:
+    bold_id_set = set()
+    with open(sequence_file) as sfile:
+        for line in sfile:
+            l = line.strip().split()
+            bold_id = l[0]
+            bold_id_set.add(bold_id)
+else:
+    bold_id_set = None
+
 # Iterating through sequences
 print(input_fasta)
 phylum = os.path.basename(input_fasta).split(".")[0].lower()
@@ -89,12 +106,14 @@ found_sequences = {}
 treated_sequences = 0
 kept_sequences = 0
 removed_species = 0
+removed_bold_ids = 0
 good_nuc = set("ACTGN")
 
 with myopen(output_fasta, "wt") as outfile:
     for s in sequences:
         treated_sequences += 1
         info = s.name.split("|")
+        bold_id = info[0]
         names = info[1].split(" ")
         num_names = len(names)
         good_name = " ".join(names)
@@ -140,7 +159,6 @@ with myopen(output_fasta, "wt") as outfile:
 
         # Capitalized genus and lower caps species
         if not names[0][0].isupper() or not names[1][0].islower():
-            print(s.name)
             continue
 
         # Remove leading and trailing Ns
@@ -157,6 +175,12 @@ with myopen(output_fasta, "wt") as outfile:
         if species_set:
             if s.name in species_set:
                 removed_species += 1
+                continue
+
+        # Remove unwanted BOLD IDs
+        if bold_id_set:
+            if bold_id in bold_id_set:
+                removed_bold_ids += 1
                 continue
 
         # Adding phylum name
@@ -182,7 +206,7 @@ with myopen(output_fasta, "wt") as outfile:
             kept_sequences += 1
 
 # Report
-print("Treated {} sequences".format(treated_sequences))
-print("   Kept {} sequences".format(kept_sequences))
+print("   Kept {} / {} sequences".format(kept_sequences, treated_sequences))
 print("   Removed {} sequences from unwanted species".format(removed_species))
+print("   Removed {} sequences from unwanted BOLD ids".format(removed_bold_ids))
 print("")
