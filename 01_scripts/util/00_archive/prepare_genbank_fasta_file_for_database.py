@@ -23,7 +23,7 @@ class Fasta(object):
         handle.write(self.sequence + "\n")
 
 # Functions
-def myopen(infile, mode="r"):
+def myopen(infile, mode="rt"):
     if infile.endswith(".gz"):
         return gzip.open(infile, mode=mode)
     else:
