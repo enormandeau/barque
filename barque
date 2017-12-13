@@ -16,6 +16,9 @@ CONFIG_FILENAME=$(basename "$CONFIG_FILE")
 LOG_FOLDER="00_archive/log_files"
 RESULT_FOLDER="12_results"
 
+# Log all output
+exec > >(tee "$LOG_FOLDER"/"$TIMESTAMP"_barque_run.log) 2>&1
+
 print_logo () {
     echo ""
     echo '        |    |    |'
