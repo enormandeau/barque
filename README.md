@@ -53,7 +53,7 @@ You will also need to have the following programs installed on your computer.
 
 - OSX or GNU Linux
 - bash 4+
-- python 3.6+
+- python 2.7+ or 3.5+
 - [gnu parallel](https://www.gnu.org/software/parallel/)
 - [flash (read merger)](https://sourceforge.net/projects/flashpage/)
 - [vsearch](https://github.com/torognes/vsearch)
