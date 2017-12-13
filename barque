@@ -56,7 +56,7 @@ then
 
     # Trim and clean reads
     echo -e "\nBARQUE: Trimming and filtering reads"
-    ./01_scripts/01_trim.sh "$NCPUS" "$MIN_HIT_LENGTH"
+    ./01_scripts/01_trim.sh "$NCPUS" "$MIN_HIT_LENGTH" "$CROP_LENGTH"
 
     # Merge forward and reverse reads
     echo -e "\nBARQUE: Merging forward and reverse reads"
@@ -90,7 +90,7 @@ echo -e "\nBARQUE: Summarizing results"
 echo -e "\nBARQUE: Finding multiple hits"
 for primer in $(cat "$PRIMER_FILE" | grep -v "^#" | cut -d "," -f 1 | sort -u)
 do
-    db=$(cat "$PRIMER_FILE" | grep $primer | cut -d "," -f 6)
+    db=$(cat "$PRIMER_FILE" | grep "$primer" | cut -d "," -f 6)
 
     # Species
     infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species.csv
