@@ -1,5 +1,4 @@
 # Version 1.5.x
-- Index databases only once (beginning of pipeline, with option to skip if existing)
 - Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
@@ -11,6 +10,7 @@
   - `time ./barque 02_info/barque.conf`
 - Number of reads are not sorted in the same order for different steps
   - Create a master script that does the summary
+- Index databases only once (beginning of pipeline, with option to skip if existing)
 
 # Later
 
