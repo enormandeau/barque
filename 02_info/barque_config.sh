@@ -12,7 +12,7 @@ PRIMER_FILE="02_info/primers.csv" # File with PCR primers information
 SKIP_DATA_PREP=0            # 1 to skip data preparation steps, 0 to run full pipeline
 
 # Filtering with Trimmomatic
-CROP_LENGTH=300             # Cut reads to this length after filtering
+CROP_LENGTH=275             # Cut reads to this length after filtering
 
 # Merging reads with flash
 MIN_OVERLAP=30              # Minimum number of overlapping nucleotides to merge reads (int, 1+)
