@@ -46,7 +46,7 @@ done
 cat "$NON_ANNOTATED_FOLDER"/*_without_result.fasta > "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
 
 # Recombine identical sequence
-./01_scripts/util/combine_unique_sequences.py "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp $NUM_NON_ANNOTATED_SEQ "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.fasta
+./01_scripts/util/combine_unique_sequences.py "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp "$NUM_NON_ANNOTATED_SEQ" "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.fasta
 
 # Cleanup
 rm "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
