@@ -93,7 +93,7 @@ echo -e "\nBARQUE: Summarizing results"
 echo -e "\nBARQUE: Finding multiple hits"
 for primer in $(cat "$PRIMER_FILE" | grep -v "^#" | cut -d "," -f 1 | sort -u)
 do
-    db=$(cat "$PRIMER_FILE" | grep "$primer" | cut -d "," -f 6)
+    db=$(cat "$PRIMER_FILE" | grep -v "^#" | grep "$primer" | cut -d "," -f 6)
 
     # Species
     infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species.csv
