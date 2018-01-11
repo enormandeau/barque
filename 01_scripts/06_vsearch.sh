@@ -36,6 +36,7 @@ do
             "$CHIMERA_FOLDER"/"$vsearch_fasta" "$CHIMERA_FOLDER"/"$fasta"
 
         # Run vsearch
+        echo
         echo "Running vsearch on $fasta with database $database"
         vsearch --usearch_global "$CHIMERA_FOLDER"/"$fasta" -db 03_databases/"$database" \
             --threads "$NCPUS" --qmask none --dbmask none --id "$min_similarity" \
@@ -43,6 +44,8 @@ do
             --dbmatched "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}_matched.fasta" \
             --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits "$MAX_ACCEPTS" \
             --query_cov "$QUERY_COV" --fasta_width 0
+        echo " -- done"
+        echo
     done
 done
 
