@@ -17,9 +17,10 @@ do
 
     for j in $(ls -1 09_vsearch/"$i"_* | grep -v "_matched\.fasta")
     do
-        cat "$j" |
-            awk '{print $1}' |
-            cut -d ";" -f 1 >> "$NON_ANNOTATED_FOLDER"/"$i"_with_result.ids
+        gunzip -c "$j" |
+            awk '$3 >= 97 {print $1}' |
+            cut -d ";" -f 1 |
+            uniq >> "$NON_ANNOTATED_FOLDER"/"$i"_with_result.ids
     done
 
     # Sort them by decreasing order of count (most frequent sequences first)
@@ -50,4 +51,4 @@ cat "$NON_ANNOTATED_FOLDER"/*_without_result.fasta > "$RESULT_FOLDER"/most_frequ
 
 # Cleanup
 rm "$RESULT_FOLDER"/most_frequent_non_annotated_sequences.temp
-ls -1 -S "$NON_ANNOTATED_FOLDER"/* | grep -v "\.gz$" | parallel -j "$NCPUS" gzip --force {}
+ls -1 -S "$NON_ANNOTATED_FOLDER"/*.fasta | grep -v "\.gz$" | parallel -j "$NCPUS" gzip --force {}
