@@ -20,7 +20,6 @@
 *.xlsx
 *.zip
 *_primers_not_found
-*data*
 *~
 .~lock*
 00_archive/*
@@ -37,3 +36,4 @@
 10_read_dropout/*
 11_non_annotated/*
 12_results/*
+13_otu_database/*
