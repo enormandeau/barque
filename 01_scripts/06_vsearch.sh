@@ -44,7 +44,8 @@ do
             --dbmatched "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}_matched.fasta" \
             --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits "$MAX_ACCEPTS" \
             --query_cov "$QUERY_COV" --fasta_width 0
-        echo " -- done"
+        echo "done"
+        echo "--"
         echo
     done
 done
