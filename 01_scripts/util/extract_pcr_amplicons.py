@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Extract PCR amplicons from fasta sequences using primers
 
 Usage:
@@ -152,4 +152,4 @@ with myopen(output_fasta, "wt") as outfile:
         if amplicon.sequence:
             amplicon.write_to_file(outfile)
         else:
-            print(f"Amplicon not found for {seq.name}")
+            print("Amplicon not found for {}".format(seq.name)")
