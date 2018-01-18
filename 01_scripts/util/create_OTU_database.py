@@ -76,6 +76,9 @@ for otu in otu_dict:
             otu_dict[otu] = phylum_list[0]
             continue
 
+    # Otherwise, we cannot know anything about that taxon
+    otu_dict[otu] = "unknown_unknown_unknown"
+
 # Treat fasta file
 with open(otu_fasta) as infile:
     with open(output_database, "w") as outfile:

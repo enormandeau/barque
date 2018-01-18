@@ -13,7 +13,7 @@ OTU_FOLDER="13_otu_database"
 # Find best hit in database using vsearch
 for amplicon in $(grep -v "^#" "$INFO_FOLDER"/primers.csv | awk -F "," '{print $1}')
 do
-    echo "Amplicon: $amplicon"
+    echo "Blasting $amplicon"
     name="$OTU_FOLDER"/"$amplicon"
     database=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep "$amplicon" | awk -F "," '{print $6}').fasta.gz
     min_similarity=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep "$amplicon" | awk -F "," '{print $9}')
