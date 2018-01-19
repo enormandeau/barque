@@ -152,4 +152,4 @@ with myopen(output_fasta, "wt") as outfile:
         if amplicon.sequence:
             amplicon.write_to_file(outfile)
         else:
-            print("Amplicon not found for {}".format(seq.name)")
+            print("Amplicon not found for {}".format(seq.name))
