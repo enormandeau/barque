@@ -115,4 +115,4 @@ echo -e "\nBARQUE: Finding most frequent non-annotated sequences"
 ./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS"
 
 # Create OTU database
-./01_scripts/11_create_OTUs.sh "$CONFIG_FILE"
+./01_scripts/11_create_OTUs_vsearch.sh "$CONFIG_FILE"
