@@ -22,7 +22,7 @@ with open(input_fasta) as infile:
     with open(output_fasta, "w") as outfile:
         for line in infile:
             if line.startswith(">"):
-                name = ">otu_" + str(otu_number) + "_found_" + line.strip().split(";")[2].split("=")[1] + "_times\n"
+                name = ">otu_" + str(otu_number) + "_found_" + line.strip().split(";")[-2].split("=")[1] + "_times\n"
                 otu_number += 1
                 outfile.write(name)
             else:
