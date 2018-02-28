@@ -29,9 +29,11 @@ do
     echo "BARQUE: Creating OTUs for $amplicon"
 
     # Concatenate 07_split_amplicons/*_merged_"$amplicon".fastq.gz
+    echo "BARQUE: Concatenating all amplicon files"
     cat "$AMPLICON_FOLDER"/*_merged_"$amplicon".fastq.gz > "$name".fastq.gz
 
     # Transform to fasta.gz
+    echo "BARQUE: Transforming to fasta file"
     ./01_scripts/util/fastq_to_fasta.py "$name".fastq.gz "$name".fasta.gz
     rm "$name".fastq.gz
 
@@ -43,6 +45,7 @@ do
         --minuniquesize 2
 
     # Find chimeras with uchime
+    echo "BARQUE: Finding chimeras"
     vsearch --uchime_denovo "$name".derep \
         --chimeras "$name".chimeras \
         --nonchimeras "$name".nonchimeras \
@@ -67,6 +70,7 @@ do
         --minuniquesize "$MIN_SIZE_FOR_OTU"
 
     # Create OTUs:
+    echo "BARQUE: Creating OTUs"
     vsearch --cluster_smallmem "$name".nonchimeras_no_Ns_above_"$MIN_SIZE_FOR_OTU" \
         --threads "$NCPUS" \
         --id 0.97 \
@@ -92,6 +96,7 @@ echo "BARQUE: Blasting OTUs"
 ./01_scripts/util/vsearch_OTUs.sh "$MAX_ACCEPTS" "$MAX_REJECTS" "$QUERY_COV" "$NCPUS"
 
 # Create OTUs database
+echo "BARQUE: Creating OTU databases"
 for amplicon in $(grep -v "^#" "$INFO_FOLDER"/primers.csv | awk -F "," '{print $1}')
 do
     name="$OTU_FOLDER"/"$amplicon"
@@ -105,4 +110,5 @@ do
 done
 
 # Cleanup (compress all files in $OTU_FOLDER)
+echo "BARQUE: Cleaning up"
 ls -1 "$OTU_FOLDER" | parallel -j "$NCPUS" gzip "$OTU_FOLDER"/{}
