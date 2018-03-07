@@ -26,7 +26,6 @@ parallel -j "$NCPUS" vsearch --derep_fulllength {} --output {}.unique --sizeout 
 
 if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then
-    echo -e "\nBARQUE: Looking for chimeras"
 
     # Find chimeras with uchime
     ls -1 -S "$CHIMERA_FOLDER"/*.fasta.unique |

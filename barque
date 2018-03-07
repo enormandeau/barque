@@ -78,6 +78,7 @@ else
 fi
 
 # Look for chimeras
+echo -e "\nBARQUE: Looking for chimeras"
 ./01_scripts/05_chimeras.sh "$NCPUS" "$SKIP_CHIMERA_DETECTION"
 
 # Run vsearch
