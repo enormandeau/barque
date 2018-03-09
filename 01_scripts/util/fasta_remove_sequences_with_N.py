@@ -70,5 +70,5 @@ sequences = fasta_iterator(input_fasta)
 
 with open(output_fasta, "w") as outfile:
     for s in sequences:
-        if not "N" in s.sequence:
+        if not "N" in s.sequence.upper():
             s.write_to_file(outfile)
