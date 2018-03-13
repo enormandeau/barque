@@ -5,7 +5,7 @@
 # Do not add spaces around the equal (=) sign
 
 # Global parameters
-NCPUS=10                    # Number of CPUs to use for analyses (int, 1+)
+NCPUS=14                    # Number of CPUs to use for analyses (int, 1+)
 PRIMER_FILE="02_info/primers.csv" # File with PCR primers information
 
 # Skip data preparation and rerun only from vsearch
@@ -35,4 +35,4 @@ MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at l
 NUM_NON_ANNOTATED_SEQ=500   # Number of unique most-frequent non-annotated reads to keep (int, 1+)
 
 # OTUs
-MIN_SIZE_FOR_OTU=10         # Only unique reads with at least this coverage will be used for OTUs
+MIN_SIZE_FOR_OTU=20         # Only unique reads with at least this coverage will be used for OTUs
