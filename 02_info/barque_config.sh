@@ -35,4 +35,5 @@ MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at l
 NUM_NON_ANNOTATED_SEQ=500   # Number of unique most-frequent non-annotated reads to keep (int, 1+)
 
 # OTUs
+SKIP_OTUS=0                 # Skip OTU creation
 MIN_SIZE_FOR_OTU=20         # Only unique reads with at least this coverage will be used for OTUs
