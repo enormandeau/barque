@@ -1,3 +1,6 @@
+# Now
+- Re-organize output into sub-folder, including OTUs
+
 # Version 1.5.x
 - Describe input sequence format requirements
   - file name
