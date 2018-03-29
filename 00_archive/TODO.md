@@ -1,5 +1,7 @@
 # Now
+- Improve script for splitting by primers
 - Re-organize output into sub-folder, including OTUs
+- Index databases only once (beginning of pipeline, with option to skip if existing)
 
 # Version 1.5.x
 - Describe input sequence format requirements
@@ -13,7 +15,6 @@
   - `time ./barque 02_info/barque.conf`
 - Number of reads are not sorted in the same order for different steps
   - Create a master script that does the summary
-- Index databases only once (beginning of pipeline, with option to skip if existing)
 
 # Later
 
