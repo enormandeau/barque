@@ -20,8 +20,7 @@
 
 ## Features
 - Option to remove unique reads before or after blasts?
-- Use Genbank for annotation (create DB with efetch)
-- Annotate reads then create OTUs and report on those too
+- Use Genbank for annotation (create DB with efetch)?
 
 ## Documentation
 
