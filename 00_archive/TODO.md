@@ -1,9 +1,8 @@
 # Now
-- Improve script for splitting by primers
-- Re-organize output into sub-folder, including OTUs
-- Index databases only once (beginning of pipeline, with option to skip if existing)
+- Improve script for splitting by primers (this is where we lose the most reads with 12S)
 
 # Version 1.5.x
+- Index databases only once (beginning of pipeline, with option to skip if existing)
 - Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
@@ -15,14 +14,6 @@
   - `time ./barque 02_info/barque.conf`
 - Number of reads are not sorted in the same order for different steps
   - Create a master script that does the summary
-
-# Later
-
-## Features
-- Option to remove unique reads before or after blasts?
-- Use Genbank for annotation (create DB with efetch)?
-
-## Documentation
 
 # Maybe
 - Create figures (amplicon split, multiple hits, read dropout)
