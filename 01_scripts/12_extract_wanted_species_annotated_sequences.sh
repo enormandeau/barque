@@ -5,8 +5,8 @@
 SPECIES=$1
 MIN_SIMILARITY=$2
 
-# Create a 13_SPECIES_sequences result folder
-OUTPUT_FOLDER=13_"$SPECIES"_sequences
+# Create a 14_SPECIES_sequences result folder
+OUTPUT_FOLDER=14_"$SPECIES"_sequences
 mkdir "$OUTPUT_FOLDER" 2>/dev/null
 rm "$OUTPUT_FOLDER"/*.ids 2>/dev/null
 rm "$OUTPUT_FOLDER"/*.fasta 2>/dev/null
