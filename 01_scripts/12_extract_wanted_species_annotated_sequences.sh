@@ -10,7 +10,8 @@ OUTPUT_FOLDER=13_"$SPECIES"_sequences
 mkdir "$OUTPUT_FOLDER" 2>/dev/null
 rm "$OUTPUT_FOLDER"/*.ids 2>/dev/null
 rm "$OUTPUT_FOLDER"/*.fasta 2>/dev/null
-echo "Created empty folder: $OUTPUT_FOLDER"
+echo "Searching for: $SPECIES"
+echo "  Results will be found in: $OUTPUT_FOLDER"
 
 # Get names of sequences by sample
 ls -1 09_vsearch/*.fasta.gz_unique.fasta.gz.*.gz |
@@ -33,3 +34,4 @@ cat "$OUTPUT_FOLDER"/*.fasta > "$OUTPUT_FOLDER"/.temp_sequences
 
 # Cleanup
 rm "$OUTPUT_FOLDER"/.temp_sequences
+rm "$OUTPUT_FOLDER"/*_wanted.ids
