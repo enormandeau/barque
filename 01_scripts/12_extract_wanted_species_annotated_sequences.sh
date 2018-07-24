@@ -5,6 +5,13 @@
 SPECIES=$1
 MIN_SIMILARITY=$2
 
+# Test that global variable are set
+if [[ -z $SPECIES || -z $MIN_SIMILARITY ]]
+then
+    echo "Usage: <program> species_name minimum_similarity"
+    exit
+fi
+
 # Create a 14_SPECIES_sequences result folder
 OUTPUT_FOLDER=14_"$SPECIES"_sequences
 mkdir "$OUTPUT_FOLDER" 2>/dev/null
