@@ -22,7 +22,10 @@ echo "  Results will be found in: $OUTPUT_FOLDER"
 
 # Get names of sequences by sample
 ls -1 09_vsearch/*.fasta.gz_unique.fasta.gz.*.gz |
+    grep -v _matched\.fasta\.gz |
     parallel ./01_scripts/util/extract_sequence_names_for_species.py {} "$SPECIES" "$MIN_SIMILARITY" "$OUTPUT_FOLDER"
+
+exit
 
 # Get the sequences by sample
 ls -1 "$OUTPUT_FOLDER"/*_wanted.ids |
