@@ -8,6 +8,7 @@
 *.fastq.gz
 *.fq.gz
 *.html
+*.ids
 *.ignore
 *.nhr
 *.nin
@@ -35,6 +36,7 @@
 09_vsearch/*
 10_read_dropout/*
 11_non_annotated/*
-12_results/*
-13_otu_database/*
+12_results*
 13_*
+13_otu_database/*
+14_*
