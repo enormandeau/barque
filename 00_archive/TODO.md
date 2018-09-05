@@ -1,10 +1,11 @@
 # Now
 - Improve script for splitting by primers (this is where we lose the most reads with 12S)
 - Remove temp results files in folders 05 to 11 when they are no longer needed
+- Sort read counts at each steps in the same order
 
 # Version 1.5.x
-- Perform de-noising before chimera removal (--cluster_unoise) ?
 - Index databases only once (beginning of pipeline, with option to skip if existing)
+- Perform de-noising before chimera removal (`--cluster_unoise`) ?
 - Describe input sequence format requirements
   - file name
   - fastq and/or fastq.gz
