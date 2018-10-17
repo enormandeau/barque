@@ -1,6 +1,7 @@
 # Next minor version
 - Improve script for splitting by primers (this is where we lose the most reads with 12S)
 - Remove temp results files in folders 05 to 11 when they are no longer needed
+- Fix for `sort -V` when it is unavailable (on macs)
 
 # Version 1.6.x
 - Index databases only once (beginning of pipeline, with option to skip if existing)
