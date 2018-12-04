@@ -35,8 +35,8 @@ management projects:
 
 Since it depends on the use of high quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
-Life Database (BOLD), although it can also use other databases, like for
-exampe Silva for the 18s gene.
+Life Database (BOLD) or 12S amplicons with the mitofish database, although
+it can also use other databases, like the Silva datbase for the 18s gene.
 
 ## Installation
 
