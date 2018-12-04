@@ -5,7 +5,7 @@
 # Do not add spaces around the equal (=) sign
 
 # Global parameters
-NCPUS=14                    # Number of CPUs to use for analyses (int, 1+)
+NCPUS=10                    # Number of CPUs to use for analyses (int, 1+)
 PRIMER_FILE="02_info/primers.csv" # File with PCR primers information
 
 # Skip data preparation and rerun only from vsearch
