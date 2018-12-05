@@ -134,6 +134,8 @@ for primer in primers:
 
             # Summaryze multiple hits
             elif len(best_species) > 1:
+                species = "zMultiple_Hits_" + " : ".join(sorted(list(best_species))).replace("_", "^")
+                species_dictionary[primer][sample][species] += count
                 multiple_hits_species[";".join(sorted(list(best_species)))] += count
 
                 # Genus level identification
@@ -241,7 +243,7 @@ for primer in sorted(species_dictionary):
     # Add rows to table
     # Species
     for species in species_found[primer]:
-        species_table.append([",".join(species.split("_"))])
+        species_table.append(",".join(species.split("_")).replace("^", "_").split(","))
         count_sum = 0
         new_line = []
         for sample in sorted(species_dictionary[primer]):
@@ -278,11 +280,21 @@ for primer in sorted(species_dictionary):
     # Print results to file
     # Species
     with open(os.path.join(output_folder, primer + "_species_table.csv"), "wt") as outfile:
-        for line in species_table:
+        header = [line for line in species_table if line[0].startswith("Phylum")][0]
+        outfile.write(",".join(header) + "\n")
+        species_table = [line for line in species_table if not line[0].startswith("Phylum")]
+
+        for line in sorted(
+                sorted(
+                    species_table,
+                    key=lambda x: int(x[3]),
+                    reverse=True),
+                key=lambda x: x[0]):
+
             prepared_line = ",".join(line) + "\n"
 
             if prepared_line.startswith("Phylum"):
-                outfile.write(prepared_line)
+                continue
 
             elif max([int(x) for x in line[3:]]) > min_coverage:
                 outfile.write(prepared_line)
