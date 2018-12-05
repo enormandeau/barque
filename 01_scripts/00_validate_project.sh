@@ -11,6 +11,7 @@ do
     if ! [ -e "$DATABASE_FOLDER"/"$database".fasta -o -e "$DATABASE_FOLDER"/"$database".fasta.gz ]
     then
         echo -e "\n"BARQUE ERROR: Database file for \("$database"\) not found in "$DATABASE_FOLDER"
+        echo Looking for "$DATABASE_FOLDER"/"$database"".fasta[.gz]"
         exit 1
     fi
 done
