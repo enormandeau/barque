@@ -231,7 +231,7 @@ for primer in phylum_dictionary:
 for primer in sorted(species_dictionary):
 
     # Create header line
-    species_table = [["Phylum,Genus,Species,Total"]]
+    species_table = [["Phylum,Genus,Species,TaxonName,Total"]]
     genus_table = [["Phylum,Genus,Total"]]
     phylum_table = [["Phylum,Total"]]
 
@@ -291,12 +291,15 @@ for primer in sorted(species_dictionary):
                     reverse=True),
                 key=lambda x: x[0]):
 
+            # Add full taxon name
+            if line[0] == "zMultiple":
+                line[3:3] = ["none"]
+            else:
+                line[3:3] = ["_".join(line[:3])]
+
             prepared_line = ",".join(line) + "\n"
 
-            if prepared_line.startswith("Phylum"):
-                continue
-
-            elif max([int(x) for x in line[3:]]) > min_coverage:
+            if max([int(x) for x in line[4:]]) > min_coverage:
                 outfile.write(prepared_line)
 
     # Genus
