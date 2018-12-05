@@ -45,7 +45,7 @@ To use **Barque**, you will need a local copy of its repository, which can be
 
 Different releases can be
 [accessed here](https://github.com/enormandeau/barque/releases). It is
-recommended to use the latest version or at least version 1.5.1.
+recommended to use the latest version.
 
 ## Dependencies
 
@@ -77,7 +77,7 @@ During the analyses, the following steps are performed:
 - Merge unique reads (Python script)
 - Find species associated with each unique read (`vsearch`)
 - Summarize results (Python script)
-  - Tables of phylum, genus, and species counts per sample
+  - Tables of phylum, genus, and species counts per sample, including multiple hits
   - Chimera sequences
   - Cases of multiple hits with equal scores
   - Number of reads remaining at each analysis step
@@ -87,14 +87,15 @@ During the analyses, the following steps are performed:
 ## Lather, Rince, Repeat
 
 Once the pipeline has been run, it is normal to find that unexpected species
-have been found or that a proportion of the reads have not been identified
-using the database. In these cases, you will need to create a list of unwanted
-species to be later removed from the database or download additional sequences
-for the non-annotated species from NCBI to add them to the database. Once the
-database has been improved, simply run the last part of the pipeline by making
-sure you have `SKIP_DATA_PREP=1` and `SKIP_CHIMERA_DETECTION=1` in your config
-file. You may need to repeat this step again until you are satisfied with the
-results.
+have been found or that a proportion of the reads have not been identified,
+either because the sequenced species are absent from the database or because
+the sequences have the exact same distance from two or more sequences in the
+database. In these cases, you will need to create a list of unwanted species to
+be later removed from the database or download additional sequences for the
+non-annotated species from NCBI to add them to the database. Once the database
+has been improved, simply run the last part of the pipeline by making sure you
+have `SKIP_DATA_PREP=1` and `SKIP_CHIMERA_DETECTION=1` in your config file. You
+may need to repeat this step again until you are satisfied with the results.
 
 NOTE: You should provide justifications in your publications if you decide to
 remove some species from the database.
@@ -138,8 +139,8 @@ configuration file as an argument, like this:
 
 ## Results
 
-Once the pipeline has run, all result files are found in the `12_results`
-folder.
+Once the pipeline has finished running, all result files are found in the
+`12_results` folder.
 
 ### Taxa count tables, named after the primer names
 
