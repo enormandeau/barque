@@ -153,3 +153,6 @@ with myopen(output_fasta, "wt") as outfile:
             amplicon.write_to_file(outfile)
         else:
             print("Amplicon not found for {}".format(seq.name))
+            if len(seq.sequence) <= 1000:
+                print("  Sequence is short enough, keeping nonetheless")
+                seq.write_to_file(outfile)
