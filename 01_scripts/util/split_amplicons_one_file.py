@@ -3,7 +3,7 @@
 """Split amplicons using forward and reverse potentially degenerated primers
 
 Usage:
-    %program fastq_file primer_file iupac_file output_folder
+    %program fastq_file primer_file iupac_file output_folder max_distance
 """
 
 # Importing modules
@@ -81,12 +81,41 @@ def replace_iupac(seq):
 
     return "".join(temp)
 
+def find_primer(primer, sequence, reverse=False):
+    if reverse:
+        sequence = reverse_complement(sequence)
+
+    pad = "NN"
+    sequence = pad + sequence
+    best_distance = 99
+    best_position = 99
+
+    for i in range(1 + 2*len(pad)):
+        subsequence = sequence[i: i+len(primer)]
+        distance = iupac_distance(subsequence, primer)
+        if distance < best_distance:
+            best_distance = distance
+            best_position = i
+
+    return best_distance, best_position - len(pad)
+
+def iupac_distance(sequence, primer):
+    assert len(sequence) == len(primer), "Sequences to be compared must have the same length"
+    dist = 0
+
+    for i in range(len(sequence)):
+        if sequence[i] not in iupac[primer[i]]:
+            dist += 1
+
+    return dist
+
 # Parsing user input
 try:
     fastq_file = sys.argv[1]
     primer_file = sys.argv[2]
     iupac_file = sys.argv[3]
     output_folder = sys.argv[4]
+    max_distance = int(sys.argv[5])
 except:
     print(__doc__)
     sys.exit(0)
@@ -115,21 +144,7 @@ with open(primer_file) as pfile:
         forward_length = len(forward)
         reverse_length = len(reverse)
 
-        # Permit dropout at the 3 last bases of the reverse primer sequence
-        reverse = "}3,{." + reverse[3:]
-        forward = ".{,3}" + forward[3:]
-
-        # Replace iupac characters
-        forward = replace_iupac(forward)
-        reverse = replace_iupac(reverse)
-        reverse = reverse_complement(reverse)
-
-        # Create the regex
-        forward = "^" + forward
-        reverse = reverse + "$"
-
-        primers[name] = (re.compile(forward), re.compile(reverse), min_length,
-                         max_length, forward_length, reverse_length)
+        primers[name] = (forward, reverse, int(min_length), int(max_length), forward_length, reverse_length)
 
 ## Open output fastq.gz files
 output_files = {}
@@ -137,9 +152,9 @@ input_file = os.path.basename(fastq_file)
 
 # Add fake primers to automatically open file handles
 primers["not_found"] = "FAKE"
+primers["forward_only"] = "FAKE"
 primers["too_short"] = "FAKE"
 primers["too_long"] = "FAKE"
-primers["forward_only"] = "FAKE"
 
 # Open output file handles
 for p in primers:
@@ -150,17 +165,14 @@ primers_summary = defaultdict(int)
 
 ## Read fastq file
 sequences = fastq_iterator(fastq_file)
-num = 0
-count = 0
+num_treated = 0
+num_extracted = 0
+
 for s in sequences:
-    count += 1
+    num_treated += 1
     sequence_found = False
 
     for p in primers:
-        # NOTE If multiple primer pairs share the same forward primer,
-        # or if a sequence's primer fits with two degenerate forward primers,
-        # the amplicon might be discarted if the reverse primer of the sequence
-        # is found in another pair.
 
         # Skip fake primers
         if primers[p] == "FAKE":
@@ -168,53 +180,44 @@ for s in sequences:
 
         forward, reverse, min_length, max_length, forward_length, reverse_length = primers[p]
 
-        # Look for forward primer
-        forward_found = forward.findall(s.seq)
+        # Look for primers
+        forward_dist, forward_position = find_primer(forward, s.seq, reverse=False)
+        reverse_dist, reverse_position = find_primer(reverse, s.seq, reverse=True)
 
-        if len(forward_found) >= 1:
+        # Check if both primers are found with an acceptable number of differences
+        if forward_dist > max_distance:
+            s.write_to_file(output_files["not_found"])
+            primers_summary["not_found"] += 1
+            continue
+        
+        if reverse_dist > max_distance:
+            s.write_to_file(output_files["forward_only"])
+            primers_summary["forward_only"] += 1
+            continue
 
-            # Look for reverse primer
-            reverse_found = reverse.findall(s.seq)
+        # Check that amplicon length is good
+        amplicon_length = len(s.seq) - forward_length - reverse_length 
 
-            if len(reverse_found) >= 1:
-                # Remove forward primer (+ trim quality)
-                s.seq = re.sub(forward_found[0], "", s.seq)
-                length = len(forward_found[0])
-                s.qual = s.qual[length:]
+        if amplicon_length < min_length:
+            s.write_to_file(output_files["too_short"])
+            primers_summary["too_short"] += 1
+            continue
 
-                # Remove reverse primer (+ trim quality)
-                s.seq = re.sub(reverse_found[0], "", s.seq)
-                length = len(s.seq)
-                s.qual = s.qual[:length]
+        if amplicon_length > max_length:
+            s.write_to_file(output_files["too_long"])
+            primers_summary["too_long"] += 1
+            continue
 
-                # Filter short amplicons
-                if len(s.seq) < int(min_length):
-                    s.write_to_file(output_files["too_short"])
-                    primers_summary["too_short"] += 1
-                    sequence_found = True
+        # Extract amplicon
+        left = forward_length + forward_position
+        right = len(s.seq) - (reverse_length + reverse_position)
+        s.seq  =  s.seq[left: right]
+        s.qual = s.qual[left: right]
 
-                # Filter long amplicons
-                elif len(s.seq) > int(max_length):
-                    s.write_to_file(output_files["too_long"])
-                    primers_summary["too_long"] += 1
-                    sequence_found = True
-
-                else:
-                    # Write to primer file
-                    s.write_to_file(output_files[p])
-                    primers_summary[p] += 1
-                    sequence_found = True
-                    num += 1
-
-            else:
-                # Write to forward_only file
-                s.write_to_file(output_files["forward_only"])
-                primers_summary["forward_only"] += 1
-                sequence_found = True
-
-    if not sequence_found:
-        s.write_to_file(output_files["not_found"])
-        primers_summary["not_found"] += 1
+        # Write to file
+        s.write_to_file(output_files[p])
+        primers_summary[p] += 1
+        num_extracted += 1
 
 ## Write summary file
 with open(os.path.join(output_folder, input_file.replace(".fastq.gz", "_summary.csv")), "wt") as summary:
@@ -235,10 +238,10 @@ with open(os.path.join(output_folder, input_file.replace(".fastq.gz", "_summary.
 
 ## Report success
 filename = fastq_file.split("/")[-1]
-if count == 0:
+if num_treated == 0:
     print("Assigned 0% (0/0)\t\tof the sequences to an amplicon ({})".format(filename))
 else:
-    print("Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num)/count)[0:4], num, count, filename))
+    print("Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, filename))
 
 ## Close file handles
 for f in output_files:
