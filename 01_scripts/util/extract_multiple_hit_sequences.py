@@ -55,7 +55,7 @@ try:
     multiple_hit_file = sys.argv[1]
     database_file = sys.argv[2]
 except:
-    print __doc__
+    print(__doc__)
     sys.exit(1)
 
 # Read multiple hits file to extract species groups
