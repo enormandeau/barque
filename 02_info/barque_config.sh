@@ -18,6 +18,9 @@ CROP_LENGTH=200             # Cut reads to this length after filtering
 MIN_OVERLAP=30              # Minimum number of overlapping nucleotides to merge reads (int, 1+)
 MAX_OVERLAP=280             # Maximum number of overlapping nucleotides to merge reads (int, 1+)
 
+# Extracting barcodes
+MAX_PRIMER_DIFF=6           # Maximum number of differences allowed between primer and sequence (int, 0+)
+
 # Running or skipping chimera detection
 SKIP_CHIMERA_DETECTION=0    # 0 to search for chimeras (RECOMMENDED), 1 to skip chimera detection
                             #   or use already created chimera cleaned files

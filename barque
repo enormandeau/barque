@@ -67,7 +67,7 @@ then
 
     # Split samples by amplicon
     echo -e "\nBARQUE: Splitting samples by amplicon"
-    ./01_scripts/03_split_amplicons.sh "$NCPUS"
+    ./01_scripts/03_split_amplicons.sh "$NCPUS" "$MAX_PRIMER_DIFF"
 
 elif [ "$SKIP_DATA_PREP" == "1" ]
 then

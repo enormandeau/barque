@@ -36,7 +36,7 @@ def myopen(infile, mode="rt"):
         return gzip.open(infile, mode=mode)
     else:
         return open(infile, mode=mode)
-        
+
 def fastq_iterator(input_file):
     """Takes a fastq file infile and returns a fastq object iterator
     """
@@ -86,13 +86,14 @@ def find_primer(primer, sequence, reverse=False):
         sequence = reverse_complement(sequence)
 
     pad = "NN"
-    sequence = pad + sequence
+    padded_primer = pad + primer + pad
     best_distance = 99
     best_position = 99
 
     for i in range(1 + 2*len(pad)):
-        subsequence = sequence[i: i+len(primer)]
-        distance = iupac_distance(subsequence, primer)
+        subsequence = sequence[: len(primer)]
+        subprimer = padded_primer[i: i + len(primer)]
+        distance = iupac_distance(subsequence, subprimer)
         if distance < best_distance:
             best_distance = distance
             best_position = i
@@ -102,10 +103,14 @@ def find_primer(primer, sequence, reverse=False):
 def iupac_distance(sequence, primer):
     assert len(sequence) == len(primer), "Sequences to be compared must have the same length"
     dist = 0
+    dist_string = ""
 
     for i in range(len(sequence)):
         if sequence[i] not in iupac[primer[i]]:
             dist += 1
+            dist_string += "^"
+        else:
+            dist_string += " "
 
     return dist
 
@@ -189,14 +194,14 @@ for s in sequences:
             s.write_to_file(output_files["not_found"])
             primers_summary["not_found"] += 1
             continue
-        
+
         if reverse_dist > max_distance:
             s.write_to_file(output_files["forward_only"])
             primers_summary["forward_only"] += 1
             continue
 
         # Check that amplicon length is good
-        amplicon_length = len(s.seq) - forward_length - reverse_length 
+        amplicon_length = len(s.seq) - forward_length - reverse_length
 
         if amplicon_length < min_length:
             s.write_to_file(output_files["too_short"])

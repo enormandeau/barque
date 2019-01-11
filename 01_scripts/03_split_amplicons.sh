@@ -2,7 +2,7 @@
 
 # Parameters
 NCPUS=$1
-# TODO Add primer file?
+MAX_PRIMER_DIFF=$2
 
 # Global variables
 INFO_FOLDER="02_info"
@@ -15,7 +15,8 @@ ls -1 -S "$MERGED_FOLDER"/*.fastq.gz |
     parallel -j "$NCPUS" ./01_scripts/util/split_amplicons_one_file.py "$MERGED_FOLDER"/{/} \
     "$INFO_FOLDER"/primers.csv \
     "$INFO_FOLDER"/iupac.csv \
-    "$SPLIT_FOLDER"
+    "$SPLIT_FOLDER" \
+    "$MAX_PRIMER_DIFF"
 
 # Create summary in results folder
 paste "$SPLIT_FOLDER"/*_summary.csv | perl -pe 's/\t[^,]+,/,/g' > "$RESULT_FOLDER"/amplicon_split_summary.csv
