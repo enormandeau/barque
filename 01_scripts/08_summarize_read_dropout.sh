@@ -62,7 +62,7 @@ step="12_results"
 cd "$step"
 for i in $(grep -v "^#" ../02_info/primers.csv | awk -F "," '{print $1}')
 do
-    echo -e "$step" > ../10_read_dropout/"$step"_"$i"; awk -F "," 'NR==1 {for (i=1; i<=NF; i++) {headers[i]=$i}} NR>1 {for (i=1; i<=NF; i++) {sums[i]+=$i}} END {for (i=5; i<=NF; i++) {print headers[i]","sums[i]}}' "$i"_species_table.csv | sort -t "," -k1,1 -V | cut -d "," -f 2 >> ../10_read_dropout/"$step"_"$i"
+    echo -e "$step" > ../10_read_dropout/"$step"_"$i"; awk -F "," 'NR==1 {for (i=1; i<=NF; i++) {headers[i]=$i}} NR>1 {for (i=1; i<=NF; i++) {sums[i]+=$i}} END {for (i=6; i<=NF; i++) {print headers[i]","sums[i]}}' "$i"_species_table.csv | sort -t "," -k1,1 -V | cut -d "," -f 2 >> ../10_read_dropout/"$step"_"$i"
 done
 cd ..
 
