@@ -231,9 +231,9 @@ for primer in phylum_dictionary:
 for primer in sorted(species_dictionary):
 
     # Create header line
-    species_table = [["Phylum,Genus,Species,TaxonName,Total"]]
-    genus_table = [["Phylum,Genus,Total"]]
-    phylum_table = [["Phylum,Total"]]
+    species_table = [["Group,Genus,Species,TaxonName,Total"]]
+    genus_table = [["Group,Genus,Total"]]
+    phylum_table = [["Group,Total"]]
 
     for sample in sorted(species_dictionary[primer]):
         species_table[0].append(sample)
@@ -280,9 +280,9 @@ for primer in sorted(species_dictionary):
     # Print results to file
     # Species
     with open(os.path.join(output_folder, primer + "_species_table.csv"), "wt") as outfile:
-        header = [line for line in species_table if line[0].startswith("Phylum")][0]
+        header = [line for line in species_table if line[0].startswith("Group")][0]
         outfile.write(",".join(header) + "\n")
-        species_table = [line for line in species_table if not line[0].startswith("Phylum")]
+        species_table = [line for line in species_table if not line[0].startswith("Group")]
 
         for line in sorted(
                 sorted(
@@ -293,7 +293,7 @@ for primer in sorted(species_dictionary):
 
             # Add full taxon name
             if line[0] == "zMultiple":
-                line[3:3] = ["none"]
+                line[3:3] = ["MultipleHits"]
             else:
                 line[3:3] = ["_".join(line[:3])]
 
@@ -307,7 +307,7 @@ for primer in sorted(species_dictionary):
         for line in genus_table:
             prepared_line = ",".join(line) + "\n"
 
-            if prepared_line.startswith("Phylum"):
+            if prepared_line.startswith("Group"):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[2:]]) > min_coverage:
@@ -318,7 +318,7 @@ for primer in sorted(species_dictionary):
         for line in phylum_table:
             prepared_line = ",".join(line) + "\n"
 
-            if prepared_line.startswith("Phylum"):
+            if prepared_line.startswith("Group"):
                 outfile.write(prepared_line)
 
             elif max([int(x) for x in line[1:]]) > min_coverage:
