@@ -13,14 +13,14 @@ See licence information at the end of this file.
 ## Documentation
 
 This documentation file can be
-[found here](https://github.com/enormandeau/barque/blob/master/README.md).
+[found here](https://github.com/enormandeau/barque/blob/master/README.md) or
+in the `README.md` file in the **Barque** repository.
 
 ## Description
 
-**Barque** is a metabarcoding analysis pipeline that relies on high quality
-barcoding databases instead of generating Operational Taxonomic Unit (OTUs). It
-is parallelized and streamlined. It uses well-tested programs and is compatible
-with both Python 2 and 3.
+**Barque** is an eDNA metabarcoding analysis pipeline that annotates reads,
+instead of Operational Taxonomic Unit, using high quality barcoding databases
+(OTUs).
 
 ## Use cases
 
@@ -36,18 +36,15 @@ management projects:
 Since it depends on the use of high quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
 Life Database (BOLD) or 12S amplicons with the mitofish database, although
-it can also use other databases, like the Silva datbase for the 18s gene.
+it can also use other databases, like the Silva database for the 18s gene.
 
 ## Installation
 
-To use **Barque**, you will need a local copy of its repository, which can be
-[found here](https://github.com/enormandeau/barque/archive/master.zip).
-
-Different releases can be
+To use **Barque**, you will need a local copy. Different releases can be
 [accessed here](https://github.com/enormandeau/barque/releases). It is
 recommended to use the latest version.
 
-## Dependencies
+### Dependencies
 
 You will also need to have the following programs installed on your computer.
 
@@ -58,7 +55,7 @@ You will also need to have the following programs installed on your computer.
 - [flash (read merger)](https://sourceforge.net/projects/flashpage/)
 - [vsearch](https://github.com/torognes/vsearch)
 
-## Preparation
+### Preparation
 
 - Install dependencies
 - Download **Barque** (see **Installation** section above)
@@ -66,7 +63,7 @@ You will also need to have the following programs installed on your computer.
 - Edit `02_info/primers.csv`
 - Make a copy of `02_info/barque_config.sh` and edit the parameters
 
-## Analyses
+## Analyses steps
 
 During the analyses, the following steps are performed:
 
@@ -84,32 +81,14 @@ During the analyses, the following steps are performed:
   - Most frequent non-annotated sequences to blast on NCBI nt/nr
   - Species counts for these non-annotated sequences
 
-## Lather, Rince, Repeat
-
-Once the pipeline has been run, it is normal to find that unexpected species
-have been found or that a proportion of the reads have not been identified,
-either because the sequenced species are absent from the database or because
-the sequences have the exact same distance from two or more sequences in the
-database. In these cases, you will need to create a list of unwanted species to
-be later removed from the database or download additional sequences for the
-non-annotated species from NCBI to add them to the database. Once the database
-has been improved, simply run the last part of the pipeline by making sure you
-have `SKIP_DATA_PREP=1` and `SKIP_CHIMERA_DETECTION=1` in your config file. You
-may need to repeat this step again until you are satisfied with the results.
-
-NOTE: You should provide justifications in your publications if you decide to
-remove some species from the database.
-
 ## Running the pipeline
 
-For each new project, get a new copy of **Barque** from the sources listed in
-the **Installation** section and copy your data in the `04_data` folder. You
-will also need to put a database in Fasta format (usually `bold.fasta`) in the
-`03_databases` folder.
+NOTE: If you do not have a dataset, you can use the test dataset. See the **Test
+dataset** section near the end of this file.
 
-## TODO
+### Formatting database
 
-The pre-formated BOLD database can be
+The pre-formatted BOLD database can be
 [downloaded here](http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz).
 
 If you do not already have the indexed database and want to use BOLD, you will
@@ -129,6 +108,8 @@ ls -1 03_databases/bold_bins/*.fas.gz |
 gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
 ```
 
+### Configuration file
+
 Make a copy of the file named `02_info/barque_config.sh` and modify the
 parameters as needed, then launch the `barque` executable with the name of your
 configuration file as an argument, like this:
@@ -136,6 +117,12 @@ configuration file as an argument, like this:
 ```bash
 ./barque 02_info/MY_CONFIG_FILE.sh
 ```
+
+### Launching Barque
+
+For each new project, get a new copy of **Barque** from the sources listed in
+the **Installation** section and copy your data in the `04_data` folder.  You
+will also need to put a database in Fasta format in the `03_databases` folder.
 
 ## Results
 
@@ -153,6 +140,12 @@ Once the pipeline has finished running, all result files are found in the
 - `chimera_PRIMER.fasta.unique.chimeras`. No chimera detected if this file is empty.
 
 ### Information about sequences with multiple hits of equal score
+
+- `PRIMER_species_table.csv`: This file contains sequences that were equally
+similar to more than one database species are annotated specially. For these
+sequences, the first two columns contain the text `zMultiple` and `Hits` and
+the fourth one `MultipleHits`. The third column contains the name of all the
+taxa that from which it was impossible to choose an annotation.
 
 - `multiple_hits.txt`: This file is divided into groups of species. For each
 groups, the number at the top, listed as `N times(s)`, indicates how many
@@ -191,14 +184,35 @@ non-annotated sequences:
     12_results/most_frequent_non_annotated_sequences_species_ncbi.csv
 ```
 
+The result file will contain one line per identified taxon and the number of
+sequences for each taxon, sorted in decreasing order. For any species of
+interest found in this file, it is a good idea to download the representative
+sequences from NCBI, add them to the database, and rerun the analysis.
+
+## Lather, Rinse, Repeat
+
+Once the pipeline has been run, it is normal to find that unexpected species
+have been found or that a proportion of the reads have not been identified,
+either because the sequenced species are absent from the database or because
+the sequences have the exact same distance from two or more sequences in the
+database. In these cases, you will need to create a list of unwanted species to
+be later removed from the database or download additional sequences for the
+non-annotated species from NCBI to add them to the database. Once the database
+has been improved, simply run the last part of the pipeline by making sure you
+have `SKIP_DATA_PREP=1` and `SKIP_CHIMERA_DETECTION=1` in your config file. You
+may need to repeat this step again until you are satisfied with the results.
+
+NOTE: You should provide justifications in your publications if you decide to
+remove some species from the database.
+
 ## Test dataset
 
 A test dataset and corresponding `primers.csv` file is available as a
 [sister repository on GitHub](https://github.com/enormandeau/barque_test_dataset).
 Download the repository and then move the data in **Barque**'s `04_data` folder
 and the `primers.csv` file in the `02_info` folder. Follow the normal pipeline
-procedure (including database preparation) to analyse this small dataset. it
-should run in one to ten minutes depending on your computer.
+procedure (including database preparation) to analyse this small dataset. It
+should run in one to ten minutes, depending on your computer.
 
 ## License
 
