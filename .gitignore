@@ -21,6 +21,7 @@
 *.xls
 *.xlsx
 *.zip
+*_common_names.csv
 *_primers_not_found
 *~
 .~lock*
