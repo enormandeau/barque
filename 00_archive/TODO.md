@@ -1,4 +1,7 @@
 # Version 1.6.0
+- Add automatic FastQC + multiqc reports
+  - Sequence lengths
+  - Presence of primers
 - Re-organize documentation
   - keep it as short as possible
   - Describe how to create databases
