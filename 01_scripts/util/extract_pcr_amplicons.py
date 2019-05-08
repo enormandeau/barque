@@ -2,13 +2,15 @@
 """Extract PCR amplicons from fasta sequences using primers
 
 Usage:
-    <program> input_fasta left_primer right_primer max_distance output_fasta
+    <program> input_fasta left_primer right_primer max_distance min_length max_length output_fasta
 
 Where:
     input_fasta   is a fasta file with DNA sequences <str>
     left_primer   is the DNA sequence of the left primer <str>
     right_primer  is the DNA sequence of the right primer (not reversed or complemented) <str>
     max_distance  is the maximum number differences between the primers and the sequence <int>
+    min_length    is the minimum amplicon length desired without the primers <int>
+    max_length    is the maximum amplicon length desired without the primers <int>
     output_fasta  is a fasta file containing only the extracted amplicons <str>
 """
 
@@ -114,7 +116,8 @@ def hamming_find(query, text, max_distance=3):
     else:
         return None
 
-def extract_amplified_region(left_primer, right_primer, sequence, max_distance):
+def extract_amplified_region(left_primer, right_primer, sequence, max_distance,
+        min_length, max_length):
     """Use hamming_find to locate left_primer and right_primer to extract the
     amplicon from a Fasta object's sequence
     """
@@ -126,8 +129,10 @@ def extract_amplified_region(left_primer, right_primer, sequence, max_distance):
         if pos_right >= pos_left:
             pos_left = pos_left + len(left_primer)
             pos_right = pos_right
+            size = pos_right - pos_left
 
-            return sequence[pos_left: pos_right]
+            if min_length <= size <= max_length:
+                return sequence[pos_left: pos_right]
 
 # Parse user input
 try:
@@ -135,7 +140,9 @@ try:
     left_primer = sys.argv[2]
     right_primer = sys.argv[3]
     max_distance = int(sys.argv[4])
-    output_fasta = sys.argv[5]
+    min_length = int(sys.argv[5])
+    max_length = int(sys.argv[6])
+    output_fasta = sys.argv[7]
 except:
     print(__doc__)
     sys.exit(1)
@@ -148,11 +155,15 @@ with myopen(output_fasta, "wt") as outfile:
                 extract_amplified_region(left_primer,
                     right_primer,
                     seq.sequence,
-                    max_distance))
+                    max_distance,
+                    min_length,
+                    max_length))
         if amplicon.sequence:
+            print("Amplicon found for {} len: {}".format(seq.name, len(amplicon.sequence)))
             amplicon.write_to_file(outfile)
-        else:
-            print("Amplicon not found for {}".format(seq.name))
-            if len(seq.sequence) <= 1000:
-                print("  Sequence is short enough, keeping nonetheless")
-                seq.write_to_file(outfile)
+            outfile.flush()
+        #else:
+        #    print("Amplicon not found for {}".format(seq.name))
+            #if len(seq.sequence) <= 1000:
+            #    print("  Sequence is short enough, keeping nonetheless")
+            #    seq.write_to_file(outfile)
