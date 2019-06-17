@@ -19,8 +19,7 @@ in the `README.md` file in the **Barque** repository.
 ## Description
 
 **Barque** is an eDNA metabarcoding analysis pipeline that annotates reads,
-instead of Operational Taxonomic Unit, using high quality barcoding databases
-(OTUs).
+instead of Operational Taxonomic Unit (OTUs), using high quality barcoding databases.
 
 ## Use cases
 
@@ -40,9 +39,9 @@ it can also use other databases, like the Silva database for the 18s gene.
 
 ## Installation
 
-To use **Barque**, you will need a local copy. Different releases can be
-[accessed here](https://github.com/enormandeau/barque/releases). It is
-recommended to use the latest version.
+To use **Barque**, you will need a local copy of its repository. Different releases can be
+[accessed here](https://github.com/enormandeau/barque/releases).
+It is recommended to use the latest version.
 
 ### Dependencies
 
