@@ -165,11 +165,11 @@ for primer in primers:
     lines_species = sorted(lines_species, reverse=True)
     lines_species = [str(x[0]) + "," + x[1] for x in lines_species]
 
-    with open(os.path.join(output_folder,
-        "multiple_hits_" + primer + "_" + primers[primer] + "_species.csv"),
-        "w") as outfile:
-        for l in lines_species:
-            outfile.write(l + "\n")
+    #with open(os.path.join(output_folder,
+    #    "multiple_hits_" + primer + "_" + primers[primer] + "_species.csv"),
+    #    "w") as outfile:
+    #    for l in lines_species:
+    #        outfile.write(l + "\n")
 
     # Write multiple hit summary for species
     lines_genus = []
@@ -179,11 +179,11 @@ for primer in primers:
     lines_genus = sorted(lines_genus, reverse=True)
     lines_genus = [str(x[0]) + "," + x[1] for x in lines_genus]
 
-    with open(os.path.join(output_folder,
-        "multiple_hits_" + primer + "_" + primers[primer] + "_genus.csv"),
-        "w") as outfile:
-        for l in lines_genus:
-            outfile.write(l + "\n")
+    #with open(os.path.join(output_folder,
+    #    "multiple_hits_" + primer + "_" + primers[primer] + "_genus.csv"),
+    #    "w") as outfile:
+    #    for l in lines_genus:
+    #        outfile.write(l + "\n")
 
 # Get represented taxons
 species_found = {}

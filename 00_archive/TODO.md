@@ -1,9 +1,4 @@
 # Version 1.6.0
-- Stop producing following files:
-  - multiple_hits_*
-  - amplicon_split_summary.csv
-  - chimera_sequences.fasta.gz
-
 - Re-organize documentation
   - keep it as short as possible
   - Describe how to create databases

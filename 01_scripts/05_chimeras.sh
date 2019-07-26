@@ -32,8 +32,8 @@ then
     parallel -j "$NCPUS" vsearch --uchime_denovo {} --chimeras {}.chimeras \
         --nonchimeras {}.nonchimeras --borderline {}.borderline --fasta_width 0
 
-    # Report results
-    cat "$CHIMERA_FOLDER"/*.unique.chimeras | gzip -c - > "$RESULT_FOLDER"/chimera_sequences.fasta.gz
+    ## Report results
+    #cat "$CHIMERA_FOLDER"/*.unique.chimeras | gzip -c - > "$RESULT_FOLDER"/chimera_sequences.fasta.gz
 
     # Cleanup
     ls -1 -S "$CHIMERA_FOLDER"/*.{fasta,unique,borderline,chimeras} 2>/dev/null | parallel -j "$NCPUS" gzip --force {}
