@@ -1,10 +1,11 @@
 # Version 1.6.0
 - Re-organize documentation
   - keep it as short as possible
-  - Describe how to create databases
+  - Describe database format needed
   - Describe input sequence format requirements
-    - file name
-    - fastq and/or fastq.gz
+    - Split by samples, tags removed but primers included
+    - File name format
+    - Format: fastq and/or fastq.gz
   
   - Add commands in README.md to run test with test dataset
     - Clone test data
