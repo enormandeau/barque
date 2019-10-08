@@ -1,4 +1,4 @@
-# Barque v1.5.5
+# Barque v1.6.0
 
 ## Environmental DNA metabarcoding analysis
 
@@ -20,6 +20,8 @@ in the `README.md` file in the **Barque** repository.
 
 **Barque** is an eDNA metabarcoding analysis pipeline that annotates reads,
 instead of Operational Taxonomic Unit (OTUs), using high quality barcoding databases.
+It can also produce OTUs, which are then annotated using a database and then these
+OTUs are used as a database.
 
 ## Use cases
 
@@ -32,10 +34,11 @@ management projects:
 - Improving species distribution knowledge for cryptic taxa
 - Following loss of species over medium to long-term monitoring
 
-Since it depends on the use of high quality barcoding databases, it is
+Since Barque depends on the use of high quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
-Life Database (BOLD) or 12S amplicons with the mitofish database, although
-it can also use other databases, like the Silva database for the 18s gene.
+Life Database (BOLD) or 12S amplicons with the mitofish database, although it
+can also use any database, like the Silva database for the 18s gene or a custom
+database.
 
 ## Installation
 
@@ -59,8 +62,12 @@ You will also need to have the following programs installed on your computer.
 - Install dependencies
 - Download **Barque** (see **Installation** section above)
 - Get database and format it (Python scripts)
-- Edit `02_info/primers.csv`
-- Make a copy of `02_info/barque_config.sh` and edit the parameters
+  - Fasta format
+  - Name line has 3 informations separated by an underscore (`_`)
+  - Ex: `>Phylum_Genus_species`
+  - Ex: `>Mammal_rattus_norvegicus`
+- Edit `02_info/primers.csv` to provide needed informations for your primers
+- Make a copy of `02_info/barque_config.sh` and edit the parameters for your run
 
 ## Analyses steps
 
@@ -128,6 +135,9 @@ will also need to put a database in Fasta format in the `03_databases` folder.
 Once the pipeline has finished running, all result files are found in the
 `12_results` folder.
 
+After a run, it is recomended to make a copy of this folder and name it with the
+current date, ex: `12_results_PROJECT_NAME_2019-10-08`
+
 ### Taxa count tables, named after the primer names
 
 - `PRIMER_phylum_table.csv`
@@ -146,16 +156,6 @@ sequences, the first two columns contain the text `zMultiple` and `Hits` and
 the fourth one `MultipleHits`. The third column contains the name of all the
 taxa that from which it was impossible to choose an annotation.
 
-- `multiple_hits.txt`: This file is divided into groups of species. For each
-groups, the number at the top, listed as `N times(s)`, indicates how many
-unique sequences (which may represent a higher number of sequences) had equal
-quality scores when aligned to sequences of all the species in the group. It is
-worth going through this file and identify species that are very unlikely in
-the area where the samples were taken. These samples can then be added to a
-`species_to_remove.txt` file and the database can be filtered to remove them.
-The pipeline must then be re-run from the `vsearch` scripts
-(`./01_scripts/06_vsearch_multiple_hits.sh` and `./01_scripts/06_vsearch.sh`).
-
 ### Sequence dropout report
 
 - `sequence_dropout.csv`: Listing how many sequences were present in each
@@ -165,15 +165,16 @@ sequences are lost at each of the analysis steps.
 
 ### Most frequent non-annotated sequences
 
-- `most_frequent_non_annotated_sequences.fasta`: Sequences that are frequent
-in the samples but were not annotated by the pipeline. This Fasta file should be
-used to query the NCBI nt/nr database using the online portal
-[found here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch)
-to see what species may have been missed. Use `blastn` with default parameters.
-Once the NCBI blastn search is finished, download the results as a text file
-and use the following command (you will need to adjust the input and output
-file names) to generate a report of the most frequently found species in the
-non-annotated sequences:
+- `most_frequent_non_annotated_sequences.fasta`: Sequences that are frequent in
+the samples but were not annotated by the pipeline. This Fasta file should be
+used to query the NCBI nt/nr database (**you will need to change the default
+value**) using the online portal [found
+here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch) to see
+what species may have been missed. Use `blastn` with default parameters.  Once
+the NCBI blastn search is finished, download the results as a text file and use
+the following command (you will need to adjust the input and output file names)
+to generate a report of the most frequently found species in the non-annotated
+sequences:
 
 ### Summarize species found in non-annotated sequences
 
@@ -198,8 +199,8 @@ database. In these cases, you will need to create a list of unwanted species to
 be later removed from the database or download additional sequences for the
 non-annotated species from NCBI to add them to the database. Once the database
 has been improved, simply run the last part of the pipeline by making sure you
-have `SKIP_DATA_PREP=1` and `SKIP_CHIMERA_DETECTION=1` in your config file. You
-may need to repeat this step again until you are satisfied with the results.
+have `SKIP_DATA_PREP=1` in your config file. You may need to repeat this step
+again until you are not satisfied with the results.
 
 NOTE: You should provide justifications in your publications if you decide to
 remove some species from the database.

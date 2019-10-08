@@ -8,6 +8,7 @@ NCPUS=$4
 
 # Global variables
 INFO_FOLDER="02_info"
+DATABASE_FOLDER="03_databases"
 CHIMERA_FOLDER="08_chimeras"
 VSEARCH_FOLDER="09_vsearch"
 
@@ -17,6 +18,9 @@ do
     echo "Amplicon: $amplicon"
     database=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep "$amplicon" | awk -F "," '{print $6}').fasta.gz
     min_similarity=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep "$amplicon" | awk -F "," '{print $9}')
+
+    # Make vsearch database
+    vsearch --makeudb_usearch "$DATABASE_FOLDER"/"$database" --output "$DATABASE_FOLDER"/"$database".vsearchdb
 
     echo
     echo "#############################"
@@ -38,7 +42,7 @@ do
         # Run vsearch
         echo
         echo "Running vsearch on $fasta with database $database"
-        vsearch --usearch_global "$CHIMERA_FOLDER"/"$fasta" -db 03_databases/"$database" \
+        vsearch --usearch_global "$CHIMERA_FOLDER"/"$fasta" -db "$DATABASE_FOLDER"/"$database".vsearchdb \
             --threads "$NCPUS" --qmask none --dbmask none --id "$min_similarity" \
             --blast6out "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}" \
             --dbmatched "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}_matched.fasta" \
