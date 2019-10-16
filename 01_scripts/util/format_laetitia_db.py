@@ -23,7 +23,7 @@ class Fasta(object):
 
     def write_to_file(self, handle):
         handle.write(">" + self.name + "\n")
-        handle.write(self.sequence + "\n")
+        handle.write(self.sequence.upper() + "\n")
 
     def __repr__(self):
         return self.name + " " + self.sequence[:31]
