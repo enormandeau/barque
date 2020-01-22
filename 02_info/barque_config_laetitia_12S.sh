@@ -22,7 +22,7 @@ MAX_OVERLAP=280             # Maximum number of overlapping nucleotides to merge
 MAX_PRIMER_DIFF=8           # Maximum number of differences allowed between primer and sequence (int, 0+)
 
 # Running or skipping chimera detection
-SKIP_CHIMERA_DETECTION=0    # 0 to search for chimeras (RECOMMENDED), 1 to skip chimera detection
+SKIP_CHIMERA_DETECTION=1    # 0 to search for chimeras (RECOMMENDED), 1 to skip chimera detection
                             #   or use already created chimera cleaned files
 
 # vsearch
