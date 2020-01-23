@@ -20,7 +20,7 @@ do
     min_similarity=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep "$amplicon" | awk -F "," '{print $9}')
 
     # Make vsearch database
-    vsearch --makeudb_usearch "$DATABASE_FOLDER"/"$database" --output "$DATABASE_FOLDER"/"$database".vsearchdb
+    vsearch --makeudb_usearch "$DATABASE_FOLDER"/"$database" --minseqlength 20 --output "$DATABASE_FOLDER"/"$database".vsearchdb
 
     echo
     echo "#############################"
@@ -47,7 +47,7 @@ do
             --blast6out "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}" \
             --dbmatched "$VSEARCH_FOLDER"/"${fasta%.fasta}"."${database%.fasta.gz}_matched.fasta" \
             --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits "$MAX_ACCEPTS" \
-            --query_cov "$QUERY_COV" --fasta_width 0
+            --query_cov "$QUERY_COV" --fasta_width 0 --minseqlength 20
         echo "done"
         echo "--"
         echo

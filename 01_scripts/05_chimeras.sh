@@ -22,7 +22,7 @@ done
 
 # Remove duplicated sequences
 ls -1 -S "$CHIMERA_FOLDER"/*.fasta |
-parallel -j "$NCPUS" vsearch --derep_fulllength {} --output {}.unique --sizeout --fasta_width 0
+parallel -j "$NCPUS" vsearch --derep_fulllength {} --output {}.unique --minseqlength 20 --sizeout --fasta_width 0
 
 if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then
