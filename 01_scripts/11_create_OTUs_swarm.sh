@@ -36,7 +36,7 @@ do
     vsearch --threads "$NCPUS" --derep_fulllength "$name".fasta.gz \
         --strand plus --output "$name".derep \
         --sizein --sizeout --fasta_width 0 \
-        --minuniquesize 2
+        --minuniquesize 2 --minseqlength 20
 
     # Remove concatenated non-chimera data
     rm "$name".fasta.gz

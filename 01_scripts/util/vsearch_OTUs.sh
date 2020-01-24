@@ -34,7 +34,7 @@ do
         --blast6out "$vsearch_result" \
         --dbmatched "$vsearch_matched" \
         --maxaccepts "$MAX_ACCEPTS" --maxrejects "$MAX_REJECTS" --maxhits "$MAX_ACCEPTS" \
-        --query_cov "$QUERY_COV" --fasta_width 0
+        --query_cov "$QUERY_COV" --fasta_width 0 --minseqlength 20
         echo "done"
         echo "--"
     echo
