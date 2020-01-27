@@ -30,7 +30,7 @@ then
     # Find chimeras with uchime
     ls -1 -S "$CHIMERA_FOLDER"/*.fasta.unique |
     parallel -j "$NCPUS" vsearch --uchime_denovo {} --chimeras {}.chimeras \
-        --nonchimeras {}.nonchimeras --borderline {}.borderline --fasta_width 0 --minseqlength 20
+        --nonchimeras {}.nonchimeras --borderline {}.borderline --fasta_width 0
 
     ## Report results
     #cat "$CHIMERA_FOLDER"/*.unique.chimeras | gzip -c - > "$RESULT_FOLDER"/chimera_sequences.fasta.gz
