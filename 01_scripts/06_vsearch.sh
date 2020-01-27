@@ -20,7 +20,7 @@ do
     min_similarity=$(grep -v "^#" "$INFO_FOLDER"/primers.csv | grep "$amplicon" | awk -F "," '{print $9}')
 
     # Make vsearch database
-    vsearch --makeudb_usearch "$DATABASE_FOLDER"/"$database" --minseqlength 20 --output "$DATABASE_FOLDER"/"$database".vsearchdb
+    vsearch --makeudb_usearch "$DATABASE_FOLDER"/"$database" --output "$DATABASE_FOLDER"/"$database".vsearchdb
 
     echo
     echo "#############################"
