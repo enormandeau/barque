@@ -78,7 +78,7 @@ else
 fi
 
 # Look for chimeras
-echo -e "\nBARQUE: Looking for chimeras"
+echo -e "\nBARQUE: Chimeras removal step"
 ./01_scripts/05_chimeras.sh "$NCPUS" "$SKIP_CHIMERA_DETECTION"
 
 # Run vsearch
@@ -125,7 +125,7 @@ then
 
 elif [ "$SKIP_OTUS" == "1" ]
 then
-    echo -e "\nBARQUE: Skipping OTU creatsion"
+    echo -e "\nBARQUE: Skipping OTU creation"
 
 else
     echo -e "\nWARNING: Invalid value in config file for SKIP_OTUS"
