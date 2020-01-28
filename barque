@@ -92,30 +92,15 @@ echo -e "\nBARQUE: Summarizing results"
 ./01_scripts/07_summarize_results.py 09_vsearch/ "$RESULT_FOLDER"/ \
     "$PRIMER_FILE" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 
-## Reduce multiple hits
-#echo -e "\nBARQUE: Finding multiple hits"
-#for primer in $(cat "$PRIMER_FILE" | grep -v "^#" | cut -d "," -f 1 | sort -u)
-#do
-#    db=$(cat "$PRIMER_FILE" | grep -v "^#" | grep "$primer" | cut -d "," -f 6)
-
-#    # Species
-#    infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species.csv
-#    outfile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species_reduced.csv
-#    ./01_scripts/util/reduce_multiple_hits.py "$infile" "$outfile"
-
-#    # Genus
-#    infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_genus.csv
-#    outfile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_genus_reduced.csv
-#    ./01_scripts/util/reduce_multiple_hits.py "$infile" "$outfile"
-#done
-
 # Looking at sequence dropout
 echo -e "\nBARQUE: Looking at sequence dropout"
-./01_scripts/08_summarize_read_dropout.sh
+./01_scripts/08_summarize_read_dropout.sh &
 
 # Finding most frequent non-annotated sequences
 echo -e "\nBARQUE: Finding most frequent non-annotated sequences"
-./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS"
+./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS" &
+
+wait
 
 # OTUs
 if [ "$SKIP_OTUS" == "0" ]
