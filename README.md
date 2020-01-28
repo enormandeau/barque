@@ -53,9 +53,10 @@ You will also need to have the following programs installed on your computer.
 - OSX or GNU Linux
 - bash 4+
 - python 2.7+ or 3.5+
-- [gnu parallel](https://www.gnu.org/software/parallel/)
+- [gnu parallel](https://www.gnu.org/software/parallel/) v1.2.11+
 - [flash (read merger)](https://sourceforge.net/projects/flashpage/)
-- [vsearch](https://github.com/torognes/vsearch)
+- [vsearch](https://github.com/torognes/vsearch) v1.14.2+ or more (Barque will not
+  work with older versions)
 
 ### Preparation
 
