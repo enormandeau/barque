@@ -56,7 +56,7 @@ You will also need to have the following programs installed on your computer.
 - [gnu parallel](https://www.gnu.org/software/parallel/) v1.2.11+
 - [flash (read merger)](https://sourceforge.net/projects/flashpage/)
 - [vsearch](https://github.com/torognes/vsearch)
-  - **/!\ v2.14.2+ needed /!\**
+  - **/!\ v2.14.2+ needed /!\ **
   - **Barque will not work with older versions of vsearch**
 
 ### Preparation
