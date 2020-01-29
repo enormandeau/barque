@@ -4,7 +4,7 @@ data = read.table("12_results/sequence_dropout.csv", header=T, sep=",")
 d = data[,2:ncol(data)]
 
 percent_annotated = signif(100 * sum(d[,6]) / sum(d[,1]), 3)
-png("12_results/sequence_dropout_figure.png", width=800, height=600)
+png("12_results/sequence_dropout_figure.png", width=800, height=800)
 
 plot(0, 0,
      type='n',

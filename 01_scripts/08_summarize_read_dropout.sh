@@ -75,4 +75,4 @@ paste -d "," 04_data 05_trimmed 06_merged 07_split_amplicons_* 08_chimeras_* 12_
 cd ..
 
 # Create figure with R script
-R -q -e 'source("./01_scripts/util/create_read_dropout_figure.R")'
+R -q -e 'source("./01_scripts/util/create_read_dropout_figure.R")' > /dev/null
