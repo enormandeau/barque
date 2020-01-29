@@ -73,3 +73,6 @@ step="10_read_dropout"
 cd "$step"
 paste -d "," 04_data 05_trimmed 06_merged 07_split_amplicons_* 08_chimeras_* 12_results* > ../12_results/sequence_dropout.csv
 cd ..
+
+# Create figure with R script
+R -q -e 'source("./01_scripts/util/create_read_dropout_figure.R")'
