@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Reduce the table of multiple hits by group of shared species
 
 Usage:

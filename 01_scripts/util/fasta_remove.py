@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Extract sequences from a fasta file if their name is not in a 'remove' file.
 
 Remove file contains one sequence name per line.

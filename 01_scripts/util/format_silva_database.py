@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Prepare a fasta file from SILVA and prepare it for COI blast db
 
 Suggested database: SILVA_123.1_SSURef_Nr99_tax_silva_trunc.fasta.gz

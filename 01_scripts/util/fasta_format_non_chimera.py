@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Convert vsearch unique fasta to barque unique fasta
 
 Usage:

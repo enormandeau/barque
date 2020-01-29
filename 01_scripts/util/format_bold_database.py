@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Prepare a fasta file from BOLD and prepare it for COI blast db
 
 - Keep only 'Genus species' sequences

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Create BARQUE-compatible database from annotated OTUs
 
 Usage:

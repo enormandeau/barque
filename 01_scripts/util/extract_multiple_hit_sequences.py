@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Extract sequences from database for species in multiple hit file
 
 Usage:
