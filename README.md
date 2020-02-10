@@ -19,9 +19,10 @@ in the `README.md` file in the **Barque** repository.
 ## Description
 
 **Barque** is an eDNA metabarcoding analysis pipeline that annotates reads,
-instead of Operational Taxonomic Unit (OTUs), using high quality barcoding databases.
-It can also produce OTUs, which are then annotated using a database and then these
-OTUs are used as a database.
+instead of Operational Taxonomic Unit (OTUs), using high-quality barcoding databases.
+
+**Barque** can also produce OTUs, which are then annotated using a database. These annotated
+OTUs are used as a database to find read counts per OTU per sample.
 
 ## Use cases
 
@@ -34,11 +35,11 @@ management projects:
 - Improving species distribution knowledge for cryptic taxa
 - Following loss of species over medium to long-term monitoring
 
-Since Barque depends on the use of high quality barcoding databases, it is
+Since Barque depends on the use of high-quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
 Life Database (BOLD) or 12S amplicons with the mitofish database, although it
-can also use any database, like the Silva database for the 18s gene or a custom
-database.
+can also use any database, like the Silva database for the 18s gene or even for
+any custom database.
 
 ## Installation
 
