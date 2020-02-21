@@ -49,7 +49,11 @@ with open(primer_file) as pfile:
         primers[l[0]] = l[5]
 
 # Read vsearch results form input_folder
-result_files = sorted(os.listdir(input_folder), key=LooseVersion)
+try:
+    result_files = sorted(os.listdir(input_folder), key=LooseVersion)
+except TypeError:
+    result_files = sorted(os.listdir(input_folder))
+
 species_dictionary = {}
 genus_dictionary = {}
 phylum_dictionary = {}
