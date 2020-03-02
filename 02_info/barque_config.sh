@@ -5,7 +5,7 @@
 # Do not add spaces around the equal (=) sign
 
 # Global parameters
-NCPUS=10                    # Number of CPUs to use for analyses (int, 1+)
+NCPUS=20                    # Number of CPUs to use for analyses (int, 1+)
 PRIMER_FILE="02_info/primers.csv" # File with PCR primers information
 
 # Skip data preparation and rerun only from vsearch
@@ -19,7 +19,7 @@ MIN_OVERLAP=30              # Minimum number of overlapping nucleotides to merge
 MAX_OVERLAP=280             # Maximum number of overlapping nucleotides to merge reads (int, 1+)
 
 # Extracting barcodes
-MAX_PRIMER_DIFF=6           # Maximum number of differences allowed between primer and sequence (int, 0+)
+MAX_PRIMER_DIFF=8           # Maximum number of differences allowed between primer and sequence (int, 0+)
 
 # Running or skipping chimera detection
 SKIP_CHIMERA_DETECTION=0    # 0 to search for chimeras (RECOMMENDED), 1 to skip chimera detection
