@@ -13,7 +13,12 @@ do
         echo -e "\n"BARQUE ERROR: Database file for \("$database"\) not found in "$DATABASE_FOLDER"
         echo Looking for "$DATABASE_FOLDER"/"$database"".fasta[.gz]"
         exit 1
+
+    else
+        echo "- $database Database found"
+
     fi
+
 done
 
 # Data files (.fastq.gz or .fq.gz) are present in 04-data
@@ -22,6 +27,8 @@ then
     echo -e "\n"BARQUE ERROR: No sample found in "$DATA_FOLDER"
     exit 1
 fi
+
+echo "-" $(ls -1 "$DATA_FOLDER"/*_R1_*.f*q.gz | wc -l) "Samples found in $DATA_FOLDER"
 
 # Validate that vsearch is v2.14.2+
 vercomp () {
@@ -62,9 +69,11 @@ vercomp "$vsearch_version" "$vsearch_needed"
 
 case $? in
     0)
-        echo "vsearch is recent enough (you have: $vsearch_version; needed: $vsearch_needed""+)";;
+        echo "- vsearch is recent enough:"
+        echo "    needed: $vsearch_needed""+; installed: $vsearch_version";;
     1)
-        echo "vsearch is recent enough (you have: $vsearch_version; needed: $vsearch_needed""+)";;
+        echo "- vsearch is recent enough:"
+        echo "    needed: $vsearch_needed""+; installed: $vsearch_version";;
     2)
         echo
         echo "/!\ WARNING /!\ "
