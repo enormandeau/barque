@@ -10,19 +10,15 @@ laboratory.
 
 See licence information at the end of this file.
 
-## Documentation
-
-This documentation file can be
-[found here](https://github.com/enormandeau/barque/blob/master/README.md) or
-in the `README.md` file in the **Barque** repository.
-
 ## Description
 
 **Barque** is an eDNA metabarcoding analysis pipeline that annotates reads,
-instead of Operational Taxonomic Unit (OTUs), using high-quality barcoding databases.
+instead of Operational Taxonomic Unit (OTUs), using high-quality barcoding
+databases.
 
-**Barque** can also produce OTUs, which are then annotated using a database. These annotated
-OTUs are used as a database to find read counts per OTU per sample.
+**Barque** can also produce OTUs, which are then annotated using a database.
+These annotated OTUs are used as a database to find read counts per OTU per
+sample.
 
 ## Use cases
 
@@ -38,8 +34,8 @@ management projects:
 Since Barque depends on the use of high-quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
 Life Database (BOLD) or 12S amplicons with the mitofish database, although it
-can also use any database, like the Silva database for the 18s gene or even for
-any custom database.
+can also use any database, like the Silva database for the 18s gene or any
+othre custom database.
 
 ## Installation
 
@@ -49,9 +45,10 @@ It is recommended to use the latest version.
 
 ### Dependencies
 
-You will also need to have the following programs installed on your computer.
+To run **Barque**, you will also need to have the following programs installed
+on your computer.
 
-- OSX or GNU Linux
+- **Barque** will only work on GNU Linux or OSX
 - bash 4+
 - python 3.5+
 - [gnu parallel](https://www.gnu.org/software/parallel/) v1.2.11+
@@ -63,14 +60,11 @@ You will also need to have the following programs installed on your computer.
 ### Preparation
 
 - Install dependencies
-- Download **Barque** (see **Installation** section above)
-- Get database and format it (Python scripts)
-  - Fasta format
-  - Name line has 3 informations separated by an underscore (`_`)
-  - Ex: `>Phylum_Genus_species`
-  - Ex: `>Mammal_rattus_norvegicus`
+- Download a copy of the **Barque** repository (see **Installation** section above)
+- Get or prepare the database(s) (see Formatting database section below)
 - Edit `02_info/primers.csv` to provide needed informations for your primers
 - Make a copy of `02_info/barque_config.sh` and edit the parameters for your run
+- Launch Barque
 
 ## Analyses steps
 
@@ -92,19 +86,55 @@ During the analyses, the following steps are performed:
 
 ## Running the pipeline
 
-NOTE: If you do not have a dataset, you can use the test dataset. See the **Test
-dataset** section near the end of this file.
+For each new project, get a new copy of **Barque** from the sources listed in
+the **Installation** section.
+
+If you want to test **Barque**, jump straight to the `Test dataset` section at
+the end of this file. Read through the README after to understand the program
+and it's outputs.
+
+### Preparing samples
+
+Copy your paired-end sample files in the `04_data` folder. You need one pair of
+files per sample. The sequences in these files must contain the sequences of
+the primer that you used during the PCR.
+
+The file names must follow this format:
+
+```
+SampleID_*_R1_001.fastq.gz
+SampleID_*_R2_001.fastq.gz
+```
+
+Note that the sample name, or SampleID, must contain no underscore (`_`) and be
+followed by one underscore (`_`). The star (`*`) can be any string of text that
+**does not contain space characters**.
+
+**If you do not have a dataset**, you can use the test dataset. See the **Test
+dataset** section near the end of this file. In this case, you do not need to
+modify the primer and config files.
 
 ### Formatting database
+
+You will need to put a database in Fasta format in the `03_databases` folder.
+
+An augmented version of the mitofish 12S database is already available in your
+downloaded version of **Barque**
 
 The pre-formatted BOLD database can be
 [downloaded here](http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz).
 
 If you do not already have the indexed database and want to use BOLD, you will
-need to download all the animal BINs from
-[this BOLD page](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home).
-Put the downloaded Fasta files in `03_databases/bold_bins` (you may need to
+need to download all the animal BINs from [this BOLD
+page](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home).
+Put the downloaded Fasta files in `03_databases/bold_bins` (you will need to
 create that folder), and run the commands to format the bold database:
+
+- For other databases, get the database and format it:
+  - Fasta format
+  - Name line has 3 informations separated by an underscore (`_`)
+  - Ex: `>Phylum_Genus_species`
+  - Ex: `>Mammal_rattus_norvegicus`
 
 ```bash
 # Format each BIN individually (~10 minutes)
@@ -120,18 +150,16 @@ gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
 ### Configuration file
 
 Make a copy of the file named `02_info/barque_config.sh` and modify the
-parameters as needed, then launch the `barque` executable with the name of your
-configuration file as an argument, like this:
+parameters as needed.
+
+### Launching Barque
+
+Launch the `barque` executable with the name of your configuration file as an
+argument, like this:
 
 ```bash
 ./barque 02_info/MY_CONFIG_FILE.sh
 ```
-
-### Launching Barque
-
-For each new project, get a new copy of **Barque** from the sources listed in
-the **Installation** section and copy your data in the `04_data` folder.  You
-will also need to put a database in Fasta format in the `03_databases` folder.
 
 ## Results
 
@@ -203,19 +231,30 @@ be later removed from the database or download additional sequences for the
 non-annotated species from NCBI to add them to the database. Once the database
 has been improved, simply run the last part of the pipeline by making sure you
 have `SKIP_DATA_PREP=1` in your config file. You may need to repeat this step
-again until you are not satisfied with the results.
+again until you are satisfied with the results.
 
 NOTE: You should provide justifications in your publications if you decide to
 remove some species from the database.
 
 ## Test dataset
 
-A test dataset and corresponding `primers.csv` file is available as a
-[sister repository on GitHub](https://github.com/enormandeau/barque_test_dataset).
-Download the repository and then move the data in **Barque**'s `04_data` folder
-and the `primers.csv` file in the `02_info` folder. Follow the normal pipeline
-procedure (including database preparation) to analyse this small dataset. It
-should run in one to ten minutes, depending on your computer.
+A test dataset is available as a [sister repository on
+GitHub](https://github.com/enormandeau/barque_test_dataset). It is composed of
+10 samples, each with 10,000 sequences (times two since it is a paired-end
+dataset).
+
+Download the repository and then move the data from
+`barque_test_dataset/04_data` to **Barque**'s `04_data` folder.
+
+To run the analysis, move to the `barque` folder and launch:
+
+```
+./barque 02_info/barque_config.sh
+```
+
+The analysis of this test dataset takes 25 seconds on a Linux ThinkPad laptop
+with 4 core-i7 CPUs from ~2012 and 70 seconds on the same laptop using only one
+CPU.
 
 ## License
 
