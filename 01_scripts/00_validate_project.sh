@@ -62,6 +62,15 @@ vercomp () {
     return 0
 }
 
+# Validate that vsearch is installed
+command -v vsearch >/dev/null 2>&1 ||
+    {
+        echo -e "\n"BARQUE ERROR: vsearch is not installed
+        echo
+        exit 1;
+    }
+
+# Confirm that vsearch version is high enough
 vsearch_needed="2.14.2"
 vsearch_version=$(vsearch --version 2>&1 | head -1 | awk '{print $2}' | cut -d "_" -f 1 | perl -pe 's/^v//')
 
