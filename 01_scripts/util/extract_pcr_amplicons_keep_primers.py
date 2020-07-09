@@ -127,8 +127,7 @@ def extract_amplified_region(left_primer, right_primer, sequence, max_distance,
 
     if pos_left != None and pos_right != None:
         if pos_right >= pos_left:
-            pos_left = pos_left + len(left_primer)
-            pos_right = pos_right
+            pos_right = pos_right + len(right_primer)
             size = pos_right - pos_left
 
             if min_length <= size <= max_length:

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Design degenerate primers from a file with one sequence per line
 
 Note: The sequences must not be degenerate and have the same length

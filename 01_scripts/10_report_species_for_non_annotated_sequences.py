@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """After blasting the most frequent non-annotated sequences and blasting them
 on NCBI, use this script to report the number of non annotated sequences
 for each species (or annotation) found on NCBI.

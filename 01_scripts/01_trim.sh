@@ -12,6 +12,6 @@ CROP_LENGTH=$3
 DATA_FOLDER="04_data"
 
 # Parallelize on all raw data files
-ls -1 -S "$DATA_FOLDER"/*_R1_*.fastq.gz |
-    perl -pe 's/R[12].*gz//' |
+ls -1 -S "$DATA_FOLDER"/*_R1_001.fastq.gz |
+    perl -pe 's/_R[12]_001\.fastq\.gz/_/' |
     parallel -k -j "$NCPUS" ./01_scripts/util/trimmomatic.sh {} "$MIN_HIT_LENGTH" "$CROP_LENGTH"

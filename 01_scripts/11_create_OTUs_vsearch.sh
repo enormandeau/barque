@@ -42,7 +42,7 @@ do
     vsearch --threads "$NCPUS" --derep_fulllength "$name".fasta.gz \
         --strand plus --output "$name".derep \
         --sizeout --fasta_width 0 \
-        --minuniquesize 2
+        --minuniquesize 2 --minseqlength 20
 
     # Find chimeras with uchime
     echo "BARQUE: Finding chimeras"
@@ -56,7 +56,7 @@ do
         --minuniquesize "$MIN_SIZE_FOR_OTU" \
         --relabel OTU_ \
         --sizeout \
-        --fasta_width 0
+        --fasta_width 0 --minseqlength 20
 
     # Remove sequences with Ns
     echo "BARQUE: Removing sequences containing Ns"
@@ -67,7 +67,7 @@ do
     vsearch --threads "$NCPUS" --derep_fulllength "$name".nonchimeras_no_Ns \
         --strand plus --output "$name".nonchimeras_no_Ns_above_"$MIN_SIZE_FOR_OTU" \
         --sizein --sizeout --fasta_width 0 \
-        --minuniquesize "$MIN_SIZE_FOR_OTU"
+        --minuniquesize "$MIN_SIZE_FOR_OTU" --minseqlength 20
 
     # Create OTUs:
     echo "BARQUE: Creating OTUs"
@@ -81,7 +81,7 @@ do
         --clusterout_sort \
         --consout "$name".concensus \
         --sizeorder \
-        --sizeout
+        --sizeout --minseqlength 20
 
     # Rename sequences (name format: >otu_6_found_2315_times)
     echo "BARQUE: Renaming OTU sequences"

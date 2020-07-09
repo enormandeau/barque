@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Filter out fasta sequences containing Ns
 
 Usage:

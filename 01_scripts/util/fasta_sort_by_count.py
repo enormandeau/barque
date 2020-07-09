@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Sort fasta sequences produced by Barque with most frequen sequences first
 
 USAGE:

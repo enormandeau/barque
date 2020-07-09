@@ -21,14 +21,16 @@ exec > >(tee "$LOG_FOLDER"/"$TIMESTAMP"_barque_run.log) 2>&1
 
 print_logo () {
     echo ""
+    echo ""
     echo '        |    |    |'
     echo '       )_)  )_)  )_)'
     echo '      )___))___))___)\'
     echo '     )____)____)_____)\\'
     echo '   _____|____|____|____\\\__'
-    echo '   \   BARQUE v1.6.0   /'
-    echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
-    echo "^^^   ^^^^^^    ^^^^^^  ^^^^^"
+    echo '   \   BARQUE v1.6.3   /'
+    echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+    echo "^^^   ^^^^^^    ^^^^^^  ^^^^^^"
+    echo ""
 }
 
 print_logo
@@ -78,7 +80,7 @@ else
 fi
 
 # Look for chimeras
-echo -e "\nBARQUE: Looking for chimeras"
+echo -e "\nBARQUE: Chimeras removal step"
 ./01_scripts/05_chimeras.sh "$NCPUS" "$SKIP_CHIMERA_DETECTION"
 
 # Run vsearch
@@ -90,30 +92,15 @@ echo -e "\nBARQUE: Summarizing results"
 ./01_scripts/07_summarize_results.py 09_vsearch/ "$RESULT_FOLDER"/ \
     "$PRIMER_FILE" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
 
-## Reduce multiple hits
-#echo -e "\nBARQUE: Finding multiple hits"
-#for primer in $(cat "$PRIMER_FILE" | grep -v "^#" | cut -d "," -f 1 | sort -u)
-#do
-#    db=$(cat "$PRIMER_FILE" | grep -v "^#" | grep "$primer" | cut -d "," -f 6)
-
-#    # Species
-#    infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species.csv
-#    outfile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_species_reduced.csv
-#    ./01_scripts/util/reduce_multiple_hits.py "$infile" "$outfile"
-
-#    # Genus
-#    infile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_genus.csv
-#    outfile="$RESULT_FOLDER"/multiple_hits_"$primer"_"$db"_genus_reduced.csv
-#    ./01_scripts/util/reduce_multiple_hits.py "$infile" "$outfile"
-#done
-
 # Looking at sequence dropout
 echo -e "\nBARQUE: Looking at sequence dropout"
-./01_scripts/08_summarize_read_dropout.sh
+./01_scripts/08_summarize_read_dropout.sh &
 
 # Finding most frequent non-annotated sequences
 echo -e "\nBARQUE: Finding most frequent non-annotated sequences"
-./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS"
+./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS" &
+
+wait
 
 # OTUs
 if [ "$SKIP_OTUS" == "0" ]
@@ -125,7 +112,7 @@ then
 
 elif [ "$SKIP_OTUS" == "1" ]
 then
-    echo -e "\nBARQUE: Skipping OTU creatsion"
+    echo -e "\nBARQUE: Skipping OTU creation"
 
 else
     echo -e "\nWARNING: Invalid value in config file for SKIP_OTUS"

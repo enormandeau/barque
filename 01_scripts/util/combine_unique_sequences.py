@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Combine most frequent sequences into unique sequences while keeping an
 accurate count information with each sequence.
 
