@@ -13,7 +13,7 @@ SCRIPT=$0
 SCRIPT_NAME=$(basename "$SCRIPT")
 CONFIG_FILE=$1
 CONFIG_FILENAME=$(basename "$CONFIG_FILE")
-LOG_FOLDER="00_archive/log_files"
+LOG_FOLDER="13_logfiles"
 RESULT_FOLDER="12_results"
 
 # Log all output

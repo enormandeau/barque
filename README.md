@@ -212,6 +212,15 @@ sequences for each taxon, sorted in decreasing order. For any species of
 interest found in this file, it is a good idea to download the representative
 sequences from NCBI, add them to the database, and rerun the analysis.
 
+### Log files and parameters
+
+For each run of **Barque**, three files are written in the `13_logfiles`
+folder, each with a timestamp with the time of the run:
+
+1. The exact barque config file that has been used
+1. The exact primer file as it was used
+1. The full log of the run
+
 ## Lather, Rinse, Repeat
 
 Once the pipeline has been run, it is normal to find that unexpected species
