@@ -53,10 +53,11 @@ on your computer.
 - bash 4+
 - python 3.5+
 - R 3+
-- [gnu parallel](https://www.gnu.org/software/parallel/) v1.2.11+
-- [flash (read merger)](https://sourceforge.net/projects/flashpage/)
-- [vsearch](https://github.com/torognes/vsearch)
-  - /!\ **v2.14.2+ needed** /!\ 
+- java (ubuntu: `sudo apt-get install default-jre`)
+- [gnu parallel](https://www.gnu.org/software/parallel/)
+- [flash (read merger)](https://sourceforge.net/projects/flashpage/) v1.2.11+
+- [vsearch](https://github.com/torognes/vsearch) v2.14.2+
+  - /!\ **v2.14.2+ required** /!\
   - **Barque will not work with older versions of vsearch**
 
 ### Preparation
@@ -88,6 +89,8 @@ During the analyses, the following steps are performed:
 
 For each new project, get a new copy of **Barque** from the sources listed in
 the **Installation** section.
+
+### Running on the test dataset
 
 If you want to test **Barque**, jump straight to the `Test dataset` section at
 the end of this file. Read through the README after to understand the program
