@@ -30,7 +30,7 @@ fi
 
 echo "-" $(ls -1 "$DATA_FOLDER"/*_R1_*.f*q.gz | wc -l) "Samples found in $DATA_FOLDER"
 
-# Validate that vsearch is v2.14.2+
+# Function to compare version numbers
 vercomp () {
     if [[ $1 == $2 ]]
     then
@@ -89,6 +89,146 @@ case $? in
         echo
         echo "vsearch ($vsearch_version) is too old"
         echo "You need version $vsearch_needed""+ to run Barque"
+        echo
+        echo ">>> STOPPING BARQUE <<<"
+        echo
+        exit 1;;
+esac
+
+# Validate that python3 is installed and used
+command -v python3 >/dev/null 2>&1 ||
+    {
+        echo -e "\n"BARQUE ERROR: python3 is not installed
+        echo
+        exit 1;
+    }
+
+# Confirm that python3 version is high enough
+python3_needed="3.5.0"
+python3_version=$(python3 --version 2>&1 | head -1 | awk '{print $2}')
+
+vercomp "$python3_version" "$python3_needed"
+
+case $? in
+    0)
+        echo "- python3 is recent enough:"
+        echo "    needed: $python3_needed""+; installed: $python3_version";;
+    1)
+        echo "- python3 is recent enough:"
+        echo "    needed: $python3_needed""+; installed: $python3_version";;
+    2)
+        echo
+        echo "/!\ WARNING /!\ "
+        echo
+        echo "python3 ($python3_version) is too old"
+        echo "You need version $python3_needed""+ to run Barque"
+        echo
+        echo ">>> STOPPING BARQUE <<<"
+        echo
+        exit 1;;
+esac
+
+# Validate that java is installed and used
+command -v java >/dev/null 2>&1 ||
+    {
+        echo -e "\n"BARQUE ERROR: java is not installed
+        echo
+        exit 1;
+    }
+
+# Validate that R is installed and used
+command -v R >/dev/null 2>&1 ||
+    {
+        echo -e "\n"BARQUE ERROR: R is not installed
+        echo
+        exit 1;
+    }
+
+# Confirm that R version is high enough
+R_needed="3.0.0"
+R_version=$(R --version 2>&1 | head -1 | awk '{print $3}')
+
+vercomp "$R_version" "$R_needed"
+
+case $? in
+    0)
+        echo "- R is recent enough:"
+        echo "    needed: $R_needed""+; installed: $R_version";;
+    1)
+        echo "- R is recent enough:"
+        echo "    needed: $R_needed""+; installed: $R_version";;
+    2)
+        echo
+        echo "/!\ WARNING /!\ "
+        echo
+        echo "R ($R_version) is too old"
+        echo "You need version $R_needed""+ to run Barque"
+        echo
+        echo ">>> STOPPING BARQUE <<<"
+        echo
+        exit 1;;
+esac
+
+# Validate that parallel is installed and used
+command -v parallel --version >/dev/null 2>&1 ||
+    {
+        echo -e "\n"BARQUE ERROR: parallel is not installed
+        echo
+        exit 1;
+    }
+
+# Confirm that parallel version is high enough
+parallel_needed="20180101"
+parallel_version=$(parallel --version 2>&1 | head -1 | awk '{print $3}')
+
+vercomp "$parallel_version" "$parallel_needed"
+
+case $? in
+    0)
+        echo "- parallel is recent enough:"
+        echo "    needed: $parallel_needed""+; installed: $parallel_version";;
+    1)
+        echo "- parallel is recent enough:"
+        echo "    needed: $parallel_needed""+; installed: $parallel_version";;
+    2)
+        echo
+        echo "/!\ WARNING /!\ "
+        echo
+        echo "parallel ($parallel_version) is too old"
+        echo "You need version $parallel_needed""+ to run Barque"
+        echo
+        echo ">>> STOPPING BARQUE <<<"
+        echo
+        exit 1;;
+esac
+
+# Validate that flash is installed
+command -v flash --version >/dev/null 2>&1 ||
+    {
+        echo -e "\n"BARQUE ERROR: flash is not installed
+        echo
+        exit 1;
+    }
+
+# Confirm that flash version is high enough
+flash_needed="1.2.11"
+flash_version=$(flash --version 2>&1 | head -1 | awk '{print $2}' | cut -d "_" -f 1 | perl -pe 's/^v//')
+
+vercomp "$flash_version" "$flash_needed"
+
+case $? in
+    0)
+        echo "- flash is recent enough:"
+        echo "    needed: $flash_needed""+; installed: $flash_version";;
+    1)
+        echo "- flash is recent enough:"
+        echo "    needed: $flash_needed""+; installed: $flash_version";;
+    2)
+        echo
+        echo "/!\ WARNING /!\ "
+        echo
+        echo "flash ($flash_version) is too old"
+        echo "You need version $flash_needed""+ to run Barque"
         echo
         echo ">>> STOPPING BARQUE <<<"
         echo
