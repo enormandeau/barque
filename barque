@@ -94,13 +94,11 @@ echo -e "\nBARQUE: Summarizing results"
 
 # Looking at sequence dropout
 echo -e "\nBARQUE: Looking at sequence dropout"
-./01_scripts/08_summarize_read_dropout.sh &
+./01_scripts/08_summarize_read_dropout.sh
 
 # Finding most frequent non-annotated sequences
 echo -e "\nBARQUE: Finding most frequent non-annotated sequences"
-./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS" &
-
-wait
+./01_scripts/09_get_most_frequent_non_annotated_sequences.sh "$NUM_NON_ANNOTATED_SEQ" "$NCPUS"
 
 # OTUs
 if [ "$SKIP_OTUS" == "0" ]

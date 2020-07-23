@@ -1,0 +1,4 @@
+- Crash if dependencies not met
+- Use parallel to improve speed of:
+  - Looking at sequence dropout
+  - Finding most frequent non-annotated sequences

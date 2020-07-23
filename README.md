@@ -51,12 +51,12 @@ on your computer.
 
 - **Barque** will only work on GNU Linux or OSX
 - bash 4+
-- python 3.5+
+- python 3.5+ (you can use miniconda)
 - R 3+
 - java (ubuntu: `sudo apt-get install default-jre`)
 - [gnu parallel](https://www.gnu.org/software/parallel/)
 - [flash (read merger)](https://sourceforge.net/projects/flashpage/) v1.2.11+
-- [vsearch](https://github.com/torognes/vsearch) v2.14.2+
+- [vsearch](https://github.com/torognes/vsearch/releases) v2.14.2+
   - /!\ **v2.14.2+ required** /!\
   - **Barque will not work with older versions of vsearch**
 
