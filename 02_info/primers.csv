@@ -1,4 +1,4 @@
-#PrimerName,ForwardSequence,ReverseSequence,MinimumAmpliconSize,MaximumAmpliconSize,Database,SimilSpecies,SimilGenus,SimilPhylum
+#PrimerName,ForwardSequence,ReverseSequence,MinimumAmpliconSize,MaximumAmpliconSize,DatabaseName,SimilSpecies,SimilGenus,SimilPhylum
 #18s1_F-574_R-952,GCGGTAATTCCAGCTCCAA,TTGGCAAATGCTTTCGC,325,375,silva,0.99,0.95,0.90
 #18s2_TAReuk454FWD1_TAReukREV3,CCAGCASCYGCGGTAATTCC,ACTTTCGTTCTTGATYRA,350,400,silva,0.99,0.95,0.90
 #COI1_mlCOIintF_jgHCO2198,GGWACWGGWTGAACWGTWTAYCCYCC,TAIACYTCIGGRTGICCRAARAAYCA,300,325,bold,0.97,0.90,0.85
