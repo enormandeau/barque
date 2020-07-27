@@ -172,10 +172,13 @@ primers_summary = defaultdict(int)
 sequences = fastq_iterator(fastq_file)
 num_treated = 0
 num_extracted = 0
+forward_orientation = 0
+reverse_orientation = 0
 
 for s in sequences:
     num_treated += 1
     sequence_found = False
+    reverse_s = reverse_complement(s.seq)
 
     for p in primers:
 
@@ -185,17 +188,21 @@ for s in sequences:
 
         forward, reverse, min_length, max_length, forward_length, reverse_length = primers[p]
 
-        # Look for primers
+        # Look for primers in forward-reverse order
         forward_dist, forward_position = find_primer(forward, s.seq, reverse=False)
         reverse_dist, reverse_position = find_primer(reverse, s.seq, reverse=True)
 
+        # Look for primers in reverse-forward order
+        forward_dist_rev, forward_position_rev = find_primer(forward, reverse_s, reverse=False)
+        reverse_dist_rev, reverse_position_rev = find_primer(reverse, reverse_s, reverse=True)
+
         # Check if both primers are found with an acceptable number of differences
-        if forward_dist > max_distance:
+        if forward_dist > max_distance and forward_dist_rev > max_distance:
             s.write_to_file(output_files["not_found"])
             primers_summary["not_found"] += 1
             continue
 
-        if reverse_dist > max_distance:
+        if reverse_dist > max_distance and reverse_dist_rev > max_distance:
             s.write_to_file(output_files["forward_only"])
             primers_summary["forward_only"] += 1
             continue
@@ -212,6 +219,14 @@ for s in sequences:
             s.write_to_file(output_files["too_long"])
             primers_summary["too_long"] += 1
             continue
+
+        # If primers found in the reverse-forward order, reverse the sequence
+        if forward_dist_rev < forward_dist:
+            reverse_orientation += 1
+            s.seq = reverse_complement(s.seq)
+            s.qual = s.qual[::-1]
+        else:
+            forward_orientation +=1
 
         # Extract amplicon
         left = forward_length + forward_position
@@ -244,9 +259,9 @@ with open(os.path.join(output_folder, input_file.replace(".fastq.gz", "_summary.
 ## Report success
 filename = fastq_file.split("/")[-1]
 if num_treated == 0:
-    print("Assigned 0% (0/0)\t\tof the sequences to an amplicon ({})".format(filename))
+    print("Extracted 0% (0/0)\t\tof the sequences ({})".format(filename))
 else:
-    print("Assigned {}% ({}/{})\tof the sequences to an amplicon ({})".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, filename))
+    print("Extracted {}% ({}/{})\tof the sequences, {}% in forward orientation ({})".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, str(100.0 * forward_orientation / (forward_orientation + reverse_orientation))[0:4], filename))
 
 ## Close file handles
 for f in output_files:
