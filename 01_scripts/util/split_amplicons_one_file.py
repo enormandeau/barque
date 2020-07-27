@@ -261,7 +261,7 @@ filename = fastq_file.split("/")[-1]
 if num_treated == 0:
     print("Extracted 0% (0/0)\t\tof the sequences ({})".format(filename))
 else:
-    print("Extracted {}% ({}/{})\tof the sequences, {}% in forward orientation ({})".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, str(100.0 * forward_orientation / (forward_orientation + reverse_orientation))[0:4], filename))
+    print("Extracted {}% ({}/{})\tof the sequences, {}% in forward orientation ({})".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, str(100.0 * forward_orientation / (forward_orientation + reverse_orientation + 0.000001))[0:4], filename))
 
 ## Close file handles
 for f in output_files:
