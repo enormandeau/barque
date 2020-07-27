@@ -8,7 +8,7 @@ Developed by [Eric Normandeau](https://github.com/enormandeau) in
 [Louis Bernatchez](http://www.bio.ulaval.ca/louisbernatchez/presentation.htm)'s
 laboratory.
 
-See licence information at the end of this file.
+Please see the licence information at the end of this file.
 
 ## Description
 
@@ -17,18 +17,18 @@ instead of Operational Taxonomic Unit (OTUs), using high-quality barcoding
 databases.
 
 **Barque** can also produce OTUs, which are then annotated using a database.
-These annotated OTUs are used as a database to find read counts per OTU per
-sample.
+These annotated OTUs are then used as a database to find read counts per OTU
+per sample.
 
 ## Use cases
 
 The approach implemented in **Barque** is especially useful for species
 management projects:
 
-- Monitoring of invasive species
+- Monitoring invasive species
 - Confirming the presence of specific species
 - Characterizing meta-communities in varied environments
-- Improving species distribution knowledge for cryptic taxa
+- Improving species distribution knowledge of cryptic taxa
 - Following loss of species over medium to long-term monitoring
 
 Since Barque depends on the use of high-quality barcoding databases, it is
@@ -40,9 +40,14 @@ any other custom database.
 ## Installation
 
 To use **Barque**, you will need a local copy of its repository. Different
-releases can be [accessed
-here](https://github.com/enormandeau/barque/releases). It is recommended to
-use the latest version.
+releases can be [found here](https://github.com/enormandeau/barque/releases).
+It is recommended to always use the latest version. You can either download
+an archive of the latest release at the above link or get the latest commit
+(recommended) with the following git command:
+
+```
+git clone https://github.com/enormandeau/barque
+```
 
 ### Dependencies
 
@@ -51,7 +56,7 @@ on your computer.
 
 - **Barque** will only work on GNU Linux or OSX
 - bash 4+
-- python 3.5+ (you can use miniconda)
+- python 3.5+ (you can use miniconda to install python)
 - R 3+ (ubuntu/mint: `sudo apt-get install r-base-core`)
 - java (ubuntu/mint: `sudo apt-get install default-jre`)
 - [gnu parallel](https://www.gnu.org/software/parallel/)
@@ -63,11 +68,15 @@ on your computer.
 ### Preparation
 
 - Install dependencies
-- Download a copy of the **Barque** repository (see **Installation** section above)
-- Get or prepare the database(s) (see Formatting database section below)
+- Download a copy of the **Barque** repository (see **Installation** section
+  above)
 - Edit `02_info/primers.csv` to provide needed informations for your primers
-- Make a copy of `02_info/barque_config.sh` and modify the parameters for your run
-- Launch Barque
+- Get or prepare the database(s) (see Formatting database section below) and
+  deposit its `fasta.gz` file with a name that matches the information of the
+  `primers.csv` file in the `03_databases` folder.
+- Make a copy of `02_info/barque_config.sh` and modify the parameters for your
+  run
+- Launch Barque, for example with `./barque 02_info/barque_config.sh`
 
 ## Overview of Barque steps
 
@@ -81,45 +90,48 @@ During the analyses, the following steps are performed:
 - Find species associated with each unique read (`vsearch`)
 - Summarize results (Python script)
   - Tables of phylum, genus, and species counts per sample, including multiple hits
-  - Number of reads remaining at each analysis step with figure
+  - Number of retained reads per sample at each analysis step with figure
   - Most frequent non-annotated sequences to blast on NCBI nt/nr
   - Species counts for these non-annotated sequences
 
 ## Running the pipeline
 
-For each new project, get a new copy of **Barque** from the sources listed in
-the **Installation** section.
+For each new project, get a new copy of **Barque** from the source listed in
+the **Installation** section. In this case, you do not need to modify the
+primer and config files.
 
 ### Running on the test dataset
 
 If you want to test **Barque**, jump straight to the `Test dataset` section at
-the end of this file. Read through the README after to understand the program
-and it's outputs.
+the end of this file.
+
+
+Read through the README after to understand the program and it's outputs.
+
 
 ### Preparing samples
 
 Copy your paired-end sample files in the `04_data` folder. You need one pair of
 files per sample. The sequences in these files must contain the sequences of
-the primer that you used during the PCR.
+the primer that you used during the PCR. Depending on the format in which you
+received your sequences from the sequencing facility, you may have to proceed
+to demultiplexing before you can use Barque.
 
-The file names must follow this format:
+**IMPORTANT:** The file names must follow this format:
 
 ```
 SampleID_*_R1_001.fastq.gz
 SampleID_*_R2_001.fastq.gz
 ```
 
-Note that the sample name, or SampleID, must contain no underscore (`_`) and be
+Notes: Each sample name, or SampleID, must contain no underscore (`_`) and be
 followed by an underscore (`_`). The star (`*`) can be any string of text that
 **does not contain space characters**.
 
-**If you do not have a dataset**, you can use the test dataset. See the **Test
-dataset** section near the end of this file. In this case, you do not need to
-modify the primer and config files.
-
 ### Formatting database
 
-You will need to put a database in Fasta format in the `03_databases` folder.
+You need to put a database in gzip-compressed Fasta format, or `.fasta.gz`, in
+the `03_databases` folder.
 
 An augmented version of the mitofish 12S database is already available in your
 downloaded version of **Barque**
@@ -127,17 +139,11 @@ downloaded version of **Barque**
 The pre-formatted BOLD database can be
 [downloaded here](http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz).
 
-If you do not already have the indexed database and want to use BOLD, you will
-need to download all the animal BINs from [this BOLD
-page](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home).
-Put the downloaded Fasta files in `03_databases/bold_bins` (you will need to
-create that folder), and run the commands to format the bold database:
-
-- For other databases, get the database and format it:
-  - Fasta format
-  - Name line has 3 informations separated by an underscore (`_`)
-  - Ex: `>Phylum_Genus_species`
-  - Ex: `>Mammal_rattus_norvegicus`
+If you want to use a newer version of the BOLD database, you will need to
+download all the animal BINs from [this page
+](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home). Put
+the downloaded Fasta files in `03_databases/bold_bins` (you will need to create
+that folder), and run the commands to format the bold database:
 
 ```bash
 # Format each BIN individually (~10 minutes)
@@ -149,6 +155,13 @@ ls -1 03_databases/bold_bins/*.fas.gz |
 # Concatenate the resulting formatted bins into one file (~10 seconds)
 gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
 ```
+
+- For other databases, get the database and format it:
+  - gzip-compressed Fasta format (`.fasta.gz`)
+  - Name lines have 3 informations separated by an underscore (`_`)
+  - Ex: `>Phylum_Genus_species`
+  - Ex: `>Family_Genus_species`
+  - Ex: `>Mammal_rattus_norvegicus`
 
 ### Configuration file
 
@@ -170,12 +183,15 @@ Once the pipeline has finished running, all result files are found in the
 `12_results` folder.
 
 After a run, it is recomended to make a copy of this folder and name it with the
-current date, ex: `12_results_PROJECT_NAME_2019-10-08`
+current date, ex: 
+```bash
+cp -r 12_results 12_results_PROJECT_NAME_2020-07-27_SOME_ADDITIONAL_INFO
+```
 
 ### Taxa count tables, named after the primer names
 
-- `PRIMER_phylum_table.csv`
 - `PRIMER_genus_table.csv`
+- `PRIMER_phylum_table.csv`
 - `PRIMER_species_table.csv`
 
 ### Sequence dropout report and figure
@@ -190,32 +206,37 @@ sequences are lost at each of the analysis steps. A figure is generated in
 
 - `most_frequent_non_annotated_sequences.fasta`: Sequences that are frequent in
 the samples but were not annotated by the pipeline. This Fasta file should be
-used to query the NCBI nt/nr database (**you will need to change the default
-value**) using the online portal [found
-here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch) to see
-what species may have been missed. Use `blastn` with default parameters. Once
-the NCBI blastn search is finished, download the results as a text file and use
-the following command (you will need to adjust the input and output file names)
-to generate a report of the most frequently found species in the non-annotated
-sequences:
+used to query the NCBI nt/nr database using the online portal [found
+here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearchhttps://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch)
+to see what species may have been missed. Use `blastn` with default parameters.
+Once the NCBI blastn search is finished, download the results as a text file
+and use the following command (you will need to adjust the input and output
+file names) to generate a report of the most frequently found species in the
+non-annotated sequences:
 
 ### Summarize species found in non-annotated sequences
 
 ```bash
 ./01_scripts/10_report_species_for_non_annotated_sequences.py \
     12_results/NCBI-Alignment.txt \
-    12_results/most_frequent_non_annotated_sequences_species_ncbi.csv
+    12_results/most_frequent_non_annotated_sequences_species_ncbi.csv 97 |
+    sort -u -k 2,3 | cut -c 2- | perl -pe 's/ /\t/' > missing_species_97_percent.txt
 ```
 
-The result file will contain one line per identified taxon and the number of
-sequences for each taxon, sorted in decreasing order. For any species of
+The first result file will contain one line per identified taxon and the number
+of sequences for each taxon, sorted in decreasing order. For any species of
 interest found in this file, it is a good idea to download the representative
 sequences from NCBI, add them to the database, and rerun the analysis.
 
+You can modify the percentage value, here 97. The
+`missing_species_97_percent.txt` file will list the sequence identifiers from
+NCBI so that you can download them from the online database and add them to
+your own database as needed.
+
 ### Log files and parameters
 
-For each run of **Barque**, three files are written in the `13_logfiles`
-folder, each with a timestamp with the time of the run:
+For each **Barque** run, three files are written in the `13_logfiles` folder.
+Each contain a timestamp with the time of the run:
 
 1. The exact barque config file that has been used
 1. The exact primer file as it was used
@@ -227,13 +248,13 @@ Once the pipeline has been run, it is normal to find that unexpected species
 have been found or that a proportion of the reads have not been identified,
 either because the sequenced species are absent from the database or because
 the sequences have the exact same distance from two or more sequences in the
-database. In these cases, you will need to create a list of unwanted species to
-be later removed from the database or download additional sequences for the
-non-annotated species from NCBI to add them to the database. Once the database
-has been improved, simply run the last part of the pipeline while using this
-new database by making sure you have `SKIP_DATA_PREP=1` in your config file.
-You may need to repeat this step again until you are satisfied with the
-completeness of the results.
+database. In these cases, you will need to remove unwanted species from the
+database or download additional sequences for the non-annotated species from
+NCBI to add them to it. Once the database has been improved, simply run the
+last part of the pipeline again while using this new database. You can have
+`SKIP_DATA_PREP=1` in your config file to avoid repeating the initial data
+preparation steps of **Barque**. You may need to repeat this step again until
+you are satisfied with the completeness of the results.
 
 NOTE: You should provide justifications in your publications if you decide to
 remove some species from the database.
@@ -242,8 +263,8 @@ remove some species from the database.
 
 A test dataset is available as a [sister repository on
 GitHub](https://github.com/enormandeau/barque_test_dataset). It is composed of
-10 samples, each with 10,000 sequences (times two since it is a paired-end
-dataset).
+10 mitofish-12S metabarcoding samples, each with 10,000 forward and 10,000
+reverse sequences.
 
 Download the repository and then move the data from
 `barque_test_dataset/04_data` to **Barque**'s `04_data` folder.
@@ -262,6 +283,7 @@ cd barque
 To run the analysis, move to the `barque` folder and launch:
 
 ```bash
+cd barque
 ./barque 02_info/barque_config.sh
 ```
 
