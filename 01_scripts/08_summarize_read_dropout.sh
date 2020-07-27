@@ -52,7 +52,7 @@ do
     echo -e "$step" > ../10_read_dropout/"$step"_"$i"
     for j in $(ls -1 *merged_"$i"*_unique.fasta.gz | grep "$i")
     do
-        echo -e $(echo "$j" | cut -d "_" -f 1)","$(echo $(gunzip -c "$j" | grep ">" | cut -d "_" -f 4 | awk '{s+=$1}END{print s}'))
+        echo -e $(echo "$j" | cut -d "_" -f 1)","$(echo $(gunzip -c "$j" | grep ">" | cut -d "_" -f 4 | awk 'BEGIN{s=0}{s+=$1}END{print s}'))
     done | sort -t "," -k1,1 -V | cut -d "," -f 2 >> ../10_read_dropout/"$step"_"$i" &
 done
 cd ..
