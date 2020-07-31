@@ -258,10 +258,17 @@ with open(os.path.join(output_folder, input_file.replace(".fastq.gz", "_summary.
 
 ## Report success
 filename = fastq_file.split("/")[-1]
+
 if num_treated == 0:
-    print("Extracted 0% (0/0)\t\tof the sequences ({})".format(filename))
+    print("Extracted 0% (0/0)\t\t sequences, {}".format(filename))
 else:
-    print("Extracted {}% ({}/{})\tof the sequences, {}% in forward orientation ({})".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, str(100.0 * forward_orientation / (forward_orientation + reverse_orientation + 0.000001))[0:4], filename))
+    if reverse_orientation == 0:
+        forward_stat = "100"
+
+    else:
+        forward_stat = str(100.0 * forward_orientation /
+                (forward_orientation + reverse_orientation + 0.000001))[0:4]
+    print("Extracted {}% ({}/{})\t sequences, {}% forward, {}".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, forward_stat, filename))
 
 ## Close file handles
 for f in output_files:
