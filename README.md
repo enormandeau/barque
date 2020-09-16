@@ -1,4 +1,4 @@
-# Barque v1.6.5
+# Barque v1.6.6
 
 ## Environmental DNA metabarcoding analysis
 
@@ -235,7 +235,7 @@ your own database as needed.
 
 ### Log files and parameters
 
-For each **Barque** run, three files are written in the `13_logfiles` folder.
+For each **Barque** run, three files are written in the `99_logfiles` folder.
 Each contain a timestamp with the time of the run:
 
 1. The exact barque config file that has been used

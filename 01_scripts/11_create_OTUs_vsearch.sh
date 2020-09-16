@@ -39,7 +39,7 @@ do
 
     # Dereplicate
     echo "BARQUE: Dereplicating reads"
-    vsearch --threads "$NCPUS" --derep_fulllength "$name".fasta.gz \
+    vsearch --derep_fulllength "$name".fasta.gz \
         --strand plus --output "$name".derep \
         --sizeout --fasta_width 0 \
         --minuniquesize 2 --minseqlength 20
@@ -50,13 +50,12 @@ do
         --chimeras "$name".chimeras \
         --nonchimeras "$name".nonchimeras \
         --borderline "$name".borderline \
-        --mindiff 2 \
+        --mindiffs 2 \
         --mindiv 0.4 \
         --minh 0.2 \
-        --minuniquesize "$MIN_SIZE_FOR_OTU" \
         --relabel OTU_ \
         --sizeout \
-        --fasta_width 0 --minseqlength 20
+        --fasta_width 0
 
     # Remove sequences with Ns
     echo "BARQUE: Removing sequences containing Ns"
@@ -64,7 +63,7 @@ do
 
     # Remove singletons or rare reads
     echo "BARQUE: Dereplicating reads"
-    vsearch --threads "$NCPUS" --derep_fulllength "$name".nonchimeras_no_Ns \
+    vsearch --derep_fulllength "$name".nonchimeras_no_Ns \
         --strand plus --output "$name".nonchimeras_no_Ns_above_"$MIN_SIZE_FOR_OTU" \
         --sizein --sizeout --fasta_width 0 \
         --minuniquesize "$MIN_SIZE_FOR_OTU" --minseqlength 20
