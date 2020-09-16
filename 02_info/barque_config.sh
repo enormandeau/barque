@@ -1,18 +1,19 @@
 #!/bin/bash
 
 # Modify the following parameter values according to your experiment
-# Do not modify the parameter names or remove some parameters
+# Do not modify the parameter names or remove parameters
 # Do not add spaces around the equal (=) sign
+# It is a good idea to try to run Barque with different parameters 
 
 # Global parameters
-NCPUS=20                    # Number of CPUs to use for analyses (int, 1+)
+NCPUS=20                    # Number of CPUs to use. A lot of the steps are parallelized (int, 1+)
 PRIMER_FILE="02_info/primers.csv" # File with PCR primers information
 
-# Skip data preparation and rerun only from vsearch
-SKIP_DATA_PREP=0            # 1 to skip data preparation steps, 0 to run full pipeline
+# Skip data preparation and rerun only from vsearchp
+SKIP_DATA_PREP=0            # 1 to skip data preparation steps, 0 to run full pipeline (recommended)
 
 # Filtering with Trimmomatic
-CROP_LENGTH=200             # Cut reads to this length after filtering
+CROP_LENGTH=200             # Cut reads to this length after filtering. Should be <= to amplicon length
 
 # Merging reads with flash
 MIN_OVERLAP=30              # Minimum number of overlapping nucleotides to merge reads (int, 1+)
@@ -38,5 +39,5 @@ MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at l
 NUM_NON_ANNOTATED_SEQ=1000   # Number of unique most-frequent non-annotated reads to keep (int, 1+)
 
 # OTUs
-SKIP_OTUS=1                 # Skip OTU creation
+SKIP_OTUS=1                 # 1 to skip OTU creation, 0 to use it
 MIN_SIZE_FOR_OTU=20         # Only unique reads with at least this coverage will be used for OTUs
