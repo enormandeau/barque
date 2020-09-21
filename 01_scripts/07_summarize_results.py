@@ -57,6 +57,7 @@ except TypeError:
 species_dictionary = {}
 genus_dictionary = {}
 phylum_dictionary = {}
+multiple_hits_global_infos = defaultdict(list)
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
@@ -138,6 +139,7 @@ for primer in primers:
 
             # Summaryze multiple hits
             elif len(best_species) > 1:
+                multiple_hits_global_infos[";".join(list(best_species))].append((sample, seq))
                 species = "zMultiple_Hits_" + " : ".join(sorted(list(best_species))).replace("_", "^")
                 species_dictionary[primer][sample][species] += count
                 multiple_hits_species[";".join(sorted(list(best_species)))] += count
@@ -169,25 +171,13 @@ for primer in primers:
     lines_species = sorted(lines_species, reverse=True)
     lines_species = [str(x[0]) + "," + x[1] for x in lines_species]
 
-    #with open(os.path.join(output_folder,
-    #    "multiple_hits_" + primer + "_" + primers[primer] + "_species.csv"),
-    #    "w") as outfile:
-    #    for l in lines_species:
-    #        outfile.write(l + "\n")
-
-    # Write multiple hit summary for species
+    # Write multiple hit summary for genus
     lines_genus = []
     for group in sorted(multiple_hits_genus.keys()):
         lines_genus.append((multiple_hits_genus[group], group))
 
     lines_genus = sorted(lines_genus, reverse=True)
     lines_genus = [str(x[0]) + "," + x[1] for x in lines_genus]
-
-    #with open(os.path.join(output_folder,
-    #    "multiple_hits_" + primer + "_" + primers[primer] + "_genus.csv"),
-    #    "w") as outfile:
-    #    for l in lines_genus:
-    #        outfile.write(l + "\n")
 
 # Get represented taxons
 species_found = {}
@@ -327,3 +317,10 @@ for primer in sorted(species_dictionary):
 
             elif max([int(x) for x in line[1:]]) > min_coverage:
                 outfile.write(prepared_line)
+
+# Export multiple hits infos to later generate alignments
+with open(os.path.join(output_folder, primer + "_multiple_hit_infos.csv"), "wt") as outfile:
+    for multiple_hit in multiple_hits_global_infos:
+        for sequence in multiple_hits_global_infos[multiple_hit]:
+            sample, seq = sequence
+            outfile.write(",".join([multiple_hit, sample, seq]) + "\n")
