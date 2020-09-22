@@ -139,10 +139,13 @@ for primer in primers:
 
             # Summaryze multiple hits
             elif len(best_species) > 1:
-                multiple_hits_global_infos[";".join(list(best_species))].append((sample, seq))
+
                 species = "zMultiple_Hits_" + " : ".join(sorted(list(best_species))).replace("_", "^")
                 species_dictionary[primer][sample][species] += count
                 multiple_hits_species[";".join(sorted(list(best_species)))] += count
+
+                # Gather multiple hit infos
+                multiple_hits_global_infos[";".join(list(best_species))].append((sample, seq))
 
                 # Genus level identification
                 if len(best_genus) == 1:
@@ -318,7 +321,7 @@ for primer in sorted(species_dictionary):
             elif max([int(x) for x in line[1:]]) > min_coverage:
                 outfile.write(prepared_line)
 
-# Export multiple hits infos to later generate alignments
+# Export multiple hits infos
 with open(os.path.join(output_folder, primer + "_multiple_hit_infos.csv"), "wt") as outfile:
     for multiple_hit in multiple_hits_global_infos:
         for sequence in multiple_hits_global_infos[multiple_hit]:
