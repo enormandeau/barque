@@ -1,5 +1,6 @@
 *-Alignment.txt
 *.Rhistory
+*.backup
 *.fa.gz
 *.fas.gz
 *.fasta
