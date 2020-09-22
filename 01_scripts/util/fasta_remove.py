@@ -4,7 +4,8 @@
 Remove file contains one sequence name per line.
 
 Usage:
-    %program <input_file> <remove_file> <output_file>"""
+    <program> input_file remove_file output_file
+"""
 
 # Importing modules
 import gzip

@@ -1,9 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """Split amplicons using forward and reverse potentially degenerated primers
 
 Usage:
-    %program fastq_file primer_file iupac_file output_folder max_distance
+    <program> fastq_file primer_file iupac_file output_folder max_distance
 """
 
 # Importing modules

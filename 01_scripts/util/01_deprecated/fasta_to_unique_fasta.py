@@ -2,7 +2,7 @@
 """Convert fasta to fasta keeping only one unique representant of each read
 
 Usage:
-    python fasta_to_unique_fasta.py inputFile outputFile
+    <program> inputFile outputFile
 
 Where:
     inputFile is a .fasta or a .fasta.gz file

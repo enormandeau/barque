@@ -2,7 +2,7 @@
 """Remove unwanted sequences from a Fastq file
 
 Usage:
-    python fastq_remove.py  input_file  unwanted_file  output_file
+    <program> input_file unwanted_file output_file
 
 input_file = input Fastq file
 unwanted_file = file containing one unwanted sequence ID per line

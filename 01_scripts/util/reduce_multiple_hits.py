@@ -2,7 +2,7 @@
 """Reduce the table of multiple hits by group of shared species
 
 Usage:
-    ./01_scripts/util/reduce_multiple_hits.py inputFile outputFile
+    <program> inputFile outputFile
 """
 
 # Modules

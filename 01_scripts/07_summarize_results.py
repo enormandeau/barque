@@ -2,7 +2,7 @@
 """Summarize vsearch results
 
 Usage:
-    ./01_scripts/07_summarize_results.py input_folder output_folder primer_file min_length min_coverage
+    <program> input_folder output_folder primer_file min_length min_coverage
 
 Where:
     input_folder is '09_vsearch'

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Rename OTUs with shorter names (eg: otu00000001;size=13442;)
 
 Usage:

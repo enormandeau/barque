@@ -6,7 +6,8 @@
 Wanted file contains one sequence name per line.
 
 Usage:
-    %program <input_file> <wanted_file> <output_file>"""
+    <program> input_file wanted_file output_file
+"""
 
 import gzip
 import sys

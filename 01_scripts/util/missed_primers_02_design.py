@@ -4,7 +4,7 @@
 Note: The sequences must not be degenerate and have the same length
 
 Usage:
-    ./01_scripts/util/missed_primers_02_design.py input_file
+    <program> input_file
 """
 
 # Modules

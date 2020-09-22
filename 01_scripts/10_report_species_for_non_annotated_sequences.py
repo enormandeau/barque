@@ -4,7 +4,7 @@ on NCBI, use this script to report the number of non annotated sequences
 for each species (or annotation) found on NCBI.
 
 Usage:
-    ./01_scripts/10_report_species_for_non_annotated_sequences.py AlignmentFile OutputFile threshold
+    <program> AlignmentFile OutputFile threshold
 
 Where:
     AlignmentFile is the file downloaded from NCBI after the blast

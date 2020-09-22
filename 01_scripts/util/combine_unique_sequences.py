@@ -3,7 +3,7 @@
 accurate count information with each sequence.
 
 Usage:
-    ./01_scripts/util/combine_unique_sequences.py input_fasta num_sequences output_fasta
+    <program> input_fasta num_sequences output_fasta
 
 Note:
     the sequence names in input_fasta must have the following format:

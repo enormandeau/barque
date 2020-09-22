@@ -2,7 +2,7 @@
 """Keep only unique sequences, regardless of sequence name
 
 USAGE:
-    python fasta_split.py input_file output_file
+    <program> input_file output_file
 
 Where:
     input_file is a .fasta or .fasta.gz file

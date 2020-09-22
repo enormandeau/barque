@@ -2,7 +2,7 @@
 """Report number of reads with multiple hits with species
 
 Usage:
-    ./01_scripts/util/find_multiple_hits.py inputFolder database outputFile
+    <program> inputFolder database outputFile
 """
 
 # Modules

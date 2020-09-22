@@ -2,7 +2,7 @@
 """Remove chimera sequences identified by vsearch from split amplicons
 
 Usage:
-    ./01_scripts/util/remove_chimeras.py inputFastq unwantedFasta outputFastq
+    <program> inputFastq unwantedFasta outputFastq
 """
 
 # Modules

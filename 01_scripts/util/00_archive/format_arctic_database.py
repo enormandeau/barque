@@ -4,7 +4,7 @@
 - Keep only 'Genus species' sequences
 
 Usage:
-    ./01_scripts/format_arctic_database.py input_fasta output_fasta
+    <program> input_fasta output_fasta
 """
 
 # Modules

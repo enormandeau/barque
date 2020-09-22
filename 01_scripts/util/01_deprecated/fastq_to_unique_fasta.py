@@ -2,7 +2,7 @@
 """Convert fastq to fasta keeping only one unique representant of each read
 
 Usage:
-    python fastq_to_unique_fasta.py inputFile outputFile
+    <program> inputFile outputFile
 
 Where:
     inputFile is a .fastq or a .fastq.gz file

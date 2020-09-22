@@ -4,7 +4,7 @@
 - Keep only 'Genus species' sequences
 
 Usage:
-    ./01_scripts/prepare_bold_fasta_file_for_database.py input_fasta output_fasta
+    <program> input_fasta output_fasta
 """
 
 # Modules

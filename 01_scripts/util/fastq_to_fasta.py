@@ -2,7 +2,7 @@
 """Convert fastq to fasta
 
 Usage:
-    python fastq_to_fasta.py inputFile outputFile
+    <program> inputFile outputFile
 
 Where:
     inputFile is a .fastq or a .fastq.gz file

@@ -2,7 +2,7 @@
 """Extract sequences from database for species in multiple hit file
 
 Usage:
-    ./extract_multiple_hit_sequences.py multiple_hit_file database_file
+    <program> multiple_hit_file database_file
 """
 
 # Modules

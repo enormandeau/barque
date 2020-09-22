@@ -2,7 +2,7 @@
 """Sort fasta sequences produced by Barque with most frequen sequences first
 
 USAGE:
-    python ./01_scripts/util/fasta_sort_by_count.py input_file output_file
+    <program> input_file output_file
 
 Where:
     input_file is a .fasta or .fasta.gz file
