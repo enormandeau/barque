@@ -1,4 +1,4 @@
-# Barque v1.6.6
+# Barque v1.7.0
 
 ## Environmental DNA metabarcoding analysis
 
@@ -93,6 +93,7 @@ During the analyses, the following steps are performed:
   - Number of retained reads per sample at each analysis step with figure
   - Most frequent non-annotated sequences to blast on NCBI nt/nr
   - Species counts for these non-annotated sequences
+  - Sequence groups for cases of multiple hits
 
 ## Running the pipeline
 
@@ -213,6 +214,14 @@ Once the NCBI blastn search is finished, download the results as a text file
 and use the following command (you will need to adjust the input and output
 file names) to generate a report of the most frequently found species in the
 non-annotated sequences:
+
+### Fasta files with sequences from multiple hit groups
+
+- `12_results/01_multihits` contains fasta file with database and sample
+  sequences to help understand why some of the sequences cannot be unambiguously
+  assigned to one species. For example, sometimes two different species can have
+  identical reads in the database. At other times sample sequences can have the
+  same distance from the sequences of two species in the database.
 
 ### Summarize species found in non-annotated sequences
 

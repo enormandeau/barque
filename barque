@@ -27,7 +27,7 @@ print_logo () {
     echo '      )___))___))___)\'
     echo '     )____)____)_____)\\'
     echo '   _____|____|____|____\\\__'
-    echo '   \   BARQUE v1.6.6   /'
+    echo '   \   BARQUE v1.7.0   /'
     echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
     echo "^^^   ^^^^^^    ^^^^^^  ^^^^^^"
     echo ""
@@ -115,3 +115,7 @@ then
 else
     echo -e "\nWARNING: Invalid value in config file for SKIP_OTUS"
 fi
+
+# Extract database and sample sequences for multiple hit groups
+echo -e "\nBARQUE: Extracting sequence groups from multiple hits"
+./01_scripts/12_extract_multiple_hit_sequences.py "$CONFIG_FILE"
