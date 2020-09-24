@@ -2,7 +2,7 @@
 """Extract database and sample sequences for multiple hit groups
 
 Usage:
-    <program> config_file
+    <program> config_file [min_count]
 """
 
 # Modules
@@ -67,6 +67,12 @@ except:
     print(__doc__)
     sys.exit(1)
 
+# Minimum sequence coverage per sample to include in alignment
+try:
+    min_count = int(sys.argv[2])
+except:
+    min_count = 1
+
 # Read config file
 primer_file = [x for x in open(config_file).readlines() if "PRIMER_FILE" in x][0]
 primer_file = primer_file.split("#")[0].split("=")[1].strip().replace('"', '')
@@ -112,13 +118,19 @@ for primer in primers:
 
     sample_sequences = dict()
 
+    all_fasta = os.listdir("08_chimeras")
     for sample in samples:
-        sequences = fasta_iterator("08_chimeras/" + sample + "_merged_" +
-                primer[0] + "_nonchimeras.fasta.gz_unique.fasta.gz")
+        input_fasta = [x for x in all_fasta if
+                x.startswith(sample + "_") and
+                x.endswith("merged_" + primer[0] + "_nonchimeras.fasta.gz_unique.fasta.gz")
+                ][0]
+        sequences = fasta_iterator("08_chimeras/" + input_fasta)
 
         for s in sequences:
-            if s.name in sequence_names_per_sample[sample]:
-                sample_sequences[(sample, s.name)] = s
+            num_occurences = int(s.name.split("_")[3])
+            if num_occurences >= min_count:
+                if s.name in sequence_names_per_sample[sample]:
+                    sample_sequences[(sample, s.name)] = s
 
     # Write sequences of multihit groups to files
     multihit_num = 0
@@ -137,9 +149,13 @@ for primer in primers:
 
         for sequence_info in multihit_info:
             sample_name = sequence_info[0]
-            s = sample_sequences[sequence_info]
-            s.name = sample_name + "_" + s.name
-            wanted_sequences.append(s)
+
+            try:
+                s = sample_sequences[sequence_info]
+                s.name = sample_name + "_" + s.name
+                wanted_sequences.append(s)
+            except:
+                pass
 
         with myopen("12_results/01_multihits/" + primer[0] + "_" + "multihit_group_" + str(multihit_num) + ".fasta", "wt") as outfile:
             for s in wanted_sequences:
