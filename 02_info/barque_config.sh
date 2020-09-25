@@ -6,14 +6,14 @@
 # It is a good idea to try to run Barque with different parameters 
 
 # Global parameters
-NCPUS=20                    # Number of CPUs to use. A lot of the steps are parallelized (int, 1+)
+NCPUS=32                    # Number of CPUs to use. A lot of the steps are parallelized (int, 1+)
 PRIMER_FILE="02_info/primers.csv" # File with PCR primers information
 
 # Skip data preparation and rerun only from vsearchp
 SKIP_DATA_PREP=0            # 1 to skip data preparation steps, 0 to run full pipeline (recommended)
 
 # Filtering with Trimmomatic
-CROP_LENGTH=200             # Cut reads to this length after filtering. Should be <= to amplicon length
+CROP_LENGTH=200             # Cut reads to this length after filtering. Just under amplicon length
 
 # Merging reads with flash
 MIN_OVERLAP=30              # Minimum number of overlapping nucleotides to merge reads (int, 1+)
