@@ -57,7 +57,6 @@ except TypeError:
 species_dictionary = {}
 genus_dictionary = {}
 phylum_dictionary = {}
-multiple_hits_global_infos = defaultdict(list)
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
@@ -65,6 +64,7 @@ for primer in primers:
     print("Primer: " + primer)
     multiple_hits_species = defaultdict(int)
     multiple_hits_genus = defaultdict(int)
+    multiple_hits_global_infos = defaultdict(list)
 
     # Get minimum similarity for the primer
     primer_info = [x.strip().split(",") for x in open(primer_file).readlines() if x.startswith(primer + ",")][0]
@@ -321,9 +321,9 @@ for primer in sorted(species_dictionary):
             elif max([int(x) for x in line[1:]]) > min_coverage:
                 outfile.write(prepared_line)
 
-# Export multiple hits infos
-with open(os.path.join(output_folder, primer + "_multiple_hit_infos.csv"), "wt") as outfile:
-    for multiple_hit in multiple_hits_global_infos:
-        for sequence in multiple_hits_global_infos[multiple_hit]:
-            sample, seq = sequence
-            outfile.write(",".join([multiple_hit, sample, seq]) + "\n")
+    # Export multiple hits infos
+    with open(os.path.join(output_folder, primer + "_multiple_hit_infos.csv"), "wt") as outfile:
+        for multiple_hit in multiple_hits_global_infos:
+            for sequence in multiple_hits_global_infos[multiple_hit]:
+                sample, seq = sequence
+                outfile.write(",".join([multiple_hit, sample, seq]) + "\n")
