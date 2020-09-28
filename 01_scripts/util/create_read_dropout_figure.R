@@ -1,25 +1,31 @@
 rm(list=ls())
 
 data = read.table("12_results/sequence_dropout.csv", header=T, sep=",")
+names(data) = substring(names(data), 5)
 d = data[,2:ncol(data)]
 d[is.na(d)] = 0
 
-percent_annotated = signif(100 * sum(d[,6]) / sum(d[,1]), 3)
-png("12_results/sequence_dropout_figure.png", width=800, height=800)
+numcol = ncol(d)
+
+print(head(data))
+print(numcol)
+
+percent_annotated = signif(100 * sum(d[, numcol]) / sum(d[,1]), 3)
+png("12_results/sequence_dropout_figure.png", width=1800, height=800)
 
 plot(0, 0,
      type='n',
      xaxt='n',
-     xlim=c(1, 6),
+     xlim=c(1,  numcol),
      ylim=c(min(as.matrix(d)), max(as.matrix(d))),
      main="Read dropout by analysis step in Barque",
      ylab="Number of reads",
      xlab="Analysis step")
 
-axis(1, at=(1:6), labels=names(data)[2:ncol(data)])
+axis(1, at=(1: numcol), labels=names(data)[2:ncol(data)])
 
 for (i in 1:nrow(d)) {
-    lines(1:6,
+    lines(1: numcol,
           d[i, ],
           col=i)
 }
