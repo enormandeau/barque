@@ -6,12 +6,18 @@ d = data[,2:ncol(data)]
 d[is.na(d)] = 0
 
 numcol = ncol(d)
+print(numcol)
+if (numcol == 6) {
+    figure_width = 800
+} else {
+    figure_width = 1800
+}
 
 print(head(data))
 print(numcol)
 
 percent_annotated = signif(100 * sum(d[, numcol]) / sum(d[,1]), 3)
-png("12_results/sequence_dropout_figure.png", width=1800, height=800)
+png("12_results/sequence_dropout_figure.png", width=figure_width, height=800)
 
 plot(0, 0,
      type='n',
