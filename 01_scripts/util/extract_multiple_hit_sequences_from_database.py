@@ -75,9 +75,9 @@ for s in sequences:
 # Write sequence file for each multiple hit species group
 for group in multiple_hit_species_groups:
     first_species = group[0]
-    output_filname = first_species + "_multiple_hits.fasta"
+    output_filename = first_species + "_multiple_hits.fasta"
 
-    with open(output_filname, "w") as outfile:
+    with open(output_filename, "w") as outfile:
         for species in sorted(group):
             for sequence in sequences_by_species_group[species]:
                 sequence.write_to_file(outfile)
@@ -95,9 +95,9 @@ for s in sequences:
 # Write sequence file for each multiple hit genera
 for group in multiple_hit_species_groups:
     first_species = group[0]
-    output_filname = first_species + "_whole_genus_multiple_hits.fasta"
+    output_filename = first_species + "_whole_genus_multiple_hits.fasta"
 
-    with open(output_filname, "w") as outfile:
+    with open(output_filename, "w") as outfile:
         for species in sorted(group):
             genus = "_".join(species.split("_")[:2])
             for sequence in sequences_by_genus[genus]:
