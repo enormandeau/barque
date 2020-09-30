@@ -136,6 +136,7 @@ for primer in primers:
     multihit_num = 0
 
     for multihit in multihits_dict:
+        multihit_genus = "_".join(sorted(list(set([x.split("_")[1] for x in multihit.split(";")]))))
         multihit_num += 1
         wanted_sequences = []
         wanted_genus = list(set([x.split("_")[1] for x in multihit.split(";")]))
@@ -157,6 +158,6 @@ for primer in primers:
             except:
                 pass
 
-        with myopen("12_results/01_multihits/" + primer[0] + "_" + "multihit_group_" + str(multihit_num) + ".fasta", "wt") as outfile:
+        with myopen("12_results/01_multihits/" + primer[0] + f"_multihit_{multihit_num:04d}_" + multihit_genus + ".fasta", "wt") as outfile:
             for s in wanted_sequences:
                 s.write_to_file(outfile)
