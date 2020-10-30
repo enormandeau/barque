@@ -17,8 +17,9 @@ instead of Operational Taxonomic Unit (OTUs), using high-quality barcoding
 databases.
 
 **Barque** can also produce OTUs, which are then annotated using a database.
-These annotated OTUs are then used as a database to find read counts per OTU
-per sample.
+These annotated OTUs are then used as a database themselves to find read counts
+per OTU per sample, effectively "annotating" the reads with the OTUs that were
+previously found.
 
 ## Use cases
 
@@ -31,7 +32,7 @@ management projects:
 - Improving species distribution knowledge of cryptic taxa
 - Following loss of species over medium to long-term monitoring
 
-Since Barque depends on the use of high-quality barcoding databases, it is
+Since **Barque** depends on the use of high-quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
 Life Database (BOLD) or 12S amplicons with the mitofish database, although it
 can also use any database, for example the Silva database for the 18s gene or
@@ -41,9 +42,9 @@ any other custom database.
 
 To use **Barque**, you will need a local copy of its repository. Different
 releases can be [found here](https://github.com/enormandeau/barque/releases).
-It is recommended to always use the latest version. You can either download
-an archive of the latest release at the above link or get the latest commit
-(recommended) with the following git command:
+It is recommended to always use the latest release or even the developpment
+version. You can either download an archive of the latest release at the above
+link or get the latest commit (recommended) with the following git command:
 
 ```
 git clone https://github.com/enormandeau/barque
@@ -56,7 +57,7 @@ on your computer.
 
 - **Barque** will only work on GNU Linux or OSX
 - bash 4+
-- python 3.5+ (you can use miniconda to install python)
+- python 3.5+ (you can use miniconda3 to install python)
 - R 3+ (ubuntu/mint: `sudo apt-get install r-base-core`)
 - java (ubuntu/mint: `sudo apt-get install default-jre`)
 - [gnu parallel](https://www.gnu.org/software/parallel/)
@@ -68,15 +69,13 @@ on your computer.
 ### Preparation
 
 - Install dependencies
-- Download a copy of the **Barque** repository (see **Installation** section
-  above)
-- Edit `02_info/primers.csv` to provide needed informations for your primers
+- Download a copy of the **Barque** repository (see **Installation** above)
+- Edit `02_info/primers.csv` to provide information describing your primers
 - Get or prepare the database(s) (see Formatting database section below) and
-  deposit its `fasta.gz` file with a name that matches the information of the
-  `primers.csv` file in the `03_databases` folder.
-- Make a copy of `02_info/barque_config.sh` and modify the parameters for your
-  run
-- Launch Barque, for example with `./barque 02_info/barque_config.sh`
+  deposit the `fasta.gz` file in the `03_databases` folder and give it a name
+  that matches the information of the `02_info/primers.csv` file.
+- Make a copy of `02_info/barque_config.sh`, modify the parameters for your run
+- Launch **Barque**, for example with `./barque 02_info/barque_config.sh`
 
 ## Overview of Barque steps
 
@@ -104,11 +103,8 @@ primer and config files.
 ### Running on the test dataset
 
 If you want to test **Barque**, jump straight to the `Test dataset` section at
-the end of this file.
-
-
-Read through the README after to understand the program and it's outputs.
-
+the end of this file. Read through the README after to better understand the
+program and it's outputs.
 
 ### Preparing samples
 
@@ -116,7 +112,7 @@ Copy your paired-end sample files in the `04_data` folder. You need one pair of
 files per sample. The sequences in these files must contain the sequences of
 the primer that you used during the PCR. Depending on the format in which you
 received your sequences from the sequencing facility, you may have to proceed
-to demultiplexing before you can use Barque.
+to demultiplexing before you can use **Barque**.
 
 **IMPORTANT:** The file names must follow this format:
 
@@ -127,15 +123,16 @@ SampleID_*_R2_001.fastq.gz
 
 Notes: Each sample name, or SampleID, must contain no underscore (`_`) and be
 followed by an underscore (`_`). The star (`*`) can be any string of text that
-**does not contain space characters**.
+**does not contain space characters**. For example, you can use dashed (`-`) to
+separate parts of your sample names, eg: `PopA-sample001_ANYTHING_R1_001.fastq.gz`.
 
 ### Formatting database
 
 You need to put a database in gzip-compressed Fasta format, or `.fasta.gz`, in
 the `03_databases` folder.
 
-An augmented version of the mitofish 12S database is already available in your
-downloaded version of **Barque**
+An augmented version of the mitofish 12S database is already available in
+**Barque**.
 
 The pre-formatted BOLD database can be
 [downloaded here](http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz).
@@ -200,8 +197,9 @@ cp -r 12_results 12_results_PROJECT_NAME_2020-07-27_SOME_ADDITIONAL_INFO
 - `sequence_dropout.csv`: Listing how many sequences were present in each
 sample for every analysis step. Depending on library and sequencing quality, as
 well as the biological diversity found at the sample site, more or less
-sequences are lost at each of the analysis steps. A figure is generated in
-`sequence_dropout_figure.png`.
+sequences are lost at each of the analysis steps. The figure
+`sequence_dropout_figure.png` shows how many sequences are retained for each
+sample at each step of the pipeline.
 
 ### Most frequent non-annotated sequences
 
@@ -241,6 +239,15 @@ You can modify the percentage value, here 97. The
 `missing_species_97_percent.txt` file will list the sequence identifiers from
 NCBI so that you can download them from the online database and add them to
 your own database as needed.
+
+One way to do this automatically is to make a file with only the first column,
+that is: one NCBI sequence identifier per line, and load it on this page:
+
+https://www.ncbi.nlm.nih.gov/sites/batchentrez
+
+You will need to rename the sequences to follow the database name format
+described in the **Formatting database** section and add them to your current
+database.
 
 ### Log files and parameters
 
@@ -286,7 +293,6 @@ appropriate folder.
 git clone https://github.com/enormandeau/barque
 git clone https://github.com/enormandeau/barque_test_dataset
 cp barque_test_dataset/04_data/* barque/04_data/
-cd barque
 ```
 
 To run the analysis, move to the `barque` folder and launch:
