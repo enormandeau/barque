@@ -9,10 +9,14 @@ Ammodytidae	Ammodytes	dubius	Ammodytidae_Ammodytes_dubius	Lançon du nord
 Ammodytidae	Ammodytes	hexapterus	Ammodytidae_Ammodytes_hexapterus	Lançon gourdeau
 Ammodytidae	Ammodytes	personatus	Ammodytidae_Ammodytes_personatus	Lançon du Pacifique
 Anguillidae	Anguilla	rostrata	Anguillidae_Anguilla_rostrata	Anguille d'Amérique
+Anguillidae	Anguilla	bicolor	Anguillidae_Anguilla_bicolor	Anguille à nageoire courte
 Atherinopsidae	Labidesthes	sicculus	Atherinopsidae_Labidesthes_sicculus	Crayon d’argent
 Bird	Aix	sponsa	Bird_Aix_sponsa	Canard branchu
 Bird	Branta	canadensis	Bird_Branta_canadensis	Bernache du Canada
 Bird	Gavia	immer	Bird_Gavia_immer	Plongeon huard
+Bird	Larus	argentatus	Bird_Larus_argentatus	Goéland argenté
+Bird	Mergus	merganser	Bird_Mergus_merganser	Grand harle
+Bird	Regulus	satrapa	Bird_Regulus_satrapa	Roitelet à couronne dorée
 Bird	Somateria	fischeri	Bird_Somateria_fischeri	Eider à lunettes
 Bird	Somateria	mollissima	Bird_Somateria_mollissima	Eider à duvet
 Carangidae	Trachinotus	carolinus	Carangidae_Trachinotus_carolinus	Pompaneau sole
@@ -38,7 +42,7 @@ Centrarchidae	Micropterus	dolomieu	Centrarchidae_Micropterus_dolomieu	Achigan à
 Centrarchidae	Micropterus	salmoides	Centrarchidae_Micropterus_salmoides	Achigan à grande bouche
 Centrarchidae	Pomoxis	nigromaculatus	Centrarchidae_Pomoxis_nigromaculatus	Marigane noire
 Channidae	Channa	striata	Channidae_Channa_striata	Tête-de-serpent
-Channidae	Chanos	chanos	Channidae_Chanos_chanos	Poisson-lait 
+Channidae	Chanos	chanos	Channidae_Chanos_chanos	Poisson-lait
 Cichlidae	Haplochromis	nyererei	Cichlidae_Haplochromis_nyererei	Nyerere's Victoria cichlid
 Cichlidae	Oreochromis	niloticus	Cichlidae_Oreochromis_niloticus	Tilapia du Nil
 Cichlidae	Sarotherodon	melanotheron	Cichlidae_Sarotherodon_melanotheron	Blackchin tilapia
@@ -50,7 +54,7 @@ Clupeidae	Clupea	pallasii	Clupeidae_Clupea_pallasii	Hareng du pacifique
 Clupeidae	Dorosoma	cepedianum	Clupeidae_Dorosoma_cepedianum	Alose à gésier
 Clupeidae	Konosirus	punctatus	Clupeidae _Konosirus_punctatus	Alose tachetée
 Clupeidae	Sprattus	sprattus	Clupeidae_Sprattus_sprattus	Blanquette
-Clupeidae	Tenualosa	ilisha	Clupeidae_Tenualosa_ilisha	Alose hilsa 
+Clupeidae	Tenualosa	ilisha	Clupeidae_Tenualosa_ilisha	Alose hilsa
 Cottidae	Artediellus	atlanticus	Cottidae_Artediellus_atlanticus	Hameçon atlantique
 Cottidae	Artediellus	uncinatus	Cottidae_Artediellus_uncinatus	Hameçon neigeux
 Cottidae	Cottus	asper	Cottidae_Cottus_asper	Chabot piquant
@@ -95,7 +99,7 @@ Cyprinidae	Notropis	hudsonius	Cyprinidae_Notropis_hudsonius	Méné à queue à t
 Cyprinidae	Notropis	rubellus	Cyprinidae_Notropis_rubellus	Méné à tête rose
 Cyprinidae	Notropis	stramineus	Cyprinidae_Notropis_stramineus	Méné paille
 Cyprinidae	Notropis	volucellus	Cyprinidae_Notropis_volucellus	Méné pale
-Cyprinidae	Phoxinus	phoxinus	Cyprinidae_Phoxinus_phoxinus	Vairon 
+Cyprinidae	Phoxinus	phoxinus	Cyprinidae_Phoxinus_phoxinus	Vairon
 Cyprinidae	Pimephales	notatus	Cyprinidae_Pimephales_notatus	Ventre-pourri
 Cyprinidae	Pimephales	promelas	Cyprinidae_Pimephales_promelas	Tête de boule
 Cyprinidae	Rhinichthys	atratulus	Cyprinidae_Rhinichthys_atratulus	Naseaux noir
@@ -103,17 +107,17 @@ Cyprinidae	Rhinichthys	cataractae	Cyprinidae_Rhinichthys_cataractae	Naseux des r
 Cyprinidae	Scardinius	erythrophthalmus	Cyprinidae_Scardinius_erythrophthalmus	Gardon rouge
 Cyprinidae	Semotilus	atromaculatus	Cyprinidae_Semotilus_atromaculatus	Mulet à cornes
 Cyprinidae	Semotilus	corporalis	Cyprinidae_Semotilus_corporalis	Ouitouche
-Cyprinidae	Squalius	cephalus	Cyprinidae_Squalius_cephalus	Chevesne 
+Cyprinidae	Squalius	cephalus	Cyprinidae_Squalius_cephalus	Chevesne
 Cyprinidae	Tinca	tinca	Cyprinidae_Tinca_tinca	Tanche
 Esocidae	Esox	americanus	Esocidae_Esox_americanus	Brochet d'Amérique
 Esocidae	Esox	americanus vermiculatus	Esocidae_Esox_americanus vermiculatus	Brochet vermiculé
 Esocidae	Esox	lucius	Esocidae_Esox_lucius	Grand brochet
-Esocidae	Esox	masquinongy	Esocidae_Esox_masquinongy	Maskinongé 
+Esocidae	Esox	masquinongy	Esocidae_Esox_masquinongy	Maskinongé
 Esocidae	Esox	niger	Esocidae_Esox_niger	Brochet maillé
 Fundulidae	Fundulus	diaphanus	Fundulidae_Fundulus_diaphanus	Fondule barré
 Fundulidae	Fundulus	heteroclitus	Fundulidae_Fundulus_heteroclitus	Choquemort
 Gadidae	Boreogadus	saida	Gadidae_Boreogadus_saida	Saïda franc
-Gadidae	Gadus	chalcogrammus	Gadidae_Gadus_chalcogrammus	Colin d'Alaska 
+Gadidae	Gadus	chalcogrammus	Gadidae_Gadus_chalcogrammus	Colin d'Alaska
 Gadidae	Gadus	morhua	Gadidae_Gadus_morhua	Morue franche
 Gadidae	Microgadus	tomcod	Gadidae_Microgadus_tomcod	Poulamon atlantique
 Gadidae	Micromesistius	poutassou	Gadidae_Micromesistius_poutassou	Merlan
@@ -148,10 +152,12 @@ Mammal	Bos	taurus	Mammal_Bos_taurus	Vache
 Mammal	Canis	lupus	Mammal_Canis_lupus	Loup ou chien
 Mammal	Castor	canadensis	Mammal_Castor_canadensis	Castor
 Mammal	Delphinapterus	leucas	Mammal_Delphinapterus_leucas	Béluga
+Mammal	Erethizon	dorsatum	Mammal_Erethizon_dorsatum	Porc-épic
 Mammal	Homo	sapiens	Mammal_Homo_sapiens	Humain
 Mammal	Odocoileus	virginianus	Mammal_Odocoileus_virginianus	Cerf de Virginie
-Mammal	Ondatra	zibethicus	Mammal_Ondatra_zibethicus	Rat musqué 
+Mammal	Ondatra	zibethicus	Mammal_Ondatra_zibethicus	Rat musqué
 Mammal	Ovis	aries	Mammal_Ovis_aries	Mouton
+Mammal	Procyon	lotor	Mammal_Procyon_lotor	Raton laveur
 Mammal	Sorex	cinereus	Mammal_Sorex_cinereus	Musaraigne
 Mammal	Sus	scrofa	Mammal_Sus_scrofa	Cochon
 Merlucciidae	Merluccius	bilinearis	Merlucciidae_Merluccius_bilinearis	Merlu argenté
@@ -174,7 +180,7 @@ Percidae	Gymnocephalus	cernuus	Percidae_Gymnocephalus_cernuus	Grémille
 Percidae	Perca	flavescens	Percidae_Perca_flavescens	Perchaude
 Percidae	Percina	caprodes	Percidae_Percina_caprodes	Fouille-roche zébré
 Percidae	Percina	copelandi	Percidae_Percina_copelandi	Fouille-roche gris
-Percidae	Percina	macrolepida	Percidae_Percina_macrolepida	Bécasse des bois 
+Percidae	Percina	macrolepida	Percidae_Percina_macrolepida	Bécasse des bois
 Percidae	Sander	canadensis	Percidae_Sander_canadensis	Doré noir
 Percidae	Sander	vitreus	Percidae_Sander_vitreus	Doré jaune
 Percidae	Sparus	aurata	Percidae_Sparus_aurata	Dorade royale
@@ -198,7 +204,7 @@ Salmonidae	Prosopium	cylindraceum	Salmonidae_Prosopium_cylindraceum	Ménomini ro
 Salmonidae	Salmo	salar	Salmonidae_Salmo_salar	Saumon atlantique
 Salmonidae	Salmo	trutta	Salmonidae_Salmo_trutta	Truite brune
 Salmonidae	Salvelinus	alpinus	Salmonidae_Salvelinus_alpinus	Omble chevalier
-Salmonidae	Salvelinus	fontinalis	Salmonidae_Salvelinus_fontinalis	Truite mouchetée 
+Salmonidae	Salvelinus	fontinalis	Salmonidae_Salvelinus_fontinalis	Truite mouchetée
 Salmonidae	Salvelinus	namaycush	Salmonidae_Salvelinus_namaycush	Touladi
 Sciaenidae	Aplodinotus	grunniens	Sciaenidae_Aplodinotus_grunniens	Malachigan
 Scombridae	Scomber	scombrus	Scombridae_Scomber_scombrus	Maquereau
@@ -211,7 +217,7 @@ Sparidae	Stenotomus	chrysops	Sparidae_Stenotomus_chrysops	Spare doré
 Stichaeidae	Eumesogrammus	praecisus	Stichaeidae_Eumesogrammus_praecisus	Quatre-lignes atlantique
 Stromateidae	Peprilus	triacanthus	Stromateidae_Peprilus_triacanthus	Stromatée à fossettes
 Triglidae	Chelidonichthys	kumu	Triglidae_Chelidonichthys_kumu	Grondin aile bleue
-Umbridae	Umbra	limi	Umbridae_Umbra_limi	Umbre de vase 
+Umbridae	Umbra	limi	Umbridae_Umbra_limi	Umbre de vase
 xxxBird	Anas	crecca	Bird_Anas_crecca	Sarcelle d'hiver 
 xxxBird	Garrulus	glandarius	Bird_Garrulus_glandarius	Geai des chênes
 xxxClupeidae	Alosa	alabamae	Clupeidae_Alosa_alabamae	Alose de l'Alabama
