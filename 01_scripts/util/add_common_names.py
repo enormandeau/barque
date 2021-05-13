@@ -38,7 +38,7 @@ common_names["TaxonName"] = "CommonName"
 
 with open(common_names_file) as infile:
     for line in infile:
-        l = line.strip().split("\t")
+        l = line.strip().split(",")
         family, genus, species, taxon, common = l
         common_names[taxon] = common
 
