@@ -111,7 +111,7 @@ for primer in primers:
             best_score = max([float(x[1]) for x in sequence_dict[seq]])
 
             # Find best species, genus or phylum
-            best_species = set([x[0] for x in sequence_dict[seq]
+            best_species = set(["_".join(x[0].split("_")[:3]) for x in sequence_dict[seq]
                 if (float(x[1]) == best_score
                     and float(x[1]) >= min_species_similarity
                     and int(x[2]) >= min_length)])
@@ -240,6 +240,11 @@ for primer in sorted(species_dictionary):
     # Add rows to table
     # Species
     for species in species_found[primer]:
+        if not "Multiple_Hits" in species:
+            if species.endswith("_"):
+                print(species)
+                print(",".join(species.split("_")).replace("^", "_").split(","))
+                print()
         species_table.append(",".join(species.split("_")).replace("^", "_").split(","))
         count_sum = 0
         new_line = []
