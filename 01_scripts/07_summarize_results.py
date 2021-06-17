@@ -285,6 +285,7 @@ for primer in sorted(species_dictionary):
         header = [line for line in species_table if line[0].startswith("Group")][0]
         outfile.write(",".join(header) + "\n")
         species_table = [line for line in species_table if not line[0].startswith("Group")]
+        counts = []
 
         for line in sorted(
                 sorted(
@@ -293,16 +294,24 @@ for primer in sorted(species_dictionary):
                     reverse=True),
                 key=lambda x: x[0]):
 
+            print(line)
+
             # Add full taxon name
             if line[0] == "zMultiple":
                 line[3:3] = ["MultipleHits"]
             else:
                 line[3:3] = ["_".join(line[:3])]
 
+            counts.append([int(x) for x in line[4:]])
+
             prepared_line = ",".join(line) + "\n"
 
-            if max([int(x) for x in line[4:]]) > min_coverage:
+            if max([int(x) for x in line[4:]]) >= min_coverage:
                 outfile.write(prepared_line)
+
+        counts_by_sample = [sum(x) for x in zip(*counts)]
+        prepared_line = "Read,count,by,sample," + ",".join([str(x) for x in counts_by_sample]) + "\n"
+        outfile.write(prepared_line)
 
     # Genus
     with open(os.path.join(output_folder, primer + "_genus_table.csv"), "wt") as outfile:
@@ -312,7 +321,7 @@ for primer in sorted(species_dictionary):
             if prepared_line.startswith("Group"):
                 outfile.write(prepared_line)
 
-            elif max([int(x) for x in line[2:]]) > min_coverage:
+            elif max([int(x) for x in line[2:]]) >= min_coverage:
                 outfile.write(prepared_line)
 
     # Phylum
@@ -323,7 +332,7 @@ for primer in sorted(species_dictionary):
             if prepared_line.startswith("Group"):
                 outfile.write(prepared_line)
 
-            elif max([int(x) for x in line[1:]]) > min_coverage:
+            elif max([int(x) for x in line[1:]]) >= min_coverage:
                 outfile.write(prepared_line)
 
     # Export multiple hits infos
