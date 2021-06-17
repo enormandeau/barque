@@ -310,7 +310,7 @@ for primer in sorted(species_dictionary):
                 outfile.write(prepared_line)
 
         counts_by_sample = [sum(x) for x in zip(*counts)]
-        prepared_line = "Read,count,by,sample," + ",".join([str(x) for x in counts_by_sample]) + "\n"
+        prepared_line = "Total,reads,by,sample," + ",".join([str(x) for x in counts_by_sample]) + "\n"
         outfile.write(prepared_line)
 
     # Genus
