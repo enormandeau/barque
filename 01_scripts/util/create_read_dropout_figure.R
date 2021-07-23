@@ -17,6 +17,8 @@ print(head(data))
 print(numcol)
 
 percent_annotated = signif(100 * sum(d[, numcol]) / sum(d[,1]), 3)
+trimmed_annotated = signif(100 * sum(d[, numcol]) / sum(d[,2]), 3)
+chimera_annotated = signif(100 * sum(d[, numcol]) / sum(d[,5]), 3)
 png("12_results/sequence_dropout_figure.png", width=figure_width, height=800)
 
 plot(0, 0,
@@ -38,7 +40,7 @@ for (i in 1:nrow(d)) {
 
 text(1,
      min(as.matrix(d)),
-     cex=1.5,
-     paste0("Annotated ",percent_annotated, "% of the reads globally"), adj=c(0, 0))
+     cex=1.2,
+     paste0("Annotated ", percent_annotated, "% of all reads (", trimmed_annotated, "% of trimmed reads, ", chimera_annotated, "% after chimera removal)"), adj=c(0, 0))
 
 dev.off()
