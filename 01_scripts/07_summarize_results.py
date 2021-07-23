@@ -294,8 +294,6 @@ for primer in sorted(species_dictionary):
                     reverse=True),
                 key=lambda x: x[0]):
 
-            print(line)
-
             # Add full taxon name
             if line[0] == "zMultiple":
                 line[3:3] = ["MultipleHits"]
