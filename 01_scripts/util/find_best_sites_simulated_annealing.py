@@ -147,5 +147,6 @@ while True:
 
     #print(iter_num, temp)
 
-print("Best score", round(best_score, 2))
+print(round(best_score, 2))
+#print("\n".join(sorted([" ".join([str(i) for i in x]) for x in absolute_best_solution])))
 #print("\n".join(sorted([x[0] for x in absolute_best_solution])))
