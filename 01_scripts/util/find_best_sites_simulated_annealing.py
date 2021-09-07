@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 """In species table from Barque, identify best n sites to maximize diversity
 
+This script is used to assist in finding better sampling plans in lakes.
+
 WARNING! Treat species table to keep only species of interest:
     - Remove non-fish species if you are interested only in fish
     - Resolve multiple hits (merge with existing species if needed)
+    - Filter to remove potential false positives
 
 NOTE: Need to find a good way to assess diversity
-    - Presence/absence (with possible filters, eg: min reads, min samples)
-    - Shannon index? (May maximize shannon while loosing more species)
-    - Presence but favor species with more reads (sqrt(reads)) 
+    - RECOMMENDED: Presence/absence (with possible filters, eg: min reads, min samples)
+    - Shannon index? (May maximize shannon while loosing more species) (may create biases)
+    - Presence but favor species with more reads (sqrt(reads)) (may create biases)
 
 Usage:
     <program> input_table num_sites output_file
@@ -20,19 +23,10 @@ from math import sqrt, exp
 import sys
 
 # Functions
-def compute_score_weighted(solution):
-    """Return sqrt number of reads per site per species
-    """
-    species = [list(x)[1: ] for x in list(zip(*solution))][1: ]
-
-    score = 0.0
-    for s in species:
-        score += sum([sqrt(x) for x in s])
-
-    return score
-
 def compute_score_num_species(solution):
-    """Return number of counted species
+    """Return number of counted species from SA solution
+
+    Recommended score function.
     """
     species = [list(x)[1: ] for x in list(zip(*solution))][1: ]
 
@@ -42,16 +36,17 @@ def compute_score_num_species(solution):
 
     return score
 
-def compute_score_rare_species(solution):
-    """Return number of counted species
+def compute_score_weighted(solution):
+    """Return sqrt number of reads per site per species
+
+    WARNING: Not recommended. Maximizing this score is detrimental to rare
+    species (less reads or present in fewer samples).
     """
     species = [list(x)[1: ] for x in list(zip(*solution))][1: ]
 
     score = 0.0
     for s in species:
-        num_present = len([x for x in s if x > 0])
-        if num_present > 1:
-            score += sqrt(len(s) - num_present)
+        score += sum([sqrt(x) for x in s])
 
     return score
 
@@ -107,7 +102,7 @@ while True:
     # elements from each to switch between the two
     solution = sample(solution, len(solution))
     excluded = sample(excluded, len(excluded))
- 
+
     from_solution = solution[: new_samples]
     from_excluded = excluded[: new_samples]
 
@@ -122,7 +117,7 @@ while True:
         absolute_best_solution = solution
         best_score = score
         iter_without_improvement = 0
-    
+
     else:
         # Use probability of accepting lower quality solution
         delta = best_score - score
