@@ -4,6 +4,7 @@
 # Global variables
 NCPUS=$1
 SKIP_CHIMERA_DETECTION=$2
+MIN_SEQ_PER_CLUSTER=$3
 INFO_FOLDER="02_info"
 SPLIT_FOLDER="07_split_amplicons"
 CHIMERA_FOLDER="08_chimeras"
@@ -22,7 +23,8 @@ done
 
 # Remove duplicated sequences
 ls -1 -S "$CHIMERA_FOLDER"/*.fasta |
-parallel -j "$NCPUS" vsearch --derep_fulllength {} --output {}.unique --minseqlength 20 --sizeout --fasta_width 0
+parallel -j "$NCPUS" vsearch --derep_fulllength {} --output {}.unique \
+    --minseqlength 20 --sizeout --fasta_width 0 --minuniquesize "$MIN_SEQ_PER_CLUSTER"
 
 if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then

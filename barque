@@ -81,7 +81,7 @@ fi
 
 # Look for chimeras
 echo -e "\nBARQUE: Chimeras removal step"
-./01_scripts/05_chimeras.sh "$NCPUS" "$SKIP_CHIMERA_DETECTION"
+./01_scripts/05_chimeras.sh "$NCPUS" "$SKIP_CHIMERA_DETECTION" "$MIN_SEQ_PER_CLUSTER"
 
 # Run vsearch
 echo -e "\nBARQUE: Running vsearch"

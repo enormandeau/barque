@@ -32,6 +32,8 @@ MAX_REJECTS=20              # Reject at most this number of sequences before sto
 QUERY_COV=0.6               # At least that proportion of the sequence must match the database (float, 0-1)
 
 # Filters
+MIN_SEQ_PER_CLUSTER=1       # Prior to chimera detection, reads are dereplicated into clusters of at least
+                            #   MIN_SEQ_PER_CLUSTER identical reads (int, 1+)
 MIN_HIT_LENGTH=100          # Minimum vsearch hit length to keep in results (int, 1+)
 MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at least one sample
                             #   to keep in results (int, 1+)
