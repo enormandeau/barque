@@ -22,8 +22,10 @@ per OTU per sample, effectively "annotating" the reads with the OTUs that were
 previously found.
 
 ## Citation
-Barque is described as an accurate and efficient eDNA analysis pipeline in:  
-Mathon L, Guérin P-E, Normandeau E, Valentini A, Noel C, Lionnet C, Linard B, Thuiller W, Bernatchez L, Mouillot D, Dejean T, Manel S. 2021. Benchmarking bioinformatic tools for fast and accurate eDNA metabarcoding species identification. Molecular Ecology Resources.  
+Barque is described as an accurate and efficient eDNA analysis pipeline in:
+
+**Mathon L, Guérin P-E, Normandeau E, Valentini A, Noel C, Lionnet C, Linard B, Thuiller W, Bernatchez L, Mouillot D, Dejean T, Manel S. 2021. Benchmarking bioinformatic tools for fast and accurate eDNA metabarcoding species identification. Molecular Ecology Resources.** 
+
 https://onlinelibrary.wiley.com/doi/abs/10.1111/1755-0998.13430
 
 ## Use cases
