@@ -274,13 +274,13 @@ the sequences have the exact same distance from two or more sequences in the
 database. In these cases, you will need to remove unwanted species from the
 database or download additional sequences for the non-annotated species from
 NCBI to add them to it. Once the database has been improved, simply run the
-last part of the pipeline again while using this new database. You can have
-`SKIP_DATA_PREP=1` in your config file to avoid repeating the initial data
-preparation steps of **Barque**. You may need to repeat this step again until
-you are satisfied with the completeness of the results.
+pipeline again with this new database. You can put`SKIP_DATA_PREP=1`
+in your config file if you wisht to avoid repeating the initial data
+preparation steps of **Barque**. You may need to repeat this procedure again
+until you are satisfied with the completeness of the results.
 
 NOTE: You should provide justifications in your publications if you decide to
-remove some species from the database.
+remove some species from the results or database.
 
 ## Test dataset
 
@@ -310,8 +310,8 @@ cd barque
 ```
 
 The analysis of this test dataset takes 25 seconds on a Linux ThinkPad laptop
-with 4 core-i7 CPUs from ~2012 and 70 seconds on the same laptop using only one
-CPU.
+from 2012 running with 4 core-i7 CPUs and 70 seconds on the same laptop using
+only one CPU.
 
 ## License
 
