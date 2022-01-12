@@ -15,6 +15,7 @@ Where:
 """
 
 # Modules
+import gzip
 import sys
 
 # Classes
