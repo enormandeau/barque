@@ -110,9 +110,9 @@ Cyprinidae,Phoxinus,eos,Cyprinidae_Phoxinus_eos,Méné ventre rouge du Nord
 Cyprinidae,Phoxinus,erythrogaster,Cyprinidae_Phoxinus_erythrogaster,Méné ventre rouge du Sud
 Cyprinidae,Phoxinus,neogaeus,Cyprinidae_Phoxinus_neogaeus,Méné ventre citron
 Cyprinidae,Phoxinus,phoxinus,Cyprinidae_Phoxinus_phoxinus,Vairon
-Cyprinidae,Pimephales,notatus,Cyprinidae_Pimephales_notatus,Ventre-pourri
+Cyprinidae,Pimephales,notatus,Cyprinidae_Pimephales_notatus,Méné à museau arrondi
 Cyprinidae,Pimephales,promelas,Cyprinidae_Pimephales_promelas,Méné à grosse tête
-Cyprinidae,Rhinichthys,atratulus,Cyprinidae_Rhinichthys_atratulus,Naseaux noir
+Cyprinidae,Rhinichthys,atratulus,Cyprinidae_Rhinichthys_atratulus,Naseux noir
 Cyprinidae,Rhinichthys,cataractae,Cyprinidae_Rhinichthys_cataractae,Naseux des rapides
 Cyprinidae,Scardinius,erythrophthalmus,Cyprinidae_Scardinius_erythrophthalmus,Gardon rouge
 Cyprinidae,Semotilus,atromaculatus,Cyprinidae_Semotilus_atromaculatus,Mulet à cornes
@@ -192,8 +192,8 @@ Percidae,Ammocrypta,pellucida,Percidae_Ammocrypta_pellucida,Dard de sable
 Percidae,Etheostoma,caeruleum,Percidae_Etheostoma_caeruleum,Dard arc-en-ciel
 Percidae,Etheostoma,exile,Percidae_Etheostoma_exile,Dard à ventre jaune
 Percidae,Etheostoma,flabellare,Percidae_Etheostoma_flabellare,Dard barré
-Percidae,Etheostoma,nigrum,Percidae_Etheostoma_nigrum,Raseaux-de-terre noir
-Percidae,Etheostoma,olmstedi,Percidae_Etheostoma_olmstedi,Raseaux-de-terre gris
+Percidae,Etheostoma,nigrum,Percidae_Etheostoma_nigrum,Raseux-de-terre noir
+Percidae,Etheostoma,olmstedi,Percidae_Etheostoma_olmstedi,Raseux-de-terre gris
 Percidae,Gymnocephalus,cernuus,Percidae_Gymnocephalus_cernuus,Grémille
 Percidae,Perca,flavescens,Percidae_Perca_flavescens,Perchaude
 Percidae,Percina,caprodes,Percidae_Percina_caprodes,Fouille-roche zébré
