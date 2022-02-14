@@ -43,7 +43,8 @@ Since **Barque** depends on the use of high-quality barcoding databases, it is
 especially useful for COI amplicons used in combination with the Barcode of
 Life Database (BOLD) or 12S amplicons with the mitofish database, although it
 can also use any database, for example the Silva database for the 18s gene or
-any other custom database.
+any other custom database. However, if species annotations are not possible,
+**Barque** can be used in OTU mode.
 
 ## Installation
 
