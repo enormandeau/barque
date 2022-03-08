@@ -165,6 +165,14 @@ primers["too_long"] = "FAKE"
 for p in primers:
     output_files[p] = myopen(os.path.join(output_folder, input_file.replace(".fastq", "_" + p + ".fastq")), "wt")
 
+    # Write one fake fastq sequence to each output file to avoid crashing the
+    # pipeline in the next step if a sample or blank has zero sequence
+    fake_len = (int(min_length) + int(max_length)) // 2
+    fake_seq = ("ACTG" * fake_len)[:fake_len]
+    fake_qual = "I" * fake_len
+    fake_fastq = Fastq("fake", fake_seq, "", fake_qual)
+    fake_fastq.write_to_file(output_files[p])
+
 ## Prepare summary of splitting
 primers_summary = defaultdict(int)
 
