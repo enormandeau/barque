@@ -14,10 +14,8 @@ NOTE: Need to find a good way to assess diversity
     - Presence but favor species with more reads (sqrt(reads)) (may create biases)
 
 Usage:
-    <program> input_table num_sites output_file
+    <program> input_table num_sites
 """
-# TODO Fails if asked to choose only one site
-
 # Modules
 from collections import Counter
 from random import random, sample
@@ -30,8 +28,7 @@ def compute_score_num_species(solution, min_reads=10):
 
     Recommended score function.
     """
-    species = [list(x)[1: ] for x in list(zip(*solution))][1: ]
-
+    species = [list(x)[:] for x in list(zip(*solution))][1: ]
     score = 0.0
     for s in species:
         score += 1 if len([x for x in s if x >= min_reads]) else 0
@@ -44,7 +41,7 @@ def compute_score_weighted(solution):
     WARNING: Not recommended. Maximizing this score is detrimental to rare
     species (less reads or present in fewer samples).
     """
-    species = [list(x)[1: ] for x in list(zip(*solution))][1: ]
+    species = [list(x)[:] for x in list(zip(*solution))][1: ]
 
     score = 0.0
     for s in species:
@@ -56,7 +53,6 @@ def compute_score_weighted(solution):
 try:
     input_table = sys.argv[1]
     num_sites = int(sys.argv[2])
-    output_file = sys.argv[3]
 except:
     print(__doc__)
     sys.exit(1)
@@ -155,6 +151,6 @@ while True:
 
     #print(iter_num, temp)
 
-#print(round(best_score, 2))
+print("\t".join([str(x) for x in [num_sites, round(best_score, 4)]]))
 #print("\n".join(sorted([" ".join([str(i) for i in x]) for x in absolute_best_solution])))
-print(" ".join(sorted([x[0] for x in absolute_best_solution])))
+#print(" ".join(sorted([x[0] for x in absolute_best_solution])))
