@@ -16,14 +16,16 @@ NOTE: Need to find a good way to assess diversity
 Usage:
     <program> input_table num_sites output_file
 """
+# TODO Fails if asked to choose only one site
 
 # Modules
+from collections import Counter
 from random import random, sample
 from math import sqrt, exp
 import sys
 
 # Functions
-def compute_score_num_species(solution):
+def compute_score_num_species(solution, min_reads=10):
     """Return number of counted species from SA solution
 
     Recommended score function.
@@ -32,7 +34,7 @@ def compute_score_num_species(solution):
 
     score = 0.0
     for s in species:
-        score += 1 if len([x for x in s if x > 0]) else 0
+        score += 1 if len([x for x in s if x >= min_reads]) else 0
 
     return score
 
@@ -62,6 +64,12 @@ except:
 # Read table count
 with open(input_table) as infile:
     lines = [line.strip().split(",") for line in infile]
+
+    if not lines[0][3] == "Total":
+        print("Wrong format. The 4 first columns should be named:")
+        print("'Group', 'Genus', 'Species', 'Total'")
+        sys.exit(1)
+
     transposed = list(zip(*lines))
 
     header = transposed[:6]
@@ -85,11 +93,13 @@ compute_score = compute_score_num_species
 
 score = sqrt(compute_score(solution)) / 2
 best_score = score
+#print(compute_score(solution))
+
 temp = score
 
-max_iter = 10000
-max_iter_without_improvement = 2000
-temp_gradient = 0.99
+max_iter = 100000
+max_iter_without_improvement = 100000
+temp_gradient = 0.999
 
 iter_num = 1
 iter_without_improvement = 0
@@ -97,6 +107,9 @@ new_samples = 1
 
 # Run Simulated Annealing
 while True:
+    #if not iter_num % 1000:
+    #    print(iter_num, best_score)
+
     # - Switch an included sample with an excluded sample
     # Shuffle both solution and excluded and pick the first `new_samples`
     # elements from each to switch between the two
@@ -112,7 +125,7 @@ while True:
     score = compute_score(solution)
 
     if score >= best_score:
-        #print("Round:", iter_num, "temp:", round(temp, 2), "best score:", round(best_score, 2), "score:", round(score, 2), "improvement:", round(score - best_score, 2))
+        #print("Round:", iter_num, "temp:", round(temp, 2), "best score:", round(best_score, 2), "score:", round(score, 2), "improvement:", round(score - best_score, 2), "without improvement:", iter_without_improvement)
         best_solution = solution
         absolute_best_solution = solution
         best_score = score
@@ -142,6 +155,6 @@ while True:
 
     #print(iter_num, temp)
 
-print(round(best_score, 2))
+#print(round(best_score, 2))
 #print("\n".join(sorted([" ".join([str(i) for i in x]) for x in absolute_best_solution])))
-#print("\n".join(sorted([x[0] for x in absolute_best_solution])))
+print(" ".join(sorted([x[0] for x in absolute_best_solution])))
