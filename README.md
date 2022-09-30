@@ -82,7 +82,7 @@ on your computer.
 - Get or prepare the database(s) (see Formatting database section below) and
   deposit the `fasta.gz` file in the `03_databases` folder and give it a name
   that matches the information of the `02_info/primers.csv` file.
-- Make a copy of `02_info/barque_config.sh`, modify the parameters for your run
+- Modify the parameters in `02_info/barque_config.sh` for your run
 - Launch **Barque**, for example with `./barque 02_info/barque_config.sh`
 
 ## Overview of Barque steps
@@ -171,8 +171,7 @@ gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
 
 ### Configuration file
 
-Make a copy of the file named `02_info/barque_config.sh` and modify the
-parameters as needed.
+Modify the parameters in `02_info/barque_config.sh` as needed.
 
 ### Launching Barque
 
@@ -180,7 +179,7 @@ Launch the `barque` executable with the name of your configuration file as an
 argument, like this:
 
 ```bash
-./barque 02_info/MY_CONFIG_FILE.sh
+./barque 02_info/barque_config.sh
 ```
 
 ## Results
