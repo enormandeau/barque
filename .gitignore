@@ -24,6 +24,7 @@
 *.xls
 *.xlsx
 *.zip
+*_12_results_*
 *_common_names.csv
 *_primers_not_found
 *test*
