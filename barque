@@ -119,3 +119,6 @@ fi
 # Extract database and sample sequences for multiple hit groups
 echo -e "\nBARQUE: Extracting sequence groups from multiple hits"
 ./01_scripts/12_extract_multiple_hit_sequences.py "$CONFIG_FILE"
+
+# Completion message
+echo -e "\nBARQUE: Run completed"
