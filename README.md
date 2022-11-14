@@ -20,6 +20,9 @@ These annotated OTUs are then used as a database themselves to find read counts
 per OTU per sample, effectively "annotating" the reads with the OTUs that were
 previously found.
 
+**Barque** does not currently use denoizing but adding it as an option is the
+next priority.
+
 ## Citation
 Barque is described as an accurate and efficient eDNA analysis pipeline in:
 
