@@ -12,11 +12,10 @@ Please see the licence information at the end of this file.
 
 ## Description
 
-**Barque** is a fast eDNA metabarcoding analysis pipeline that annotates reads,
-instead of Operational Taxonomic Unit (OTUs), using high-quality barcoding
-databases.
+**Barque** is a fast eDNA metabarcoding analysis pipeline that annotates ASVs
+(or Optionaly OTUs), using high-quality barcoding databases.
 
-**Barque** can also produce OTUs, which are then annotated using a database.
+**Barque** can produce OTUs, which are then annotated using a database.
 These annotated OTUs are then used as a database themselves to find read counts
 per OTU per sample, effectively "annotating" the reads with the OTUs that were
 previously found.
