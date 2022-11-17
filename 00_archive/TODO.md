@@ -1,3 +1,3 @@
 # TODO
 
-- Add denoizing
+- Add denoizing (vsearch denoize)
