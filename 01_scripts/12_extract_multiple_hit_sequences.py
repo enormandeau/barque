@@ -78,7 +78,7 @@ primer_file = [x for x in open(config_file).readlines() if "PRIMER_FILE" in x][0
 primer_file = primer_file.split("#")[0].split("=")[1].strip().replace('"', '')
 
 # Read primer file
-primers = [x for x in open(primer_file).readlines() if not x.startswith("#")]
+primers = [x for x in open(primer_file).strip().readlines() if not x.startswith("#")]
 primers = [(x.split(",")[0], x.split(",")[5]) for x in primers]
 
 # Read Multiple Hit Groups info
