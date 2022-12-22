@@ -21,21 +21,18 @@ do
 
 done
 
-# Remove duplicated sequences
+# Denoise and cluster reads
 ls -1 -S "$CHIMERA_FOLDER"/*.fasta |
-parallel -j "$NCPUS" vsearch --derep_fulllength {} --output {}.unique \
-    --minseqlength 20 --sizeout --fasta_width 0 --minuniquesize "$MIN_SEQ_PER_CLUSTER"
+parallel -j "$NCPUS" vsearch --cluster_unoise {} --consout {}.unique \
+    --minseqlength 20 --sizeout --fasta_width 0 --clusterout_sort --minsize "$MIN_SEQ_PER_CLUSTER"
 
 if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then
 
     # Find chimeras with uchime
     ls -1 -S "$CHIMERA_FOLDER"/*.fasta.unique |
-    parallel -j "$NCPUS" vsearch --uchime_denovo {} --chimeras {}.chimeras \
-        --nonchimeras {}.nonchimeras --borderline {}.borderline --fasta_width 0
-
-    ## Report results
-    #cat "$CHIMERA_FOLDER"/*.unique.chimeras | gzip -c - > "$RESULT_FOLDER"/chimera_sequences.fasta.gz
+    parallel -j "$NCPUS" vsearch --uchime3_denovo {} --chimeras {}.chimeras \
+        --nonchimeras {}.nonchimeras --borderline {}.borderline --fasta_width 0 --abskew 4.0
 
     # Cleanup
     ls -1 -S "$CHIMERA_FOLDER"/*.{fasta,unique,borderline,chimeras} 2>/dev/null | parallel -j "$NCPUS" gzip --force {}
