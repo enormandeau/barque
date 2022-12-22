@@ -12,21 +12,21 @@ Please see the licence information at the end of this file.
 
 ## Description
 
-**Barque** is a fast eDNA metabarcoding analysis pipeline that annotates ASVs
-(or Optionaly OTUs), using high-quality barcoding databases.
+**Barque** is a fast eDNA metabarcoding analysis pipeline that annotates
+denoised ASVs (or Optionaly OTUs), using high-quality barcoding databases.
 
-**Barque** can produce OTUs, which are then annotated using a database.
-These annotated OTUs are then used as a database themselves to find read counts
-per OTU per sample, effectively "annotating" the reads with the OTUs that were
+**Barque** can produce OTUs, which are then annotated using a database. These
+annotated OTUs are then used as a database themselves to find read counts per
+OTU per sample, effectively "annotating" the reads with the OTUs that were
 previously found.
-
-**Barque** does not currently use denoizing but adding it as an option is the
-next priority.
 
 ## Citation
 Barque is described as an accurate and efficient eDNA analysis pipeline in:
 
-**Mathon L, Guérin P-E, Normandeau E, Valentini A, Noel C, Lionnet C, Linard B, Thuiller W, Bernatchez L, Mouillot D, Dejean T, Manel S. 2021. Benchmarking bioinformatic tools for fast and accurate eDNA metabarcoding species identification. Molecular Ecology Resources.** 
+**Mathon L, Guérin P-E, Normandeau E, Valentini A, Noel C, Lionnet C, Linard B,
+Thuiller W, Bernatchez L, Mouillot D, Dejean T, Manel S. 2021. Benchmarking
+bioinformatic tools for fast and accurate eDNA metabarcoding species
+identification. Molecular Ecology Resources.**
 
 https://onlinelibrary.wiley.com/doi/abs/10.1111/1755-0998.13430
 
@@ -190,7 +190,8 @@ Once the pipeline has finished running, all result files are found in the
 `12_results` folder.
 
 After a run, it is recomended to make a copy of this folder and name it with the
-current date, ex: 
+current date, ex:
+
 ```bash
 cp -r 12_results 12_results_PROJECT_NAME_2020-07-27_SOME_ADDITIONAL_INFO
 ```
