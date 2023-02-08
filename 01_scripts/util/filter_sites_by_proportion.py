@@ -29,9 +29,9 @@ for col in list(df.columns)[5:]:
     # Replace counts lower than threshold by zero
     df.loc[df[col] < threshold, col] = 0
 
-    # Get new total
-    total = sum(df[col])
-    df.at[df.index[-1], col] = total
+    ## Get new total
+    #total = sum(df[col])
+    #df.at[df.index[-1], col] = total
 
 # Recompute total per row
 for row in df.index:
