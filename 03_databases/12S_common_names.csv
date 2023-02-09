@@ -70,6 +70,7 @@ Cottidae,Myoxocephalus,octodecemspinosus,Cottidae_Myoxocephalus_octodecemspinosu
 Cottidae,Myoxocephalus,quadricornis,Cottidae_Myoxocephalus_quadricornis,Chaboisseau à quatre cornes
 Cottidae,Myoxocephalus,quadricornus,Cottidae_Myoxocephalus_quadricornus,Chaboisseau à quatre cornes
 Cottidae,Myoxocephalus,thompsoni,Cottidae_Myoxocephalus_thompsoni,Chabot des profondeur
+Cyclopteridae,Cyclopterus,lumpus,Cyclopteridae_Cyclopterus_lumpus,Grosse poule de mer
 Cyprinidae,Carassius,auratus,Cyprinidae_Carassius_auratus,Poisson rouge
 Cyprinidae,Carassius,carassius,Cyprinidae_Carassius_carassius,Carassin commun
 Cyprinidae,Carassius,cuvieri,Cyprinidae_Carassius_cuvieri,Carpe blanche du Japon
@@ -155,6 +156,7 @@ Ictaluridae,Noturus,gyrinus,Ictaluridae_Noturus_gyrinus,Chat-fou brun
 Ictaluridae,Noturus,insignis,Ictaluridae_Noturus_insignis,Chat-fou liséré
 Latidae,Lates,japonicus,Latidae_Lates_japonicus,Akame
 Lepisosteidae,Lepisosteus,osseus,Lepisosteidae_Lepisosteus_osseus,Lépisosté osseux
+Liparidae,Liparis,fabricii,Liparidae_Liparis_fabricii,Limace gélatineuse
 Liparidae,Liparis,gibbus,Liparidae_Liparis_gibbus,Limace marbrée
 Lotidae,Enchelyopus,cimbrius,Lotidae_Enchelyopus_cimbrius,Motelle à quatre barbillons
 Lotidae,Lota,lota,Lotidae_Lota_lota,Lotte
@@ -179,6 +181,7 @@ Mammal,Procyon,lotor,Mammal_Procyon_lotor,Raton laveur
 Mammal,Sorex,cinereus,Mammal_Sorex_cinereus,Musaraigne
 Mammal,Sus,scrofa,Mammal_Sus_scrofa,Cochon
 Merlucciidae,Merluccius,bilinearis,Merlucciidae_Merluccius_bilinearis,Merlu argenté
+Merlucciidae,Microgadus,tomcod,Merlucciidae_Microgadus_tomcod,Poulamon
 Moronidae,Dicentrarchus,labrax,Moronidae_Dicentrarchus_labrax,Bar européen
 Moronidae,Morone,americana,Moronidae_Morone_americana,Baret
 Moronidae,Morone,chrysops,Moronidae_Morone_chrysops,Bar blanc
@@ -233,6 +236,8 @@ Sebastidae,Sebastes,fasciatus,Sebastidae_Sebastes_fasciatus,Sebaste rose
 Sebastidae,Sebastes,mentella,Sebastidae_Sebastes_mentella,Sébaste atlantique
 Sparidae,Stenotomus,chrysops,Sparidae_Stenotomus_chrysops,Spare doré
 Stichaeidae,Eumesogrammus,praecisus,Stichaeidae_Eumesogrammus_praecisus,Quatre-lignes atlantique
+Stichaeidae,Leptoclinus,maculatus,Stichaeidae_Leptoclinus_maculatus,Lompenie tachetée
+Stichaeidae,Stichaeus,punctatus,Stichaeidae_Stichaeus_punctatus,Stichée arctique
 Stromateidae,Peprilus,triacanthus,Stromateidae_Peprilus_triacanthus,Stromatée à fossettes
 Triglidae,Chelidonichthys,kumu,Triglidae_Chelidonichthys_kumu,Grondin aile bleue
 Umbridae,Umbra,limi,Umbridae_Umbra_limi,Umbre de vase
