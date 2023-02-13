@@ -1,3 +1,3 @@
 # TODO
 
-- Add denoizing (vsearch denoize)
+- Permit single-end
