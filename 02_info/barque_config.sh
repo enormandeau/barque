@@ -35,11 +35,11 @@ QUERY_COV=0.6               # At least that proportion of the sequence must matc
 MIN_SEQ_PER_CLUSTER=1       # Prior to chimera detection, reads are dereplicated into clusters of at least
                             #   MIN_SEQ_PER_CLUSTER identical reads (int, 1+)
 MIN_HIT_LENGTH=100          # Minimum vsearch hit length to keep in results (int, 1+)
-MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at least one sample
+MIN_HITS_SAMPLE=30          # Minimum number of hits a species must have in at least one sample
                             #   to keep in results (int, 1+)
 # Non-annotated reads
-NUM_NON_ANNOTATED_SEQ=1000   # Number of unique most-frequent non-annotated reads to keep (int, 1+)
+NUM_NON_ANNOTATED_SEQ=1000  # Number of unique most-frequent non-annotated reads to keep (int, 1+)
 
 # OTUs
 SKIP_OTUS=1                 # 1 to skip OTU creation, 0 to use it
-MIN_SIZE_FOR_OTU=20         # Only unique reads with at least this coverage will be used for OTUs
+MIN_SIZE_FOR_OTU=1          # Only unique reads with at least this coverage will be used for OTUs
