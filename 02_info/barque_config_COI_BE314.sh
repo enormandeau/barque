@@ -38,7 +38,7 @@ MIN_HIT_LENGTH=100          # Minimum vsearch hit length to keep in results (int
 MIN_HITS_SAMPLE=1           # Minimum number of hits a species must have in at least one sample
                             #   to keep in results (int, 1+)
 # Non-annotated reads
-NUM_NON_ANNOTATED_SEQ=1000   # Number of unique most-frequent non-annotated reads to keep (int, 1+)
+NUM_NON_ANNOTATED_SEQ=1000  # Number of unique most-frequent non-annotated reads to keep (int, 1+)
 
 # OTUs
 SKIP_OTUS=1                 # 1 to skip OTU creation, 0 to use it
