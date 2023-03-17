@@ -184,7 +184,7 @@ argument, like this:
 ## Reducing false positives
 
 Two of the parameters in the config file can help reduce the presence of false
-positive annotations in the results: `MIN_SEQ_PER_CLUSTER` and
+positive annotations in the results: `MIN_HITS_EXPERIMENT` and
 `MIN_HITS_SAMPLE`. The defaults to both of these are very permissive and should
 be modified if false positives are problematic in the results. Additionally,
 the following script is provided to filter out species annotations that fall
