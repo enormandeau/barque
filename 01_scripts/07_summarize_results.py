@@ -34,6 +34,7 @@ try:
     primer_file = sys.argv[3]
     min_length = int(sys.argv[4])
     min_coverage = int(sys.argv[5])
+    min_experiment_coverage = int(sys.argv[6])
 except:
     print(__doc__)
     sys.exit(1)
@@ -304,8 +305,9 @@ for primer in sorted(species_dictionary):
 
             prepared_line = ",".join(line) + "\n"
 
-            if max([int(x) for x in line[4:]]) >= min_coverage:
-                outfile.write(prepared_line)
+            if max([int(x) for x in line[5:]]) >= min_coverage:
+                if int(line[4]) >= min_experiment_coverage:
+                    outfile.write(prepared_line)
 
         counts_by_sample = [sum(x) for x in zip(*counts)]
         prepared_line = "Total,reads,by,sample," + ",".join([str(x) for x in counts_by_sample]) + "\n"

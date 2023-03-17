@@ -27,7 +27,7 @@ print_logo () {
     echo '      )___))___))___)\'
     echo '     )____)____)_____)\\'
     echo '   _____|____|____|____\\\__'
-    echo '   \   BARQUE v1.7.7   /'
+    echo '   \   BARQUE v1.7.8   /'
     echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
     echo "^^^   ^^^^^^    ^^^^^^  ^^^^^^"
     echo ""
@@ -90,7 +90,7 @@ echo -e "\nBARQUE: Running vsearch"
 # Summarize results
 echo -e "\nBARQUE: Summarizing results"
 ./01_scripts/07_summarize_results.py 09_vsearch/ "$RESULT_FOLDER"/ \
-    "$PRIMER_FILE" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE"
+    "$PRIMER_FILE" "$MIN_HIT_LENGTH" "$MIN_HITS_SAMPLE" "$MIN_HITS_EXPERIMENT"
 
 # Looking at sequence dropout
 echo -e "\nBARQUE: Looking at sequence dropout"

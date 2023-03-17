@@ -24,7 +24,7 @@ done
 # Denoise and cluster reads
 ls -1 -S "$CHIMERA_FOLDER"/*.fasta |
 parallel -j "$NCPUS" vsearch --cluster_unoise {} --consout {}.unique \
-    --minseqlength 20 --sizeout --fasta_width 0 --clusterout_sort --minsize "$MIN_SEQ_PER_CLUSTER"
+    --minseqlength 20 --sizeout --fasta_width 0 --clusterout_sort --minsize 8
 
 if [ "$SKIP_CHIMERA_DETECTION" == "0" ]
 then
