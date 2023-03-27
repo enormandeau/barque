@@ -25,7 +25,7 @@ plot(0, 0,
      type='n',
      xaxt='n',
      xlim=c(1,  numcol),
-     ylim=c(min(as.matrix(d)), max(as.matrix(d))),
+     ylim=c(0, max(as.matrix(d))),
      main="Read dropout by analysis step in Barque",
      ylab="Number of reads",
      xlab="Analysis step")
@@ -39,7 +39,7 @@ for (i in 1:nrow(d)) {
 }
 
 text(1,
-     min(as.matrix(d)),
+     0,
      cex=1.2,
      paste0("Annotated ", percent_annotated, "% of all reads (", trimmed_annotated, "% of trimmed reads, ", chimera_annotated, "% after chimera removal)"), adj=c(0, 0))
 
