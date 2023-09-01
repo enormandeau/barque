@@ -47,6 +47,7 @@ with open(species_table_file) as infile:
     with open(output_file, "w") as outfile:
         for line in infile:
             l = line.strip().split(",")
+            l[3] = l[3].replace("-otu-", "#").split("#")[0]
 
             try:
                 common = common_names[l[3]]
