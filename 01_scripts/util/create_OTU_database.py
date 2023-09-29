@@ -31,9 +31,9 @@ with open(primer_file) as pfile:
         l = line.strip().split(",")
         primer = l[0]
         if primer == amplicon:
-            species_threshold = float(l[6])
-            genus_threshold = float(l[7])
-            phylum_threshold = float(l[8])
+            species_threshold = float(l[6]) * 100
+            genus_threshold = float(l[7]) * 100
+            phylum_threshold = float(l[8]) * 100
 
 # Get infos from vsearch_output
 otu_dict = defaultdict(list)
