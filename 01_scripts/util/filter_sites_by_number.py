@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Replace species counts below a proportion (eg: 0.001) by zero
+"""Replace species counts below a threshold (eg: 10) by zero
 
 Usage:
-    <program> input_csv proportion output_csv
+    <program> input_csv threshold output_csv
 """
 
 # Modules
@@ -12,7 +12,7 @@ import sys
 # Parsing user input
 try:
     input_csv = sys.argv[1]
-    proportion = float(sys.argv[2])
+    threshold = int(sys.argv[2])
     output_csv = sys.argv[3]
 except:
     print(__doc__)
@@ -24,7 +24,7 @@ df = pd.read_csv(input_csv)
 for col in list(df.columns)[5:]:
     # Compute threshold
     total = sum(df[col])
-    threshold = int(float(total) * proportion)
+
 
     # Replace counts lower than threshold by zero
     df.loc[df[col] < threshold, col] = 0
