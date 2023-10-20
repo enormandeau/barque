@@ -2,7 +2,7 @@
 """Summarize vsearch results
 
 Usage:
-    <program> input_folder output_folder primer_file min_length min_coverage
+    <program> input_folder output_folder primer_file min_length min_coverage min_coverage_experiment
 
 Where:
     input_folder is '09_vsearch'
@@ -11,6 +11,8 @@ Where:
     min_length is the minimum length of the hits to keep (typically >= 100)
     min_coverage is the minimun number of hits a taxon (species, genus or phylum)
         must have in *at least* one sample in order for the taxon to be kept
+    min_coverage_experiment is the minimun number of hits a taxon (species, genus or phylum)
+        must have in *all the combined samples* in order for the taxon to be kept
 """
 
 # Modules
