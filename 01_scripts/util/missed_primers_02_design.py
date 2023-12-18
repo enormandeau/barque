@@ -47,7 +47,7 @@ with open(input_file) as infile:
 
 # Find possible nucleotides at each position
 degenerate = []
-for i in xrange(len(sequences[0])):
+for i in range(len(sequences[0])):
     nucleotides = "".join(sorted(list(set([x[i] for x in sequences]))))
     degenerate.append(nucleotides)
 
