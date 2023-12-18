@@ -276,7 +276,7 @@ else:
     else:
         forward_stat = str(100.0 * forward_orientation /
                 (forward_orientation + reverse_orientation + 0.000001))[0:4]
-    print("Extracted {}% ({}/{})\t sequences, {}% forward, {}".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, forward_stat, filename))
+    print("Extracted {}% ({}/{})\t sequences, {}% forward ({}), {}".format(str(100.0 *float(num_extracted)/num_treated)[0:4], num_extracted, num_treated, forward_stat, reverse_orientation, filename))
 
 ## Close file handles
 for f in output_files:
