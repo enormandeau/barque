@@ -65,6 +65,7 @@ on your computer.
 - **Barque** will only work on GNU Linux or OSX
 - bash 4+
 - python 3.5+ (you can use miniconda3 to install python)
+- python distutil package
 - R 3+ (ubuntu/mint: `sudo apt-get install r-base-core`)
 - java (ubuntu/mint: `sudo apt-get install default-jre`)
 - [gnu parallel](https://www.gnu.org/software/parallel/)
