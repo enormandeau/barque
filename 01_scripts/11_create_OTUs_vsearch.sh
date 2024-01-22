@@ -70,7 +70,7 @@ do
 
     # Create OTUs:
     echo "BARQUE: Creating OTUs"
-    vsearch --cluster_smallmem "$name".nonchimeras_no_Ns_above_"$MIN_SIZE_FOR_OTU" \
+    vsearch --cluster_unoise "$name".nonchimeras_no_Ns_above_"$MIN_SIZE_FOR_OTU" \
         --threads "$NCPUS" \
         --id 0.97 \
         --sizein \
