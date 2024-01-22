@@ -18,7 +18,7 @@ do
     for j in $(ls -1 09_vsearch/"$i"_* | grep -v "_matched\.fasta")
     do
         gunzip -c "$j" |
-            awk '$3 >= 97 {print $1}' |
+            awk '($3*1) >= 97 {print $1}' |
             cut -d ";" -f 1 |
             uniq >> "$NON_ANNOTATED_FOLDER"/"$i"_with_result.ids
     done
