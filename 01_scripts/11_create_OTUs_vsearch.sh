@@ -74,7 +74,6 @@ do
         --threads "$NCPUS" \
         --id 0.97 \
         --sizein \
-        --usersort \
         --relabel OTU_ \
         --centroids "$name".centroids \
         --clusterout_sort \
