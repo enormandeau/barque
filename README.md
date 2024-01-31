@@ -12,15 +12,17 @@ Licence information at the end of this file.
 
 ## Description
 
-**Barque** is a fast eDNA metabarcoding analysis pipeline that annotates
-denoised ASVs (or Optionally OTUs), using high-quality barcoding databases.
+**Barque** is a fast eDNA metabarcoding analysis pipeline that denoises then
+annotates ASVs or OTUs, using high-quality barcoding databases.
 
-**Barque** can produce OTUs, which are then annotated using a database. These
-annotated OTUs are then used as a database themselves to find read counts per
-OTU per sample, effectively "annotating" the reads with the OTUs that were
-previously found.
+**Barque** can produce denoised OTUs, which are then annotated using a custom
+database. These annotated OTUs are then used as a database themselves to find
+read counts per OTU per sample, effectively "annotating" the reads with the
+OTUs that were previously found. Some of these OTUs will therefore be annotated
+to the species level, some to the genus or higher levels.
 
 ## Citation
+
 Barque is described as an accurate and efficient eDNA analysis pipeline in:
 
 **Mathon L, Guérin P-E, Normandeau E, Valentini A, Noel C, Lionnet C, Linard B,
@@ -29,6 +31,14 @@ bioinformatic tools for fast and accurate eDNA metabarcoding species
 identification. Molecular Ecology Resources.**
 
 https://onlinelibrary.wiley.com/doi/abs/10.1111/1755-0998.13430
+
+It is also presented in:
+
+**Hakimzadeh A et. al. 2023. A pile of pipelines: An overview of the
+bioinformatics software for metabarcoding data analyses. Molecular Ecology
+Resources.**
+
+https://onlinelibrary.wiley.com/doi/abs/10.1111/1755-0998.13847
 
 ## Use cases
 
@@ -41,14 +51,15 @@ https://onlinelibrary.wiley.com/doi/abs/10.1111/1755-0998.13430
 Since **Barque** depends on the use of high-quality barcoding databases, it is
 especially useful for amplicons that already have large databases, like COI
 amplicons from the Barcode of Life Database (BOLD) or 12S amplicons from the
-mitofish database, although it can also use any database, for example the Silva
-database for the 18s gene or any other custom database. If for some reason
-species annotations are not possible, **Barque** can be used in OTU mode.
+mitofish database, although it can also use any database once it is formatted
+in its format, for example the Silva database for the 18s gene or any other
+custom database. If for some reason species annotations are not possible,
+**Barque** can be used in OTU mode.
 
 ## Installation
 
 To use **Barque**, you will need a local copy of its repository. Different
-releases can be [found here](https://github.com/enormandeau/barque/releases).
+releases can be [found here](https://github.com/enormandeau/barque/tags).
 It is recommended to always use the latest release or even the development
 version. You can either download an archive of the latest release at the above
 link or get the latest commit (recommended) with the following git command:
@@ -92,9 +103,9 @@ During the analyses, the following steps are performed:
 - Filter and trim raw reads (`trimmomatic`)
 - Merge paired-end reads (`flash`)
 - Split merged reads by amplicon (Python script)
-- Look for chimeras and denoise reads (`vsearch --vsearch_global`)
+- Look for chimeras and denoise reads (`vsearch`)
 - Merge unique reads (Python script)
-- Find species associated with unique, denoised reads (`vsearch`)
+- Find species or OTUs associated with unique, denoised reads (`vsearch`)
 - Summarize results (Python script)
   - Tables of phylum, genus, and species counts per sample, including multiple hits
   - Number of retained reads per sample at each analysis step with figure
@@ -116,11 +127,11 @@ the program and it's outputs.
 
 ### Preparing samples
 
-Copy your paired-end sample files in the `04_data` folder. You need one pair of
-files per sample. The sequences in these files must contain the sequences of
-the primer that you used during the PCR. Depending on the format in which you
-received your sequences from the sequencing facility, you may have to proceed
-to demultiplexing before you can use **Barque**.
+Copy your demultiplexed paired-end sample files in the `04_data` folder. You
+need one pair of files per sample. The sequences in these files must contain
+the sequences of the primer that you used during the PCR. Depending on the
+format in which you received your sequences from the sequencing facility, you
+may have to proceed to demultiplexing before you can use **Barque**.
 
 **IMPORTANT:** The file names must follow this format:
 
@@ -129,21 +140,25 @@ SampleID_*_R1_001.fastq.gz
 SampleID_*_R2_001.fastq.gz
 ```
 
-Notes: Each sample name, or SampleID, must contain no underscore (`_`) and be
-followed by an underscore (`_`). The star (`*`) can be any string of text that
-**does not contain space characters**. For example, you can use dashes (`-`) to
-separate parts of your sample names, eg: `PopA-sample001_ANYTHING_R1_001.fastq.gz`.
+Notes: Each sample name, or SampleID, must contain no underscore (`_`) and must
+be followed by an underscore (`_`). The star (`*`) can be any string of text
+that **does not contain space characters**. For example, you can use dashes
+(`-`) to separate parts of your sample names, eg:
+
+`PopA-sample001_ANYTHING_R1_001.fastq.gz`.
 
 ### Formatting database
 
 You need to put a database in gzip-compressed Fasta format, or `.fasta.gz`, in
 the `03_databases` folder.
 
-An augmented version of the mitofish 12S database is already available in
-**Barque**.
+An augmented version of the mitofish 12S database, as well as 16S and cytb, are
+already available in **Barque**.
 
-The pre-formatted BOLD database can be
-[downloaded here](http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz).
+The pre-formatted BOLD databases ready for **Barque** can be downloaded below.
+**Note that you will need to rename the downloaded file to `bold.fasta.gz`**
+
+http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz
 
 If you want to use a newer version of the BOLD database, you will need to
 download all the animal BINs from [this page
@@ -193,7 +208,8 @@ below a minimum proportion of reads in each samples:
 `filter_sites_by_proportion.py`. This filter is especially useful if the
 different samples have very unequal numbers of reads. Having a high quality
 database will also help reducing false annotations. Finally, manual curation of
-the results if recommended with any eDNA analysis, whatever the software used.
+the results if recommended with any eDNA analysis, regardless of the software
+used.
 
 ## Results
 
@@ -226,8 +242,8 @@ sample at each step of the pipeline.
 
 - `most_frequent_non_annotated_sequences.fasta`: Sequences that are frequent in
 the samples but were not annotated by the pipeline. This Fasta file should be
-used to query the NCBI nt/nr database using the online portal [found
-here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearchhttps://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch)
+used to query the NCBI nt/nr database using the online portal
+[found here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastSearch)
 to see what species may have been missed. Use `blastn` with default parameters.
 Once the NCBI blastn search is finished, download the results as a text file
 and use the following command (you will need to adjust the input and output
