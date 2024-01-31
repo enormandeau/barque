@@ -1,4 +1,4 @@
-# Barque v1.8.1
+# Barque v1.8.2
 
 ## Environmental DNA metabarcoding analysis
 
