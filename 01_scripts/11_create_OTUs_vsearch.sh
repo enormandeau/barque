@@ -46,7 +46,7 @@ do
 
     # Find chimeras with uchime
     echo "BARQUE: Finding chimeras"
-    vsearch --uchime_denovo "$name".derep \
+    vsearch --uchime3_denovo "$name".derep \
         --chimeras "$name".chimeras \
         --nonchimeras "$name".nonchimeras \
         --borderline "$name".borderline \
@@ -70,10 +70,11 @@ do
 
     # Create OTUs:
     echo "BARQUE: Creating OTUs"
-    vsearch --cluster_unoise "$name".nonchimeras_no_Ns_above_"$MIN_SIZE_FOR_OTU" \
+    vsearch --cluster_smallmem "$name".nonchimeras_no_Ns_above_"$MIN_SIZE_FOR_OTU" \
         --threads "$NCPUS" \
         --id 0.97 \
         --sizein \
+        --usersort \
         --relabel OTU_ \
         --centroids "$name".centroids \
         --clusterout_sort \
