@@ -158,7 +158,7 @@ already available in **Barque**.
 The pre-formatted BOLD databases ready for **Barque** can be downloaded below.
 **Note that you will need to rename the downloaded file to `bold.fasta.gz`**
 
-http://www.bio.ulaval.ca/louisbernatchez/files/bold.fasta.gz
+https://www.ibis.ulaval.ca/services/bioinformatique/barque_databases/
 
 If you want to use a newer version of the BOLD database, you will need to
 download all the animal BINs from [this page
