@@ -54,6 +54,27 @@ then
     exit 1
 fi
 
+# Validate all samples have unique names once parsed according to documentation
+non_unique=$(ls -1 -S 04_data/*_R1_001.fastq.gz |
+    while read i
+    do
+        echo $(basename "$i")
+    done |
+        cut -d "_" -f 1 |
+        sort -V |
+        uniq -c |
+        awk '$1 > 1')
+
+if [ ! -z "$non_unique" ]
+then
+    echo -e "\nBARQUE: Some of the samples have identical names:\n"
+    echo "$non_unique"
+    echo -e "\n  >> Rename them following the format documented in README.md."
+    echo -e "\nAborting\n"
+fi
+
+exit
+
 # Data preparation
 if [ "$SKIP_DATA_PREP" == "0" ]
 then
