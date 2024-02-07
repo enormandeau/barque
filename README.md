@@ -12,14 +12,14 @@ Licence information at the end of this file.
 
 ## Description
 
-**Barque** is a fast eDNA metabarcoding analysis pipeline that denoises then
-annotates ASVs or OTUs, using high-quality barcoding databases.
+**Barque** is a fast eDNA metabarcoding analysis pipeline that first denoises
+and then annotates ASVs or OTUs, using high-quality barcoding databases.
 
-**Barque** can produce denoised OTUs, which are then annotated using a custom
-database. These annotated OTUs are then used as a database themselves to find
-read counts per OTU per sample, effectively "annotating" the reads with the
-OTUs that were previously found. Some of these OTUs will therefore be annotated
-to the species level, some to the genus or higher levels.
+**Barque** can produce denoised OTUs and annotate them using a custom database.
+These annotated OTUs can then be used as a database themselves to find read
+counts per OTU per sample, effectively annotating the reads with the OTUs that
+were previously found. In this process, some of the OTUs are annotated to the
+species level, some to the genus or higher levels.
 
 ## Citation
 
@@ -59,10 +59,10 @@ custom database. If for some reason species annotations are not possible,
 ## Installation
 
 To use **Barque**, you will need a local copy of its repository. Different
-releases can be [found here](https://github.com/enormandeau/barque/tags).
-It is recommended to always use the latest release or even the development
-version. You can either download an archive of the latest release at the above
-link or get the latest commit (recommended) with the following git command:
+releases can be [found here](https://github.com/enormandeau/barque/tags).  It
+is recommended to always use the latest release, even the development version.
+You can either download an archive of the latest release at the above link or
+get the latest commit (recommended) with the following git command:
 
 ```
 git clone https://github.com/enormandeau/barque
@@ -103,7 +103,7 @@ During the analyses, the following steps are performed:
 - Filter and trim raw reads (`trimmomatic`)
 - Merge paired-end reads (`flash`)
 - Split merged reads by amplicon (Python script)
-- Look for chimeras and denoise reads (`vsearch`)
+- Look for chimeras and denoise reads (`vsearch` and `unoise3` algorithm)
 - Merge unique reads (Python script)
 - Find species or OTUs associated with unique, denoised reads (`vsearch`)
 - Summarize results (Python script)
@@ -161,32 +161,32 @@ The pre-formatted BOLD databases ready for **Barque** can be downloaded below.
 https://www.ibis.ulaval.ca/services/bioinformatique/barque_databases/
 
 If you want to use a newer version of the BOLD database, you will need to
-download all the animal BINs from [this page
-](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home). Put
-the downloaded Fasta files in `03_databases/bold_bins` (you will need to create
+download all the animal BINs from
+[this page ](http://www.boldsystems.org/index.php/Public_BarcodeIndexNumber_Home),
+put the downloaded Fasta files in `03_databases/bold_bins` (you will need to create
 that folder), and run the commands to format the bold database:
 
 ```bash
 # Format each BIN individually (~10 minutes)
 # Note: the `species_to_remove.txt` file is optional
 ls -1 03_databases/bold_bins/*.fas.gz |
-    parallel ./01_scripts/util/format_bold_database.py \
-    {} {.}_prepared.fasta.gz species_to_remove.txt
+    parallel ./01_scripts/util/format_databases/format_bold_database.py \
+    {} {.}_prepared.fasta.gz
 
 # Concatenate the resulting formatted bins into one file
-gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz > 03_databases/bold.fasta
+gunzip -c 03_databases/bold_bins/*_prepared.fasta.gz | gzip - > 03_databases/bold.fasta.gz
 ```
 
 - For other databases, get the database and format it:
-  - gzip-compressed Fasta format (`.fasta.gz`)
   - Name lines must contain 3 information fields separated by an underscore (`_`)
   - Ex: `>Phylum_Genus_species`
   - Ex: `>Family_Genus_species`
   - Ex: `>Mammal_rattus_norvegicus`
+  - gzip-compressed Fasta format (`DATABASE_NAME.fasta.gz`)
 
 ### Configuration file
 
-Modify the parameters in `02_info/barque_config.sh` as needed.
+Copy and modify the parameters in `02_info/barque_config.sh` as needed.
 
 ### Launching Barque
 
@@ -194,7 +194,7 @@ Launch the `barque` executable with the name of your configuration file as an
 argument, like this:
 
 ```bash
-./barque 02_info/barque_config.sh
+./barque 02_info/<YOUR_CONFIG_FILE>
 ```
 
 ## Reducing false positives
@@ -208,7 +208,7 @@ below a minimum proportion of reads in each samples:
 `filter_sites_by_proportion.py`. This filter is especially useful if the
 different samples have very unequal numbers of reads. Having a high quality
 database will also help reducing false annotations. Finally, manual curation of
-the results if recommended with any eDNA analysis, regardless of the software
+the results is recommended with any eDNA analysis, regardless of the software
 used.
 
 ## Results
@@ -220,7 +220,7 @@ After a run, it is recommended to make a copy of this folder and name it with th
 current date, ex:
 
 ```bash
-cp -r 12_results 12_results_PROJECT_NAME_2020-07-27_SOME_ADDITIONAL_INFO
+cp -r 12_results 12_results_PROJECT_NAME_2024-02-29_SOME_ADDITIONAL_INFO
 ```
 
 ### Taxa count tables, named after the primer names
@@ -231,12 +231,11 @@ cp -r 12_results 12_results_PROJECT_NAME_2020-07-27_SOME_ADDITIONAL_INFO
 
 ### Sequence dropout report and figure
 
-- `sequence_dropout.csv`: Listing how many sequences were present in each
-sample for every analysis step. Depending on library and sequencing quality, as
-well as the biological diversity found at the sample site, more or less
-sequences are lost at each of the analysis steps. The figure
-`sequence_dropout_figure.png` shows how many sequences are retained for each
-sample at each step of the pipeline.
+- `sequence_dropout.csv`: Lists how many sequences were present in each sample
+for every analysis step. Depending on library and sequencing quality, as well
+as the biological diversity found at the sample site, more or less sequences
+are lost at each of the analysis steps. The figure `sequence_dropout_figure.png`
+shows how many sequences are retained for each sample at each step of the pipeline.
 
 ### Most frequent non-annotated sequences
 
@@ -253,10 +252,10 @@ non-annotated sequences:
 ### Fasta files with sequences from multiple hit groups
 
 - `12_results/01_multihits` contains fasta file with database and sample
-  sequences to help understand why some of the sequences cannot be unambiguously
-  assigned to one species. For example, sometimes two different species can have
-  identical reads in the database. At other times, sample sequences can have the
-  same distance to sequences of two different species in the database.
+sequences to help understand why some of the sequences cannot be unambiguously
+assigned to one species. For example, sometimes two different species can have
+identical reads in the database. At other times, sample sequences can have the
+same distance to sequences of two different species in the database.
 
 ### Summarize species found in non-annotated sequences
 
@@ -301,23 +300,24 @@ Once the pipeline has been run, it is normal to find that unexpected species
 have been found or that a proportion of the reads have not been identified,
 either because the sequenced species are absent from the database or because
 the sequences have the exact same distance from two or more sequences in the
-database. In these cases, you will need to remove unwanted species from the
+database. In these cases, you may need to remove unwanted species from the
 database or download additional sequences for the non-annotated species from
-NCBI to add them to it. Once the database has been improved, simply run the
-pipeline again with this new database. You can put`SKIP_DATA_PREP=1`
-in your config file if you wish to avoid repeating the initial data
-preparation steps of **Barque**. You may need to repeat this procedure again
-until you are satisfied with the completeness of the results.
+NCBI to add them to the database. Once the database has been improved, simply
+run the pipeline again with this new database. You can put`SKIP_DATA_PREP=1` in
+your config file if you wish to avoid repeating the initial data preparation
+steps of **Barque**. You may need to repeat this procedure again until you are
+satisfied with the completeness of the results.
 
 NOTE: You should provide justifications in your publications if you decide to
-remove some species from the results or database.
+remove some species from the database or results based on available knowledge
+about species distribution.
 
 ## Test dataset
 
-A test dataset is available as a [sister repository on
-GitHub](https://github.com/enormandeau/barque_test_dataset). It is composed of
-10 mitofish-12S metabarcoding samples, each with 10,000 forward and 10,000
-reverse sequences.
+A test dataset is available as a
+[sister repository on GitHub](https://github.com/enormandeau/barque_test_dataset).
+It is composed of 10 mitofish-12S metabarcoding samples, each with 10,000
+forward and reverse sequence pairs.
 
 Download the repository and then move the data from
 `barque_test_dataset/04_data` to **Barque**'s `04_data` folder.
