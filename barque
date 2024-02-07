@@ -73,8 +73,6 @@ then
     echo -e "\nAborting\n"
 fi
 
-exit
-
 # Data preparation
 if [ "$SKIP_DATA_PREP" == "0" ]
 then
