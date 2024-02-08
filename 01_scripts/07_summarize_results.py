@@ -16,6 +16,11 @@ Where:
 """
 
 # Modules
+
+# Silencing distutils deprecation warning
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
 from distutils.version import LooseVersion
 from collections import defaultdict
 import gzip
