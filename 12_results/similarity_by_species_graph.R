@@ -10,7 +10,7 @@ print(species)
 
 # Select wanted samples and species
 wanted_samples = samples #c("sample-01", "sample-05")
-wanted_species = "Gobiidae_Neogobius_melanostomus"
+wanted_species = "Stichaeidae_Leptoclinus_maculatus"
 
 # Sort and print
 dd = d[d$Sample %in% wanted_samples & d$Species == wanted_species, ]
@@ -30,4 +30,4 @@ plot(dd$Similarity ~ as.factor(dd$Sample),
 points(dd$Similarity ~ as.factor(dd$Sample),
        pch=19,
        col="#AA0011AA",
-       cex=0.2*sqrt(dd$NumSequences+10))
+       cex=log10(dd$NumSequences+1))
