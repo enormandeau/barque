@@ -1,4 +1,4 @@
-# Barque v1.8.2
+# Barque v1.8.3
 
 ## Environmental DNA metabarcoding analysis
 
@@ -284,6 +284,11 @@ https://www.ncbi.nlm.nih.gov/sites/batchentrez
 You will need to rename the sequences to follow the database name format
 described in the **Formatting database** section and add them to your current
 database.
+
+### Hit similarity values per species and site
+
+- Use `12_results/similarity_by_species_graph.R` to explore hit similarity
+values per species per site.
 
 ### Log files and parameters
 

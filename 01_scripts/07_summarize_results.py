@@ -56,7 +56,7 @@ with open(primer_file) as pfile:
         l = line.strip().split(",")
         primers[l[0]] = l[5]
 
-# Read vsearch results form input_folder
+# Read vsearch results from input_folder
 try:
     result_files = sorted(os.listdir(input_folder), key=LooseVersion)
 except TypeError:
@@ -65,11 +65,10 @@ except TypeError:
 species_dictionary = {}
 genus_dictionary = {}
 phylum_dictionary = {}
+similarity_dict = defaultdict(int)
 
 # Iterate through primers, gather taxon counts
 for primer in primers:
-    print("")
-    print("Primer: " + primer)
     multiple_hits_species = defaultdict(int)
     multiple_hits_genus = defaultdict(int)
     multiple_hits_global_infos = defaultdict(list)
@@ -99,7 +98,7 @@ for primer in primers:
         genus_dictionary[primer][sample] = defaultdict(int)
         phylum_dictionary[primer][sample] = defaultdict(int)
 
-        # Get infos form result file
+        # Get infos from result file
         seen = set()
         sequence_dict = defaultdict(list)
         sequence_list = []
@@ -115,6 +114,7 @@ for primer in primers:
 
         # Treat each sequence
         for seq in sequence_list:
+
             count = int(seq.split("_")[3])
             best_score = max([float(x[1]) for x in sequence_dict[seq]])
 
@@ -144,6 +144,9 @@ for primer in primers:
 
                 phylum = list(best_phylum)[0]
                 phylum_dictionary[primer][sample][phylum] += count
+
+                # Collect similarity per species and write to file at the end
+                similarity_dict[(result_file.split("_")[0], primer, species, str(best_score))] += count
 
             # Summaryze multiple hits
             elif len(best_species) > 1:
@@ -348,3 +351,10 @@ for primer in sorted(species_dictionary):
             for sequence in multiple_hits_global_infos[multiple_hit]:
                 sample, seq = sequence
                 outfile.write(",".join([multiple_hit, sample, seq]) + "\n")
+
+# Output similarity values per species and site
+with open(os.path.join(output_folder, "similarities_by_species_and_site.tsv"), "wt") as outfile:
+    outfile.write("Sample\tPrimer\tSpecies\tSimilarity\tNumSequences\n")
+
+    for s in sorted(similarity_dict):
+        outfile.write("\t".join(list(s) + [str(similarity_dict[s])]) + "\n")
