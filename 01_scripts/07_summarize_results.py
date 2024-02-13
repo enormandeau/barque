@@ -353,7 +353,7 @@ for primer in sorted(species_dictionary):
                 outfile.write(",".join([multiple_hit, sample, seq]) + "\n")
 
 # Output similarity values per species and site
-with open(os.path.join(output_folder, "similarities_by_species_and_site.tsv"), "wt") as outfile:
+with open(os.path.join(output_folder, "similarity_by_species_and_site.tsv"), "wt") as outfile:
     outfile.write("Sample\tPrimer\tSpecies\tSimilarity\tNumSequences\n")
 
     for s in sorted(similarity_dict):
