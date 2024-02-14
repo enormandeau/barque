@@ -10,7 +10,7 @@ print(species)
 
 # Select wanted samples and species
 wanted_samples = samples #c("sample-01", "sample-05")
-wanted_species = "Agonidae_Ulcina_olrikii"
+wanted_species = "Osmeridae_Mallotus_villosus"
 
 # Sort and print
 dd = d[d$Sample %in% wanted_samples & d$Species == wanted_species, ]
@@ -18,16 +18,18 @@ dd.sorted = dd[order(dd$Similarity, decreasing=T),]
 print(dd.sorted[order(dd.sorted$Sample),])
 
 # Plot similarity by site for wanted species
+max_reads = max(dd$NumSequences)
 par(mar=c(10, 4, 3, 2))
 plot(dd$Similarity ~ as.factor(dd$Sample),
         las=2,
-        main=paste("Similarity of hit by sample for:  ",wanted_species, "\n(circle surface proportional to number of reads)"),
+        main=paste("Similarity of hit by sample for:  ",wanted_species,
+                   "\n( circle sizes proportional to number of reads, max reads:", max_reads, ")"),
         xlab="",
         ylab="Hit similarity",
      ylim=c(min(d$Similarity)-0.2, 100.2)
      )
-
+# Adjust point sizes
 points(dd$Similarity ~ as.factor(dd$Sample),
        pch=19,
-       col="#AA0011AA",
-       cex=0.1*sqrt(dd$NumSequences+5))
+       col="#AA001199",
+       cex=sqrt(20 * dd$NumSequences / max_reads))
