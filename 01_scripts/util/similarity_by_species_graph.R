@@ -16,7 +16,7 @@ for (wanted_species in species) {
     dd = d[d$Sample %in% wanted_samples & d$Species == wanted_species, ]
 
     # Plot similarity by site for wanted species
-    png(paste0("12_results/figures_similarity_by_species/similarity_",
+    png(paste0("12_results/02_figures_hit_similarity/similarity_",
                wanted_species, ".png"),
         width=1000, height=400)
 

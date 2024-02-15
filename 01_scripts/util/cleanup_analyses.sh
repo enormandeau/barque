@@ -11,5 +11,6 @@ rm 10_read_dropout/* 2>/dev/null
 rm 11_non_annotated/* 2>/dev/null
 rm 12_results/* 2>/dev/null
 rm 12_results/01_multihits/* 2>/dev/null
+rm 12_results/02_figures_hit_similarity/* 2>/dev/null
 rm most_frequent_non_annotated_sequences.fasta 2>/dev/null
 rm multiple_hits.txt 2>/dev/null
