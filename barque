@@ -139,5 +139,9 @@ fi
 echo -e "\nBARQUE: Extracting sequence groups from multiple hits"
 ./01_scripts/12_extract_multiple_hit_sequences.py "$CONFIG_FILE"
 
+# Create figures of hit similarity per species and site
+echo -e "\nBARQUE: Creating figures of hit similarity per species and site"
+./01_scripts/util/similarity_by_species_graph.R
+
 # Completion message
 echo -e "\nBARQUE: Run completed"
