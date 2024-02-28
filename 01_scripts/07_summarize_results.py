@@ -154,6 +154,7 @@ for primer in primers:
                 species = "zMultiple_Hits_" + " : ".join(sorted(list(best_species))).replace("_", "^")
                 species_dictionary[primer][sample][species] += count
                 multiple_hits_species[";".join(sorted(list(best_species)))] += count
+                similarity_dict[(result_file.split("_")[0], primer, species.replace(" ", "").replace("^", "_"), str(best_score))] += count
 
                 # Gather multiple hit infos
                 multiple_hits_global_infos[";".join(list(best_species))].append((sample, seq))
