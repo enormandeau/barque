@@ -39,6 +39,9 @@ MIN_HITS_EXPERIMENT=1       # Minimum number of hits in whole experiment to keep
 # Non-annotated reads
 NUM_NON_ANNOTATED_SEQ=200   # Number of unique most-frequent non-annotated reads to keep (int, 1+)
 
+# Multiple hits
+MIN_DEPTH_MULTI=10          # Min depth to report unique reads per sample in multiple hit reports
+
 # OTUs
 SKIP_OTUS=1                 # 1 to skip OTU creation, 0 to use it
-MIN_SIZE_FOR_OTU=1          # Only unique reads with at least this coverage will be used for OTUs
+MIN_SIZE_FOR_OTU=20         # Only unique reads with at least this coverage will be used for OTUs
