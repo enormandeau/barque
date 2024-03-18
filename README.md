@@ -344,9 +344,7 @@ cd barque
 ./barque 02_info/barque_config.sh
 ```
 
-The analysis of this test dataset takes 25 seconds on a Linux ThinkPad laptop
-from 2012 running with 4 core-i7 CPUs and 70 seconds on the same laptop using
-only one CPU.
+The analysis of this test dataset should take less than a minute.
 
 ## License
 
