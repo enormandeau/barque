@@ -27,7 +27,7 @@ print_logo () {
     echo '      )___))___))___)\'
     echo '     )____)____)_____)\\'
     echo '   _____|____|____|____\\\__'
-    echo '   \   BARQUE v1.8.4   /'
+    echo '   \   BARQUE v1.8.5   /'
     echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
     echo "^^^   ^^^^^^    ^^^^^^  ^^^^^^"
     echo ""
@@ -137,7 +137,7 @@ fi
 
 # Extract database and sample sequences for multiple hit groups
 echo -e "\nBARQUE: Extracting sequence groups from multiple hits"
-./01_scripts/12_extract_multiple_hit_sequences.py "$CONFIG_FILE"
+./01_scripts/12_extract_multiple_hit_sequences.py "$CONFIG_FILE" "$MIN_DEPTH_MULTI"
 
 # Create figures of hit similarity per species and site
 echo -e "\nBARQUE: Creating figures of hit similarity per species and site"
