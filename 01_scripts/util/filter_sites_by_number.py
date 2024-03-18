@@ -2,7 +2,7 @@
 """Replace species counts below a threshold (eg: 10) by zero
 
 Usage:
-    <program> input_csv threshold output_csv
+    <program> input_csv threshold min_count output_csv
 """
 
 # Modules
@@ -13,7 +13,8 @@ import sys
 try:
     input_csv = sys.argv[1]
     threshold = int(sys.argv[2])
-    output_csv = sys.argv[3]
+    min_count = int(sys.argv[3])
+    output_csv = sys.argv[4]
 except:
     print(__doc__)
     sys.exit(1)
@@ -35,7 +36,7 @@ for row in df.index:
     df.loc[row, "Total"] = total
 
 # Remove species with zero count
-df = df[df["Total"] != 0]
+df = df[df["Total"] >= min_count]
 
 # Write output file
 df.to_csv(output_csv, index=False)
