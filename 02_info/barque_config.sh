@@ -33,8 +33,8 @@ QUERY_COV=0.6               # At least that proportion of the sequence must matc
 MIN_HIT_LENGTH=100          # Minimum vsearch hit length to keep in results (int, 1+)
 
 # Filters
-MIN_HITS_SAMPLE=1           # Minimum number of hits in at least one sample  to keep in results (int, 1+)
-MIN_HITS_EXPERIMENT=1       # Minimum number of hits in whole experiment to keep in results (int, 1+)
+MIN_HITS_SAMPLE=10          # Minimum number of hits in at least one sample  to keep in results (int, 1+)
+MIN_HITS_EXPERIMENT=20      # Minimum number of hits in whole experiment to keep in results (int, 1+)
 
 # Non-annotated reads
 NUM_NON_ANNOTATED_SEQ=200   # Number of unique most-frequent non-annotated reads to keep (int, 1+)
