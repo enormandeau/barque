@@ -30,6 +30,15 @@ for col in list(df.columns)[5:]:
     # Replace counts lower than threshold by zero
     df.loc[df[col] < threshold, col] = 0
 
+# Recompute totals per column
+for col in df.columns[5: ]:
+    print(col, end=", ")
+    total = sum(df[col][: -1])
+    print(total)
+
+    #df[col].loc[-1] = total
+    df.iloc[-1, df.columns.get_loc(col)] = total
+
 # Recompute total per row
 for row in df.index:
     total = sum(df.iloc[row, 5:])
