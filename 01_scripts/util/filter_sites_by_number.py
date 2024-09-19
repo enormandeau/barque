@@ -32,9 +32,7 @@ for col in list(df.columns)[5:]:
 
 # Recompute totals per column
 for col in df.columns[5: ]:
-    print(col, end=", ")
     total = sum(df[col][: -1])
-    print(total)
 
     #df[col].loc[-1] = total
     df.iloc[-1, df.columns.get_loc(col)] = total
