@@ -5,6 +5,15 @@
 DATABASE_FOLDER="03_databases"
 DATA_FOLDER="04_data"
 
+# Permit only one primer pair per analysis
+num_primers=$(grep -v "^#" 02_info/primers.csv | wc -l)
+
+if [ "$num_primers" != 1 ]
+then
+    echo -e "\n"BARQUE ERROR: Specify exactly one primer pair in "02_info/primers.csv"
+    exit 1
+fi
+
 # Databases used in primers.csv file are present (.fasta.gz)
 for database in $(cat 02_info/primers.csv | grep -v "^#" | cut -d "," -f 6)
 do
