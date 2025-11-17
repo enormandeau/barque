@@ -29,7 +29,7 @@ SKIP_CHIMERA_DETECTION=0    # 0 to search for chimeras (RECOMMENDED), 1 to skip 
 # vsearch
 MAX_ACCEPTS=20              # Accept at most this number of sequences before stoping search (int, 1+)
 MAX_REJECTS=20              # Reject at most this number of sequences before stoping search (int, 1+)
-QUERY_COV=0.6               # At least that proportion of the sequence must match the database (float, 0-1)
+QUERY_COV=0.9               # At least that proportion of the sequence must match the database (float, 0-1)
 MIN_HIT_LENGTH=100          # Minimum vsearch hit length to keep in results (int, 1+)
 
 # Filters
