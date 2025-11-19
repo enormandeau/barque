@@ -89,8 +89,8 @@ on your computer.
 
 - Install dependencies
 - Download a copy of the **Barque** repository (see **Installation** above)
-- Edit `02_info/primers.csv` to provide information describing your primers
-- Get or prepare the database(s) (see Formatting database section below) and
+- Edit `02_info/primers.csv` to provide information about the primer pair to use
+- Get or prepare the database (see Formatting database section below) and
   deposit the `fasta.gz` file in the `03_databases` folder and give it a name
   that matches the information of the `02_info/primers.csv` file.
 - Modify the parameters in `02_info/barque_config.sh` for your run
@@ -129,7 +129,7 @@ the program and it's outputs.
 
 Copy your demultiplexed paired-end sample files in the `04_data` folder. You
 need one pair of files per sample. The sequences in these files must contain
-the sequences of the primer that you used during the PCR. Depending on the
+the sequences of the primer pair that you used during the PCR. Depending on the
 format in which you received your sequences from the sequencing facility, you
 may have to proceed to demultiplexing before you can use **Barque**.
 
