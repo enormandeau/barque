@@ -7,6 +7,7 @@ Ammodytidae,Ammodytes,americanus,Ammodytidae_Ammodytes_americanus,Lançon d'Amé
 Ammodytidae,Ammodytes,dubius,Ammodytidae_Ammodytes_dubius,Lançon du nord
 Ammodytidae,Ammodytes,hexapterus,Ammodytidae_Ammodytes_hexapterus,Lançon gourdeau
 Ammodytidae,Ammodytes,personatus,Ammodytidae_Ammodytes_personatus,Lançon du Pacifique
+Amphibian,Anaxyrus,americanus,Amphibian_Anaxyrus_americanus,Crapaud d'Amérique
 Amphibian,Eurycea,bislineata,Amphibian_Eurycea_bislineata,Salamandre à deux lignes
 Amphibian,Notophthalmus,viridescens,Amphibian_Notophthalmus_viridescens,Triton vert
 Anguillidae,Anguilla,bicolor,Anguillidae_Anguilla_bicolor,Anguille à nageoire courte
@@ -25,7 +26,9 @@ Bird,Mareca,americana,Bird_Mareca_americana,Canard d'Amérique
 Bird,Mergus,merganser,Bird_Mergus_merganser,Grand harle
 Bird,Mergus,squamatus,Bird_Mergus_squamatus,Harle écaillé
 Bird,Poecile,atricapilla,Bird_Poecile_atricapilla,Mésange à tête noire
+Bird,Regulus,calendula,Bird_Regulus_calendula,Roitelet à couronne rubis
 Bird,Regulus,satrapa,Bird_Regulus_satrapa,Roitelet à couronne dorée
+Bird,Riparia,riparia,Bird_Riparia_riparia,Hirondelle de rivage
 Bird,Somateria,fischeri,Bird_Somateria_fischeri,Eider à lunettes
 Bird,Somateria,mollissima,Bird_Somateria_mollissima,Eider à duvet
 Carangidae,Trachinotus,carolinus,Carangidae_Trachinotus_carolinus,Pompaneau sole
@@ -123,8 +126,8 @@ Cyprinidae,Semotilus,atromaculatus,Cyprinidae_Semotilus_atromaculatus,Mulet à c
 Cyprinidae,Semotilus,corporalis,Cyprinidae_Semotilus_corporalis,Ouitouche
 Cyprinidae,Squalius,cephalus,Cyprinidae_Squalius_cephalus,Chevesne
 Cyprinidae,Tinca,tinca,Cyprinidae_Tinca_tinca,Tanche
-Esocidae,Esox,americanus,Esocidae_Esox_americanus,Brochet d'Amérique
 Esocidae,Esox,americanus vermiculatus,Esocidae_Esox_americanus vermiculatus,Brochet vermiculé
+Esocidae,Esox,americanus,Esocidae_Esox_americanus,Brochet d'Amérique
 Esocidae,Esox,lucius,Esocidae_Esox_lucius,Grand brochet
 Esocidae,Esox,masquinongy,Esocidae_Esox_masquinongy,Maskinongé
 Esocidae,Esox,niger,Esocidae_Esox_niger,Brochet maillé
@@ -173,6 +176,7 @@ Mammal,Bos,taurus,Mammal_Bos_taurus,Vache
 Mammal,Canis,lupus,Mammal_Canis_lupus,Loup ou chien
 Mammal,Capra,hircus,Mammal_Capra_hircus,Chèvre domestique
 Mammal,Castor,canadensis,Mammal_Castor_canadensis,Castor
+Mammal,Condylura,cristata,Mammal_Condylura_cristata,Condylure étoilé
 Mammal,Delphinapterus,leucas,Mammal_Delphinapterus_leucas,Béluga
 Mammal,Erethizon,dorsatum,Mammal_Erethizon_dorsatum,Porc-épic
 Mammal,Felis,catus,Mammal_Felis_catus,Chat domestique
@@ -184,6 +188,7 @@ Mammal,Ondatra,zibethicus,Mammal_Ondatra_zibethicus,Rat musqué
 Mammal,Ornithorhynchus,anatinus,Mammal_Ornithorhynchus_anatinus,Ornithorynque
 Mammal,Ovis,aries,Mammal_Ovis_aries,Mouton
 Mammal,Procyon,lotor,Mammal_Procyon_lotor,Raton laveur
+Mammal,Rangifer,tarandus,Mammal_Rangifer_tarandus,Caribou
 Mammal,Sorex,cinereus,Mammal_Sorex_cinereus,Musaraigne
 Mammal,Sus,scrofa,Mammal_Sus_scrofa,Cochon
 Merlucciidae,Merluccius,bilinearis,Merlucciidae_Merluccius_bilinearis,Merlu argenté
@@ -247,6 +252,11 @@ Stichaeidae,Stichaeus,punctatus,Stichaeidae_Stichaeus_punctatus,Stichée arctiqu
 Stromateidae,Peprilus,triacanthus,Stromateidae_Peprilus_triacanthus,Stromatée à fossettes
 Triglidae,Chelidonichthys,kumu,Triglidae_Chelidonichthys_kumu,Grondin aile bleue
 Umbridae,Umbra,limi,Umbridae_Umbra_limi,Umbre de vase
+Zoarcidae,Gymnelus,viridis,Zoarcidae_Gymnelus_viridis,Unernak caméléon
+Zoarcidae,Lycodes,lavalaei,Zoarcidae_Lycodes_lavalaei,Lycode du Labrador
+Zoarcidae,Lycodes,polaris,Zoarcidae_Lycodes_polaris,Lycode polaire
+Zoarcidae,Lycodes,terraenovae,Zoarcidae_Lycodes_terraenovae,Lycode de terre-neuve
+Zoarcidae,Zoarces,americanus,Zoarcidae_Zoarces_americanus,Loquette d'Amérique
 xxxBird,Anas,crecca,Bird_Anas_crecca,Sarcelle d'hiver 
 xxxBird,Garrulus,glandarius,Bird_Garrulus_glandarius,Geai des chênes
 xxxClupeidae,Alosa,alabamae,Clupeidae_Alosa_alabamae,Alose de l'Alabama
@@ -276,8 +286,3 @@ xxxReptile,Notophthalmus,viridescens,Reptile_Notophthalmus_viridescens,Triton ve
 xxxSalmonidae,Parahucho,perryi,Salmonidae_Parahucho_perryi,Huchon japonais 
 xxxSalmonidae,Stenodus,leucichthys,Salmonidae_Stenodus_leucichthys,L'Inconnu
 xxxUmbridae,Umbra,pygmaea,Umbridae_Umbra_pygmaea,Umbre pygmée
-Zoarcidae,Gymnelus,viridis,Zoarcidae_Gymnelus_viridis,Unernak caméléon
-Zoarcidae,Lycodes,lavalaei,Zoarcidae_Lycodes_lavalaei,Lycode du Labrador
-Zoarcidae,Lycodes,polaris,Zoarcidae_Lycodes_polaris,Lycode polaire
-Zoarcidae,Lycodes,terraenovae,Zoarcidae_Lycodes_terraenovae,Lycode de terre-neuve
-Zoarcidae,Zoarces,americanus,Zoarcidae_Zoarces_americanus,Loquette d'Amérique
