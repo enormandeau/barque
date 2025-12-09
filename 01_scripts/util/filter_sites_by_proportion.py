@@ -42,7 +42,7 @@ for row in df.index:
     total = sum(df.iloc[row, 5:])
     df.loc[row, "Total"] = total
 
-# Remove species with zero count
+# Remove species with less than min count
 df = df[df["Total"] >= min_count]
 
 # Write output file
