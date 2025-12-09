@@ -133,9 +133,14 @@ the sequences of the primer pair that you used during the PCR. Depending on the
 format in which you received your sequences from the sequencing facility, you
 may have to proceed to demultiplexing before you can use **Barque**.
 
-**IMPORTANT:** The file names must follow this format:
+**IMPORTANT:** The file names must follow one of these two formats:
 
 ```
+# Format 1
+SampleID_*_R1.fastq.gz
+SampleID_*_R2.fastq.gz
+
+# Format 2
 SampleID_*_R1_001.fastq.gz
 SampleID_*_R2_001.fastq.gz
 ```
@@ -145,7 +150,13 @@ be followed by an underscore (`_`). The star (`*`) can be any string of text
 that **does not contain space characters**. For example, you can use dashes
 (`-`) to separate parts of your sample names, eg:
 
-`PopA-sample001_ANYTHING_R1_001.fastq.gz`.
+```
+# Format 1
+PopA-sample123_ANYTHING_R1.fastq.gz`
+
+# Format 2
+PopA-sample123_ANYTHING_R1_001.fastq.gz
+```
 
 ### Formatting database
 

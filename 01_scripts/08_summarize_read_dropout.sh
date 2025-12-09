@@ -5,7 +5,7 @@
 step="04_data"
 cd "$step"
 echo -e "Sample,$step" > ../10_read_dropout/$step
-for i in *R1_001.fastq.gz
+for i in $(ls -1 *R1*.fastq.gz | grep -P "_R1(_001)?.fastq.gz")
 do
     echo -e $(echo "$i" | cut -d "_" -f 1)","$(echo $(gunzip -c "$i" | wc -l) / 4 | bc | cut -d "." -f 1)
 done | sort -t "," -k1,1 -V >> ../10_read_dropout/$step &
@@ -15,7 +15,7 @@ cd ..
 step="05_trimmed"
 cd "$step"
 echo -e "$step" > ../10_read_dropout/$step
-for i in *R1_001.fastq.gz
+for i in $(ls -1 *R1*.fastq.gz | grep -P "_R1(_001)?.fastq.gz")
 do
     echo -e $(echo "$i" | cut -d "_" -f 1)","$(echo $(gunzip -c "$i" | wc -l) / 4 | bc | cut -d "." -f 1)
 done | sort -t "," -k1,1 -V | cut -d "," -f 2 >> ../10_read_dropout/$step &

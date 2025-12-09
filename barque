@@ -55,7 +55,8 @@ then
 fi
 
 # Validate all samples have unique names once parsed according to documentation
-non_unique=$(ls -1 -S 04_data/*_R1_001.fastq.gz |
+non_unique=$(ls -1 -S 04_data/*_R1*.fastq.gz |
+    grep -P '_R1(_001)?\.fastq\.gz' |
     while read i
     do
         echo $(basename "$i")
@@ -71,6 +72,7 @@ then
     echo "$non_unique"
     echo -e "\n  >> Rename them following the format documented in README.md."
     echo -e "\nAborting\n"
+    exit
 fi
 
 # Data preparation

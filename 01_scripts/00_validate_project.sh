@@ -43,7 +43,7 @@ then
     exit 1
 fi
 
-echo "-" $(ls -1 "$DATA_FOLDER"/*_R1_*.f*q.gz | wc -l) "Samples found in $DATA_FOLDER"
+echo "-" $(ls -1 "$DATA_FOLDER"/*_R1*.f*q.gz | wc -l) "Samples found in $DATA_FOLDER"
 
 # Function to compare version numbers
 vercomp () {
