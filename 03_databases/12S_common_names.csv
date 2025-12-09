@@ -8,20 +8,20 @@ Ammodytidae,Ammodytes,dubius,Ammodytidae_Ammodytes_dubius,Lançon du nord
 Ammodytidae,Ammodytes,hexapterus,Ammodytidae_Ammodytes_hexapterus,Lançon gourdeau
 Ammodytidae,Ammodytes,personatus,Ammodytidae_Ammodytes_personatus,Lançon du Pacifique
 Amphibian,Anaxyrus,americanus,Amphibian_Anaxyrus_americanus,Crapaud d'Amérique
+Amphibian,Desmognathus,fuscus,Amphibian_Desmognathus_fuscus,Salamandre sombre du Nord
 Amphibian,Eurycea,bislineata,Amphibian_Eurycea_bislineata,Salamandre à deux lignes
-Amphibian_Plethodon_cinereus_Amphibian_Plethodon_cinereus,Salamande cendrée
-Amphibian_Desmognathus_fuscus_Amphibian_Desmognathus_fuscus,Salamandre sombre du Nord
 Amphibian,Notophthalmus,viridescens,Amphibian_Notophthalmus_viridescens,Triton vert
+Amphibian,Plethodon,cinereus,Amphibian_Plethodon_cinereus,Salamande cendrée
 Anguillidae,Anguilla,bicolor,Anguillidae_Anguilla_bicolor,Anguille à nageoire courte
 Anguillidae,Anguilla,rostrata,Anguillidae_Anguilla_rostrata,Anguille d'Amérique
 Atherinopsidae,Labidesthes,sicculus,Atherinopsidae_Labidesthes_sicculus,Crayon d’argent
-Bird_Corvus_corax_Bird_Corvus_corax,Grand corbeau
 Bird,Aix,sponsa,Bird_Aix_sponsa,Canard branchu
-Bird_Anas_platyrhynchos_Bird_Anas_platyrhynchos,Canard colvert
+Bird,Anas,platyrhynchos,Bird_Anas_platyrhynchos,Canard colvert
 Bird,Aythya,ferina,Bird_Aythya_ferina,Fuligule milouin
 Bird,Branta,canadensis,Bird_Branta_canadensis,Bernache du Canada
 Bird,Bucephala,albeola,Bird_Bucephala_albeola,Petit garrot
 Bird,Bucephala,clangula,Bird_Bucephala_clangula,Garrot à oeil noir
+Bird,Corvus,corax,Bird_Corvus_corax,Grand corbeau
 Bird,Gallus,gallus,Bird_Gallus_gallus,Poule domestique
 Bird,Gavia,immer,Bird_Gavia_immer,Plongeon huard
 Bird,Larus,argentatus,Bird_Larus_argentatus,Goéland argenté
@@ -193,6 +193,7 @@ Mammal,Ornithorhynchus,anatinus,Mammal_Ornithorhynchus_anatinus,Ornithorynque
 Mammal,Ovis,aries,Mammal_Ovis_aries,Mouton
 Mammal,Procyon,lotor,Mammal_Procyon_lotor,Raton laveur
 Mammal,Rangifer,tarandus,Mammal_Rangifer_tarandus,Caribou
+Mammal,Sciurus,carolinensis,Mammal_Sciurus_carolinensis,Écureuil gris
 Mammal,Sorex,cinereus,Mammal_Sorex_cinereus,Musaraigne
 Mammal,Sus,scrofa,Mammal_Sus_scrofa,Cochon
 Merlucciidae,Merluccius,bilinearis,Merlucciidae_Merluccius_bilinearis,Merlu argenté
