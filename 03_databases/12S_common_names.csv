@@ -21,6 +21,7 @@ Bird,Gallus,gallus,Bird_Gallus_gallus,Poule domestique
 Bird,Gavia,immer,Bird_Gavia_immer,Plongeon huard
 Bird,Larus,argentatus,Bird_Larus_argentatus,Goéland argenté
 Bird,Lophodytes,cucullatus,Bird_Lophodytes_cucullatus,Harle couronné
+Bird,Mareca,americana,Bird_Mareca_americana,Canard d'Amérique
 Bird,Mergus,merganser,Bird_Mergus_merganser,Grand harle
 Bird,Mergus,squamatus,Bird_Mergus_squamatus,Harle écaillé
 Bird,Poecile,atricapilla,Bird_Poecile_atricapilla,Mésange à tête noire
@@ -122,8 +123,8 @@ Cyprinidae,Semotilus,atromaculatus,Cyprinidae_Semotilus_atromaculatus,Mulet à c
 Cyprinidae,Semotilus,corporalis,Cyprinidae_Semotilus_corporalis,Ouitouche
 Cyprinidae,Squalius,cephalus,Cyprinidae_Squalius_cephalus,Chevesne
 Cyprinidae,Tinca,tinca,Cyprinidae_Tinca_tinca,Tanche
-Esocidae,Esox,americanus vermiculatus,Esocidae_Esox_americanus vermiculatus,Brochet vermiculé
 Esocidae,Esox,americanus,Esocidae_Esox_americanus,Brochet d'Amérique
+Esocidae,Esox,americanus vermiculatus,Esocidae_Esox_americanus vermiculatus,Brochet vermiculé
 Esocidae,Esox,lucius,Esocidae_Esox_lucius,Grand brochet
 Esocidae,Esox,masquinongy,Esocidae_Esox_masquinongy,Maskinongé
 Esocidae,Esox,niger,Esocidae_Esox_niger,Brochet maillé
@@ -180,6 +181,7 @@ Mammal,Lasiurus,borealis,Mammal_Lasiurus_borealis,Chauve-souris rousse
 Mammal,Lasiurus,cinereus,Mammal_Lasiurus_cinereus,Chauve-souris cendrée
 Mammal,Odocoileus,virginianus,Mammal_Odocoileus_virginianus,Cerf de Virginie
 Mammal,Ondatra,zibethicus,Mammal_Ondatra_zibethicus,Rat musqué
+Mammal,Ornithorhynchus,anatinus,Mammal_Ornithorhynchus_anatinus,Ornithorynque
 Mammal,Ovis,aries,Mammal_Ovis_aries,Mouton
 Mammal,Procyon,lotor,Mammal_Procyon_lotor,Raton laveur
 Mammal,Sorex,cinereus,Mammal_Sorex_cinereus,Musaraigne
@@ -245,11 +247,6 @@ Stichaeidae,Stichaeus,punctatus,Stichaeidae_Stichaeus_punctatus,Stichée arctiqu
 Stromateidae,Peprilus,triacanthus,Stromateidae_Peprilus_triacanthus,Stromatée à fossettes
 Triglidae,Chelidonichthys,kumu,Triglidae_Chelidonichthys_kumu,Grondin aile bleue
 Umbridae,Umbra,limi,Umbridae_Umbra_limi,Umbre de vase
-Zoarcidae,Gymnelus,viridis,Zoarcidae_Gymnelus_viridis,Unernak caméléon
-Zoarcidae,Lycodes,lavalaei,Zoarcidae_Lycodes_lavalaei,Lycode du Labrador
-Zoarcidae,Lycodes,polaris,Zoarcidae_Lycodes_polaris,Lycode polaire
-Zoarcidae,Lycodes,terraenovae,Zoarcidae_Lycodes_terraenovae,Lycode de terre-neuve
-Zoarcidae,Zoarces,americanus,Zoarcidae_Zoarces_americanus,Loquette d'Amérique
 xxxBird,Anas,crecca,Bird_Anas_crecca,Sarcelle d'hiver 
 xxxBird,Garrulus,glandarius,Bird_Garrulus_glandarius,Geai des chênes
 xxxClupeidae,Alosa,alabamae,Clupeidae_Alosa_alabamae,Alose de l'Alabama
@@ -279,3 +276,8 @@ xxxReptile,Notophthalmus,viridescens,Reptile_Notophthalmus_viridescens,Triton ve
 xxxSalmonidae,Parahucho,perryi,Salmonidae_Parahucho_perryi,Huchon japonais 
 xxxSalmonidae,Stenodus,leucichthys,Salmonidae_Stenodus_leucichthys,L'Inconnu
 xxxUmbridae,Umbra,pygmaea,Umbridae_Umbra_pygmaea,Umbre pygmée
+Zoarcidae,Gymnelus,viridis,Zoarcidae_Gymnelus_viridis,Unernak caméléon
+Zoarcidae,Lycodes,lavalaei,Zoarcidae_Lycodes_lavalaei,Lycode du Labrador
+Zoarcidae,Lycodes,polaris,Zoarcidae_Lycodes_polaris,Lycode polaire
+Zoarcidae,Lycodes,terraenovae,Zoarcidae_Lycodes_terraenovae,Lycode de terre-neuve
+Zoarcidae,Zoarces,americanus,Zoarcidae_Zoarces_americanus,Loquette d'Amérique
