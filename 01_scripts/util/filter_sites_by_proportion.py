@@ -39,7 +39,7 @@ for col in df.columns[5: ]:
 
 # Recompute total per row
 for row in df.index:
-    total = sum(df.iloc[row, 5:])
+    total = sum(df.iloc[row, 6:])
     df.loc[row, "Total"] = total
 
 # Remove species with less than min count
