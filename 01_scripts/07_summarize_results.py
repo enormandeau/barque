@@ -312,12 +312,12 @@ for primer in sorted(species_dictionary):
             else:
                 line[3:3] = ["_".join(line[:3])]
 
-            counts.append([int(x) for x in line[4:]])
 
             prepared_line = ",".join(line) + "\n"
 
             if max([int(x) for x in line[5:]]) >= min_coverage:
                 if int(line[4]) >= min_experiment_coverage:
+                    counts.append([int(x) for x in line[4:]])
                     outfile.write(prepared_line)
 
         counts_by_sample = [sum(x) for x in zip(*counts)]
